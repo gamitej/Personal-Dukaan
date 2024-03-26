@@ -95,8 +95,6 @@ const Table: FC<TableProps> = ({
     return { cols, rows: selectedPageRowsData };
   }, [enableDelete, enableEdit, selectedPageRowsData]);
 
-  console.log({ newCols, newRows });
-
   /**
    * TSX
    */

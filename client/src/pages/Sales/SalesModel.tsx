@@ -10,31 +10,27 @@ import InputField from "@/components/fields/input/InputField";
 import { addSalesDataApi } from "@/services/APIs/sales.service";
 // data
 import { productOptions, weightTypeOptions } from "@/data/all";
-// type
-import { salesFormType } from "@/types/sales/inex";
 
 interface SalesModelProps {
+  formData: any;
   isOpen: boolean;
+  reset: () => void;
+  setFormData: (data: any) => void;
   onClose: (val: boolean) => void;
 }
 
-const defaultFormData = {
-  date: null,
-  product: null,
-  amount: null,
-  quantity: null,
-  weight: null,
-  weightType: null,
-};
-
-const SalesModel: FC<SalesModelProps> = ({ isOpen, onClose }) => {
+const SalesModel: FC<SalesModelProps> = ({
+  isOpen,
+  onClose,
+  setFormData,
+  formData,
+  reset,
+}) => {
   const queryClient = useQueryClient();
   const [apiCallStatus, setApiCallStatus] = useState({
     error: false,
     loading: false,
   });
-
-  const [formData, setFormData] = useState<salesFormType>(defaultFormData);
 
   // =================== API CALL'S START ======================
 
@@ -57,13 +53,9 @@ const SalesModel: FC<SalesModelProps> = ({ isOpen, onClose }) => {
 
   // =================== API CALL'S END ======================
 
-  const reset = () => {
-    setFormData(defaultFormData);
-  };
-
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
-    setFormData((prev) => ({ ...prev, [id]: value }));
+    setFormData((prev: any) => ({ ...prev, [id]: value }));
   };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {

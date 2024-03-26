@@ -8,9 +8,20 @@ import { salesCols } from "@/data/sales";
 import { useQuery } from "@tanstack/react-query";
 import { getSalesTableDataApi } from "@/services/APIs/sales.service";
 import moment from "moment";
+import { salesFormType } from "@/types/sales/inex";
+
+const defaultFormData = {
+  date: null,
+  product: null,
+  amount: null,
+  quantity: null,
+  weight: null,
+  weightType: null,
+};
 
 const Sales = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [formData, setFormData] = useState<salesFormType>(defaultFormData);
 
   // Query to fetch sales data
   const { data: salesRowsData = [] } = useQuery({
@@ -27,6 +38,13 @@ const Sales = () => {
 
   const handleEditRow = (rowData: any) => {
     console.log(rowData);
+    setIsModalOpen(true);
+
+    setFormData(rowData);
+  };
+
+  const reset = () => {
+    setFormData(defaultFormData);
   };
 
   /**
@@ -38,16 +56,22 @@ const Sales = () => {
         enableEdit
         title="Sales"
         enableDelete
+        cols={salesCols}
         tableHeight="20rem"
         showEntriesPerPage={5}
-        cols={salesCols}
         handleEditRow={handleEditRow}
         rows={dateFormattedRowsData || []}
         additionalLeftSideToolbarComp={
           <AddButton handleClick={() => setIsModalOpen(true)} />
         }
       />
-      <SalesModel isOpen={isModalOpen} onClose={setIsModalOpen} />
+      <SalesModel
+        reset={reset}
+        formData={formData}
+        isOpen={isModalOpen}
+        onClose={setIsModalOpen}
+        setFormData={setFormData}
+      />
     </div>
   );
 };
