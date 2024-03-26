@@ -30,7 +30,7 @@ const Table: FC<TableProps> = ({
   const searchedRowsData = useMemo(() => {
     return rows.filter((rowData) => {
       return Object.values(rowData).some((rowValue) =>
-        rowValue.toLowerCase().includes(searchText.toLowerCase())
+        rowValue.toString().toLowerCase().includes(searchText.toLowerCase())
       );
     });
   }, [searchText, rows]);

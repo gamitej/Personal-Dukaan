@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 // components
 import SalesModel from "./SalesModel";
 import Table from "@/components/table/Table";
@@ -7,6 +7,7 @@ import AddButton from "@/components/button/AddButton";
 import { salesCols } from "@/data/sales";
 import { useQuery } from "@tanstack/react-query";
 import { getSalesTableDataApi } from "@/services/APIs/sales.service";
+import moment from "moment";
 
 const Sales = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -17,6 +18,15 @@ const Sales = () => {
     queryFn: () => getSalesTableDataApi(),
   });
 
+  const dateFormattedRowsData = useMemo(() => {
+    return salesRowsData.map((item: any) => ({
+      ...item, // Copy all properties from the original item
+      date: moment(new Date(item.date)).format("DD-MM-YYYY"), // Format the date property
+    }));
+  }, [salesRowsData]);
+
+  console.log(dateFormattedRowsData);
+
   /**
    * TSX
    */
@@ -25,9 +35,9 @@ const Sales = () => {
       <Table
         showEntriesPerPage={5}
         cols={salesCols}
-        rows={salesRowsData || []}
+        rows={dateFormattedRowsData || []}
         title="Sales"
-        tableHeight="10rem"
+        tableHeight="20rem"
         additionalLeftSideToolbarComp={
           <AddButton handleClick={() => setIsModalOpen(true)} />
         }
