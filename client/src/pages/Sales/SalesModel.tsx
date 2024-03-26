@@ -100,7 +100,7 @@ const SalesModel: FC<SalesModelProps> = ({ isOpen, onClose }) => {
             type="number"
             width="31%"
             label="Quantity"
-            id="quanity"
+            id="quantity"
             onChange={handleChange}
             value={formData.quantity}
           />

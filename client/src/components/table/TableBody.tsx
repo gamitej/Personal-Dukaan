@@ -27,7 +27,9 @@ const TableBody: FC<TableBodyProps> = ({
               </tr>
             ))}
           {rows.length === 0 && (
-            <div className="no-record">No record found</div>
+            <tr className="no-record">
+              <td>No record found</td>
+            </tr>
           )}
         </tbody>
       </table>
