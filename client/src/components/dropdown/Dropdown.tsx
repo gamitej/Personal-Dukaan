@@ -108,7 +108,9 @@ const Dropdown = <T extends DropdownValue>({
                 key={`${idx}-options`}
                 onClick={() => handleChange(item.value)}
               >
-                <span title={`${item.label}`}>{item.label}</span>
+                <div>
+                  <span title={`${item.label}`}>{item.label}</span>
+                </div>
               </div>
             ))}
         </div>

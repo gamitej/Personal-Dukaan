@@ -38,7 +38,7 @@ const TableFooter: React.FC<TableFooterProps> = ({
    * TSX
    */
   return (
-    <div className="table-footer">
+    <div className="table-footer border-t">
       <div className="footer-left">
         Showing {totalPage > 0 ? pageNo : 0} of {totalPage} entries
       </div>

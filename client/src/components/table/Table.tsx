@@ -51,7 +51,7 @@ const Table: FC<TableProps> = ({
    * TSX
    */
   return (
-    <div className="table-main">
+    <div className="table-main border">
       <h3 className="title">{title}</h3>
       {/* table toolbar */}
       <TableToolbar

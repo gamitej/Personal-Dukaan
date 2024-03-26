@@ -2,8 +2,6 @@
   width: 100%;
   background-color: #ffffff;
   border-radius: 0.5rem;
-  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
-    rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
 
   h3 {
     position: sticky;
@@ -12,7 +10,7 @@
     font-weight: 600;
     font-size: 1.5rem;
     color: #5d87ff;
-    text-transform: capitalize;
+    text-transform: uppercase;
     padding-top: 1rem;
   }
 
@@ -109,10 +107,9 @@
 
   .table-footer {
     display: flex;
-    padding: 1rem;
+    padding: 0.8rem;
     align-items: center;
     justify-content: space-between;
-    border-top: 1px solid lightgray;
 
     .footer-right {
       display: flex;
