@@ -21,7 +21,7 @@ const Navbar = () => {
           <Link to="/">DUKAAN</Link>
         </div>
         <div className="">
-          <ul className="flex justify-center items-center gap-3">
+          <ul className="flex justify-center items-center gap-6">
             {navLink.map(({ to, name }, idx) => (
               <Link
                 className={`font-[400] hover:text-primaryBlue text-lg ${
