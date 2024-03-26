@@ -1,5 +1,6 @@
-import { ChangeEvent, FC, FormEvent, useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { ChangeEvent, FC, FormEvent, useEffect, useState } from "react";
 // components
 import Modal from "@/components/modal/Modal";
 import Dropdown from "@/components/dropdown/Dropdown";
@@ -11,7 +12,6 @@ import { addSalesDataApi } from "@/services/APIs/sales.service";
 import { productOptions, weightTypeOptions } from "@/data/all";
 // type
 import { salesFormType } from "@/types/sales/inex";
-import toast from "react-hot-toast";
 
 interface SalesModelProps {
   isOpen: boolean;
@@ -73,8 +73,12 @@ const SalesModel: FC<SalesModelProps> = ({ isOpen, onClose }) => {
     reset();
   };
 
+  // ==================== USE-EFFECT HOOK =======================
+
   useEffect(() => {
-    if (!apiCallStatus.error) onClose(false);
+    if (apiCallStatus.error) {
+      onClose(false);
+    }
   }, [apiCallStatus.error]);
 
   /**

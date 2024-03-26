@@ -73,13 +73,14 @@
     }
 
     .table-body {
-      overflow-x: auto;
+      overflow: auto;
       margin-top: 0px;
       max-height: calc(100vh - 15rem);
       border: 1px solid rgba(255, 255, 255, 0.3);
 
       table {
         width: 100%;
+        overflow-x: auto;
         table-layout: fixed;
 
         tr:nth-of-type(even) {

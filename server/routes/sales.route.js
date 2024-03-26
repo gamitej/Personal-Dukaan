@@ -6,7 +6,7 @@ const router = express.Router();
 router.get("/", async (req, res) => {
   try {
     const sales = await Sales.findAll({
-      attributes: ["date", "product", "quantity", "weight", "amount"],
+      attributes: ["date", "product", "quantity", "weight", "amount", "id"],
       order: [["date", "desc"]],
     });
 
@@ -18,13 +18,13 @@ router.get("/", async (req, res) => {
 
 router.post("/", async (req, res) => {
   try {
-    const { date, product, amount, quantity, weight } = req.body;
+    const { date, product, amount, quantity, weight, weightType } = req.body;
 
     const newSale = await Sales.create({
       date: new Date(date),
       product,
       quantity,
-      weight,
+      weight: `${weight}${weightType}`,
       amount,
     });
 

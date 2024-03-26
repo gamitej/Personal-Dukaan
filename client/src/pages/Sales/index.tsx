@@ -25,8 +25,6 @@ const Sales = () => {
     }));
   }, [salesRowsData]);
 
-  console.log(dateFormattedRowsData);
-
   /**
    * TSX
    */
