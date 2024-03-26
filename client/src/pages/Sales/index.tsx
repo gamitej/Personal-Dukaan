@@ -20,8 +20,8 @@ const Sales = () => {
 
   const dateFormattedRowsData = useMemo(() => {
     return salesRowsData.map((item: any) => ({
-      ...item, // Copy all properties from the original item
-      date: moment(new Date(item.date)).format("DD-MM-YYYY"), // Format the date property
+      ...item,
+      date: moment(new Date(item.date)).format("DD-MM-YYYY"),
     }));
   }, [salesRowsData]);
 
