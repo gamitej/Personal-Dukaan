@@ -5,10 +5,10 @@ import { CgClose } from "react-icons/cg";
 interface ModalProps {
   title: string;
   isOpen: boolean;
-  onClose: () => void;
   modalWidth?: string;
   modalHeight?: string;
   children: React.ReactNode;
+  onClose: (val: boolean) => void;
 }
 
 const Modal = ({
@@ -38,7 +38,7 @@ const Modal = ({
       <div className="modal" style={{ width: modalWidth, height: modalHeight }}>
         <div className="modal-head">
           <h3>{title}</h3>
-          <div onClick={onClose} className="close">
+          <div onClick={() => onClose(false)} className="close">
             <CgClose />
           </div>
         </div>

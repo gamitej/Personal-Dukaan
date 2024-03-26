@@ -1,9 +1,14 @@
+import { useState } from "react";
 // components
+import SalesModel from "./SalesModel";
 import Table from "@/components/table/Table";
 import AddButton from "@/components/button/AddButton";
+// data
 import { salesCols, salesRows } from "@/data/sales";
 
 const Sales = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   /**
    * TSX
    */
@@ -15,8 +20,11 @@ const Sales = () => {
         rows={salesRows}
         title="Sales"
         tableHeight="10rem"
-        additionalLeftSideToolbarComp={<AddButton handleClick={() => {}} />}
+        additionalLeftSideToolbarComp={
+          <AddButton handleClick={() => setIsModalOpen(true)} />
+        }
       />
+      <SalesModel isOpen={isModalOpen} onClose={setIsModalOpen} />
     </div>
   );
 };
