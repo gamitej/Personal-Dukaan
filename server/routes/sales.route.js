@@ -5,7 +5,9 @@ const router = express.Router();
 
 router.get("/", async (req, res) => {
   try {
-    const sales = await Sales.findAll();
+    const sales = await Sales.findAll({
+      attributes: ["date", "product", "quantity", "weight", "amount"],
+    });
 
     return res.status(200).json(sales);
   } catch (error) {
