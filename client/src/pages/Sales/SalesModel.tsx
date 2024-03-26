@@ -1,29 +1,75 @@
-import { ChangeEvent, FC, useState } from "react";
+import { ChangeEvent, FC, FormEvent, useState } from "react";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+// components
 import Modal from "@/components/modal/Modal";
-import DateField from "@/components/fields/date/DateField";
-import { salesFormType } from "@/types/sales/inex";
 import Dropdown from "@/components/dropdown/Dropdown";
-import { productOptions, weightTypeOptions } from "@/data/all";
+import DateField from "@/components/fields/date/DateField";
 import InputField from "@/components/fields/input/InputField";
+// services
+import {
+  addSalesDataApi,
+  getSalesTableDataApi,
+} from "@/services/APIs/sales.service";
+// data
+import { productOptions, weightTypeOptions } from "@/data/all";
+// type
+import { salesFormType } from "@/types/sales/inex";
 
 interface SalesModelProps {
   isOpen: boolean;
   onClose: (val: boolean) => void;
 }
 
+const defaultFormData = {
+  date: null,
+  product: null,
+  amount: null,
+  quantity: null,
+  weight: null,
+  weightType: null,
+};
+
 const SalesModel: FC<SalesModelProps> = ({ isOpen, onClose }) => {
-  const [formData, setFormData] = useState<salesFormType>({
-    date: null,
-    product: null,
-    amount: null,
-    quantity: null,
-    weight: null,
-    weightType: null,
+  const queryClient = useQueryClient();
+
+  const [formData, setFormData] = useState<salesFormType>(defaultFormData);
+
+  // =================== API CALL'S ======================
+
+  // Mutation to add sales data
+  const { mutate: mutateAddSalesData } = useMutation({
+    mutationFn: addSalesDataApi,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["sales-row-data"],
+      });
+    },
+    onError: () => {
+      console.error("Error adding sales data");
+    },
   });
+
+  // Query to fetch sales data
+  const { data = {} } = useQuery({
+    queryKey: ["sales-row-data"],
+    queryFn: () => getSalesTableDataApi(),
+  });
+
+  console.log({ data });
+
+  const reset = () => {
+    setFormData(defaultFormData);
+  };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
     setFormData((prev) => ({ ...prev, [id]: value }));
+  };
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    mutateAddSalesData(formData);
+    reset();
   };
 
   /**
@@ -37,9 +83,11 @@ const SalesModel: FC<SalesModelProps> = ({ isOpen, onClose }) => {
       onClose={onClose}
       modalHeight="25rem"
     >
-      <form className="w-full mt-4 h-[100%] flex flex-col items-center gap-14">
+      <form
+        onSubmit={handleSubmit}
+        className="w-full mt-4 h-[100%] flex flex-col items-center gap-14"
+      >
         <div className="flex justify-center items-center gap-3 w-[100%]">
-          {" "}
           <DateField
             id="date"
             width="35%"

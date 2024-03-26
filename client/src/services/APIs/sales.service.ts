@@ -1,7 +1,8 @@
 import { AxiosError } from "axios";
 import http from "@/services/httpServices";
+import { salesFormType } from "@/types/sales/inex";
 
-export async function getSalesTableData() {
+export async function getSalesTableDataApi() {
   try {
     const { data } = await http.get(`/sales`);
     return { error: false, data };
@@ -12,7 +13,7 @@ export async function getSalesTableData() {
   }
 }
 
-export async function addSalesData(req: any) {
+export async function addSalesDataApi(req: salesFormType) {
   try {
     const { data } = await http.post(`/sales`, req);
     return { error: false, data };

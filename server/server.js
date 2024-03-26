@@ -8,7 +8,7 @@ const PORT = 3000;
 const app = express();
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 
 app.use("/api/sales", SalesRoute);
 
@@ -20,5 +20,5 @@ try {
 }
 
 app.listen(PORT, () => {
-  console.log(`listening on port :https://localhost:${PORT}`);
+  console.log(`listening on port http://localhost:${PORT}`);
 });
