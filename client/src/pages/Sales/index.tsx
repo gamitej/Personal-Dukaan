@@ -4,10 +4,18 @@ import SalesModel from "./SalesModel";
 import Table from "@/components/table/Table";
 import AddButton from "@/components/button/AddButton";
 // data
-import { salesCols, salesRows } from "@/data/sales";
+import { salesCols } from "@/data/sales";
+import { useQuery } from "@tanstack/react-query";
+import { getSalesTableDataApi } from "@/services/APIs/sales.service";
 
 const Sales = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // Query to fetch sales data
+  const { data: salesRowsData = [] } = useQuery({
+    queryKey: ["sales-row-data"],
+    queryFn: () => getSalesTableDataApi(),
+  });
 
   /**
    * TSX
@@ -17,7 +25,7 @@ const Sales = () => {
       <Table
         showEntriesPerPage={5}
         cols={salesCols}
-        rows={salesRows}
+        rows={salesRowsData || []}
         title="Sales"
         tableHeight="10rem"
         additionalLeftSideToolbarComp={

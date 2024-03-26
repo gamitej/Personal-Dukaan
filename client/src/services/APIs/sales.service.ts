@@ -5,7 +5,7 @@ import { salesFormType } from "@/types/sales/inex";
 export async function getSalesTableDataApi() {
   try {
     const { data } = await http.get(`/sales`);
-    return { error: false, data };
+    return data;
   } catch (error: unknown) {
     const res = (error as AxiosError).response?.data;
 

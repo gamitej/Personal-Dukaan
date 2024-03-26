@@ -1,15 +1,12 @@
 import { ChangeEvent, FC, FormEvent, useState } from "react";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 // components
 import Modal from "@/components/modal/Modal";
 import Dropdown from "@/components/dropdown/Dropdown";
 import DateField from "@/components/fields/date/DateField";
 import InputField from "@/components/fields/input/InputField";
 // services
-import {
-  addSalesDataApi,
-  getSalesTableDataApi,
-} from "@/services/APIs/sales.service";
+import { addSalesDataApi } from "@/services/APIs/sales.service";
 // data
 import { productOptions, weightTypeOptions } from "@/data/all";
 // type
@@ -48,14 +45,6 @@ const SalesModel: FC<SalesModelProps> = ({ isOpen, onClose }) => {
       console.error("Error adding sales data");
     },
   });
-
-  // Query to fetch sales data
-  const { data = {} } = useQuery({
-    queryKey: ["sales-row-data"],
-    queryFn: () => getSalesTableDataApi(),
-  });
-
-  console.log({ data });
 
   const reset = () => {
     setFormData(defaultFormData);
@@ -96,8 +85,8 @@ const SalesModel: FC<SalesModelProps> = ({ isOpen, onClose }) => {
             onChange={handleChange}
           />
           <Dropdown
-            label="Product"
             width="65%"
+            label="Product"
             options={productOptions}
             selectedValue={formData.product}
             onChange={(value: string) =>
