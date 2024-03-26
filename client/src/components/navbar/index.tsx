@@ -15,7 +15,7 @@ const Navbar = () => {
    * TSX
    */
   return (
-    <div className="flex items-center mt-8 border-t border-b h-[4rem]">
+    <div className="bg-white flex items-center mt-8 border-t border-b h-[4rem]">
       <div className="w-full flex justify-between items-center px-[3rem]">
         <div className="text-primaryBlue font-semibold text-xl">
           <Link to="/">DUKAAN</Link>
@@ -24,7 +24,7 @@ const Navbar = () => {
           <ul className="flex justify-center items-center gap-3">
             {navLink.map(({ to, name }, idx) => (
               <Link
-                className={`font-[500] hover:text-primaryBlue text-lg ${
+                className={`font-[400] hover:text-primaryBlue text-lg ${
                   to === activeLink ? "text-primaryBlue" : ""
                 }`}
                 to={to}
