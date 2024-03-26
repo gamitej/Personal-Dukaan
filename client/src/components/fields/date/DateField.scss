@@ -1,0 +1,25 @@
+.date-field {
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  label {
+    position: absolute;
+    top: -1.5rem;
+    left: 0;
+  }
+
+  input[type="date"] {
+    border: none;
+    border-radius: 0.2rem;
+    padding: 0.8rem 0.5rem;
+    box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px,
+      rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
+
+    &:focus {
+      outline: 2px solid #5d87ff;
+    }
+  }
+}

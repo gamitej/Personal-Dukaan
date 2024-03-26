@@ -1,0 +1,39 @@
+.input-field {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  label {
+    position: absolute;
+    top: -1.5rem;
+    left: 0;
+  }
+
+  input[type="text"] {
+    border: none;
+    font-size: 1rem;
+    caret-color: #5d87ff;
+    border-radius: 0.2rem;
+    padding: 0.7rem 0.8rem;
+    box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px,
+      rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
+
+    &:focus {
+      outline: 2px solid #5d87ff;
+    }
+  }
+
+  input[type="number"] {
+    border: none;
+    font-size: 1rem;
+    border-radius: 0.2rem;
+    padding: 0.7rem 0.8rem;
+    box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px,
+      rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
+
+    &:focus {
+      outline: 2px solid #5d87ff;
+    }
+  }
+}

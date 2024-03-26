@@ -1,0 +1,55 @@
+.navbar {
+  height: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #ffffff;
+
+  .nav-left {
+    color: #5d87ff;
+    font-size: 1.6rem;
+    font-weight: 500;
+  }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+
+    ul {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      list-style: none;
+      gap: 1rem;
+      font-size: 1.2rem;
+      cursor: pointer;
+
+      .link {
+        &:hover {
+          color: #5175d9;
+          transition: 0.2s ease-in-out;
+        }
+        &.active {
+          color: #5175d9;
+        }
+      }
+    }
+
+    button {
+      cursor: pointer;
+      border: none;
+      color: #ffffff;
+      font-size: 1.2rem;
+      padding: 0.5rem 1rem;
+      border-radius: 0.2rem;
+      background-color: #5d87ff;
+
+      &:hover {
+        background-color: #5175d9;
+        transition: 0.2s ease-in;
+      }
+    }
+  }
+}

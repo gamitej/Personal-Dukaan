@@ -1,0 +1,144 @@
+.table-main {
+  width: 100%;
+  background-color: #ffffff;
+  border-radius: 0.5rem;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+
+  h3 {
+    position: sticky;
+    left: 0;
+    text-align: center;
+    font-weight: 600;
+    font-size: 1.5rem;
+    color: #5d87ff;
+    text-transform: capitalize;
+    padding-top: 1rem;
+  }
+
+  .table-toolbar {
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .toolbar-left {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .toolbar-right {
+      div {
+        input {
+          border: none;
+          font-size: 1.1rem;
+          padding: 0.5rem 1rem;
+          border-radius: 0.5rem;
+          background: transparent;
+          border: 1px solid lightgray;
+          caret-color: #5d87ff;
+
+          &:focus {
+            outline: 2px solid #5d87ff;
+          }
+        }
+      }
+    }
+  }
+
+  .table {
+    width: 100%;
+    overflow-x: auto;
+
+    .table-header {
+      position: sticky;
+      top: 0;
+      background-color: rgba(255, 255, 255, 0.3);
+
+      table {
+        width: 100%;
+        table-layout: fixed;
+        background-color: #5d87ff;
+
+        th {
+          padding: 15px;
+          text-align: left;
+          font-weight: 600;
+          font-size: 1rem;
+          color: #fff;
+
+          text-transform: uppercase;
+        }
+      }
+    }
+
+    .table-body {
+      margin-top: 0px;
+      max-height: calc(100vh - 15rem);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+
+      table {
+        width: 100%;
+        table-layout: fixed;
+
+        tr:nth-of-type(even) {
+          background: #f1eeee;
+        }
+
+        td {
+          padding: 14px;
+          font-size: 1rem;
+          font-weight: 400;
+          text-align: left;
+          vertical-align: middle;
+          border-bottom: solid 1px rgba(255, 255, 255, 0.1);
+        }
+
+        .no-record {
+          color: gray;
+          font-weight: 600;
+          margin-top: 2rem;
+          font-size: 1.5rem;
+          text-align: center;
+        }
+      }
+    }
+  }
+
+  .table-footer {
+    display: flex;
+    padding: 1rem;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid lightgray;
+
+    .footer-right {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.8rem;
+
+      .pagination {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.8rem;
+        font-size: 1.5rem;
+        color: #5d87ff;
+
+        .icon {
+          &.active {
+            color: #abbdf0;
+          }
+
+          &:hover {
+            cursor: pointer;
+            color: #1140c0;
+          }
+        }
+      }
+    }
+  }
+}
