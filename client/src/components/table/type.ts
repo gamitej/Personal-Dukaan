@@ -1,5 +1,5 @@
 type columns = { label: string; value: string; width?: string }[];
-type rows = { [key: string]: string }[];
+type rows = { [key: string]: any }[];
 
 export interface TableHeadProps {
   cols: columns;

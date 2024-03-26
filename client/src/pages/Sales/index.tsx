@@ -25,17 +25,24 @@ const Sales = () => {
     }));
   }, [salesRowsData]);
 
+  const handleEditRow = (rowData: any) => {
+    console.log(rowData);
+  };
+
   /**
    * TSX
    */
   return (
     <div className="px-[2rem] py-[3rem]">
       <Table
+        enableEdit
+        title="Sales"
+        enableDelete
+        tableHeight="20rem"
         showEntriesPerPage={5}
         cols={salesCols}
+        handleEditRow={handleEditRow}
         rows={dateFormattedRowsData || []}
-        title="Sales"
-        tableHeight="20rem"
         additionalLeftSideToolbarComp={
           <AddButton handleClick={() => setIsModalOpen(true)} />
         }
