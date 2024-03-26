@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, FormEvent, useState } from "react";
+import { ChangeEvent, FC, FormEvent, useEffect, useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 // components
 import Modal from "@/components/modal/Modal";
@@ -11,6 +11,7 @@ import { addSalesDataApi } from "@/services/APIs/sales.service";
 import { productOptions, weightTypeOptions } from "@/data/all";
 // type
 import { salesFormType } from "@/types/sales/inex";
+import toast from "react-hot-toast";
 
 interface SalesModelProps {
   isOpen: boolean;
@@ -28,23 +29,33 @@ const defaultFormData = {
 
 const SalesModel: FC<SalesModelProps> = ({ isOpen, onClose }) => {
   const queryClient = useQueryClient();
+  const [apiCallStatus, setApiCallStatus] = useState({
+    error: false,
+    loading: false,
+  });
 
   const [formData, setFormData] = useState<salesFormType>(defaultFormData);
 
-  // =================== API CALL'S ======================
+  // =================== API CALL'S START ======================
 
   // Mutation to add sales data
   const { mutate: mutateAddSalesData } = useMutation({
     mutationFn: addSalesDataApi,
     onSuccess: () => {
+      toast.success("Sales data added successfully", { duration: 1200 });
       queryClient.invalidateQueries({
         queryKey: ["sales-row-data"],
       });
+      setApiCallStatus({ error: false, loading: false });
     },
     onError: () => {
+      setApiCallStatus({ error: true, loading: false });
+      toast.error("Error while adding sales data", { duration: 1200 });
       console.error("Error adding sales data");
     },
   });
+
+  // =================== API CALL'S END ======================
 
   const reset = () => {
     setFormData(defaultFormData);
@@ -57,9 +68,14 @@ const SalesModel: FC<SalesModelProps> = ({ isOpen, onClose }) => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setApiCallStatus({ error: false, loading: true });
     mutateAddSalesData(formData);
     reset();
   };
+
+  useEffect(() => {
+    if (!apiCallStatus.error) onClose(false);
+  }, [apiCallStatus.error]);
 
   /**
    * TSX
@@ -131,7 +147,15 @@ const SalesModel: FC<SalesModelProps> = ({ isOpen, onClose }) => {
           value={formData.amount}
         />
 
-        <button type="submit" className="bg-primaryBlue -mt-8 w-full">
+        <button
+          type="submit"
+          disabled={apiCallStatus.loading}
+          className={`-mt-8 w-full ${
+            apiCallStatus.loading
+              ? "bg-gray-300 cursor-not-allowed"
+              : "bg-primaryBlue cursor-pointer "
+          }`}
+        >
           Submit
         </button>
       </form>

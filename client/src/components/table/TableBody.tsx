@@ -11,8 +11,8 @@ const TableBody: FC<TableBodyProps> = ({
    */
   return (
     <div className="table-body" style={{ height: tableHeight }}>
-      <table>
-        {rows.length > 0 && (
+      {rows.length > 0 && (
+        <table>
           <tbody>
             {rows?.map((item: any, idx: number) => (
               <tr key={idx}>
@@ -27,13 +27,13 @@ const TableBody: FC<TableBodyProps> = ({
               </tr>
             ))}
           </tbody>
-        )}
-        {rows.length === 0 && (
-          <div className="text-gray-700 text-xl text-center mt-4">
-            No record found
-          </div>
-        )}
-      </table>
+        </table>
+      )}
+      {rows.length === 0 && (
+        <div className="text-gray-700 text-xl text-center mt-4">
+          No record found
+        </div>
+      )}
     </div>
   );
 };
