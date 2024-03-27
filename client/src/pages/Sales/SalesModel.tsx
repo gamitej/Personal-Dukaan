@@ -49,7 +49,7 @@ const SalesModel: FC = () => {
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
-    setFormData({ name: id, value });
+    setFormData({ [id]: value });
   };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -67,7 +67,10 @@ const SalesModel: FC = () => {
       modalWidth="30rem"
       title="ADD SALE"
       isOpen={isModalOpen}
-      onClose={() => setIsModalOpen(false)}
+      onClose={() => {
+        setResetSalesFormData();
+        setIsModalOpen(false);
+      }}
       modalHeight="25rem"
     >
       <form
@@ -87,9 +90,7 @@ const SalesModel: FC = () => {
             label="Product"
             options={productOptions}
             selectedValue={formData.product}
-            onChange={(value: string) =>
-              setFormData({ name: "product", value })
-            }
+            onChange={(value: string) => setFormData({ product: value })}
           />
         </div>
 
@@ -115,9 +116,7 @@ const SalesModel: FC = () => {
             width="31%"
             options={weightTypeOptions}
             selectedValue={formData.weightType}
-            onChange={(value: string) =>
-              setFormData({ name: "weightType", value })
-            }
+            onChange={(value: string) => setFormData({ weightType: value })}
           />
         </div>
         <InputField

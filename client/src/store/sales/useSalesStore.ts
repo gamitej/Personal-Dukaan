@@ -8,7 +8,7 @@ interface SalesState {
   setResetSalesFormData: () => void;
   setIsModalOpen: (value: boolean) => void;
   setIsSalesAddApiLoading: (value: boolean) => void;
-  setSalesFormData: (values: { name: string; value: any }) => void;
+  setSalesFormData: (values: { [key: string]: any }) => void;
 }
 
 const defaultFormData = {
@@ -32,13 +32,13 @@ export const useSalesStore = create<SalesState>((set) => ({
   },
 
   salesFormData: defaultFormData,
-  setSalesFormData: (values) => {
-    const { name, value } = values;
+  setSalesFormData: (object) => {
     set((state) => ({
       ...state,
-      salesFormData: { ...state.salesFormData, [name]: value },
+      salesFormData: { ...state.salesFormData, ...object },
     }));
   },
+
   setResetSalesFormData: () => {
     set((state) => ({ ...state, salesFormData: { ...defaultFormData } }));
   },
