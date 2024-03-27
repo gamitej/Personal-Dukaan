@@ -58,7 +58,7 @@ const Table: FC<TableProps> = ({
     return data;
   }, [searchedRowsData, pageNo, paginationValue]);
 
-  const { cols: newCols = [], rows: newRows = [] } = useMemo(() => {
+  const { cols: updatedcolumns = [], rows: updatedRows = [] } = useMemo(() => {
     if (enableDelete || enableEdit) {
       const data = cols.concat([{ label: "", value: "icon", width: "3rem" }]);
       const newRows = selectedPageRowsData.map((item) => ({
@@ -109,9 +109,13 @@ const Table: FC<TableProps> = ({
       />
       <div className="table">
         {/* table head */}
-        <TableHead cols={newCols} />
+        <TableHead cols={updatedcolumns} />
         {/* table body */}
-        <TableBody cols={newCols} tableHeight={tableHeight} rows={newRows} />
+        <TableBody
+          rows={updatedRows}
+          cols={updatedcolumns}
+          tableHeight={tableHeight}
+        />
       </div>
       {/* table footer */}
       <TableFooter
@@ -119,7 +123,11 @@ const Table: FC<TableProps> = ({
         totalPage={totalPage}
         setPageNo={setPageNo}
         paginationValue={paginationValue}
-        setPaginationValue={setPaginationValue}
+        rowsCount={rows?.length || 0}
+        setPaginationValue={(val) => {
+          setPageNo(1);
+          setPaginationValue(val);
+        }}
       />
     </div>
   );

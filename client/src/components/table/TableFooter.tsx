@@ -10,6 +10,7 @@ import { paginationDropDownOptions } from "./data";
 
 interface TableFooterProps {
   pageNo: number;
+  rowsCount: number;
   totalPage: number;
   paginationValue: number;
   setPageNo: (num: number) => void;
@@ -20,6 +21,7 @@ const TableFooter: React.FC<TableFooterProps> = ({
   pageNo,
   totalPage,
   setPageNo,
+  rowsCount = 0,
   paginationValue,
   setPaginationValue,
 }) => {
@@ -40,7 +42,8 @@ const TableFooter: React.FC<TableFooterProps> = ({
   return (
     <div className="table-footer border-t">
       <div className="footer-left">
-        Showing {totalPage > 0 ? pageNo : 0} of {totalPage} entries
+        Showing {totalPage > 0 ? pageNo : 0} of {totalPage} entries ({" "}
+        {rowsCount} )
       </div>
       <div className="footer-right">
         <Dropdown
@@ -52,13 +55,21 @@ const TableFooter: React.FC<TableFooterProps> = ({
         />
         <div className="pagination">
           <div
-            className={`${pageNo === 1 ? "active" : "icon"}`}
+            className={`${
+              pageNo === 1
+                ? "text-gray-200"
+                : "text-blue-400 hover:text-blue-500 cursor-pointer"
+            }`}
             onClick={handlePrev}
           >
             <FaRegArrowAltCircleLeft />
           </div>
           <div
-            className={`${pageNo === totalPage ? "active" : "icon"}`}
+            className={`${
+              totalPage === 0 || pageNo === totalPage
+                ? "text-gray-200"
+                : "text-blue-400 hover:text-blue-500 cursor-pointer"
+            }`}
             onClick={handleNext}
           >
             <FaRegArrowAltCircleRight />

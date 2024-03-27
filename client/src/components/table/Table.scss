@@ -127,17 +127,6 @@
         gap: 0.8rem;
         font-size: 1.5rem;
         color: #5d87ff;
-
-        .icon {
-          &.active {
-            color: #abbdf0;
-          }
-
-          &:hover {
-            cursor: pointer;
-            color: #1140c0;
-          }
-        }
       }
     }
   }
