@@ -11,7 +11,6 @@
     font-size: 1.5rem;
     color: #5d87ff;
     text-transform: uppercase;
-    padding-top: 1rem;
   }
 
   .table-toolbar {
@@ -28,6 +27,11 @@
     }
 
     .toolbar-right {
+      display: flex;
+      justify-items: center;
+      align-items: center;
+      gap: 1rem;
+
       div {
         input {
           border: none;
@@ -61,7 +65,7 @@
         background-color: #5d87ff;
 
         th {
-          padding: 15px;
+          padding: 8px;
           text-align: center;
           font-weight: 600;
           font-size: 1rem;
@@ -88,7 +92,7 @@
         }
 
         td {
-          padding: 14px;
+          padding: 8px;
           font-size: 1rem;
           font-weight: 400;
           text-align: center;

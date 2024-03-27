@@ -78,6 +78,7 @@ const Purchase = () => {
         handleDeleteRow={(id) => mutateDeletePurchaseData(id)}
         additionalLeftSideToolbarComp={
           <AddButton
+            size="sm"
             handleClick={() => {
               setPurchaseFormDataType("ADD");
               setIsModalOpen(true);

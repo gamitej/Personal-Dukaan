@@ -80,6 +80,7 @@ const Sales = () => {
         rows={dateFormattedRowsData || []}
         additionalLeftSideToolbarComp={
           <AddButton
+            size="sm"
             handleClick={() => {
               setSalesFormDataType("ADD");
               setIsModalOpen(true);

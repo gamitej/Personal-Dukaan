@@ -100,9 +100,9 @@ const Table: FC<TableProps> = ({
    */
   return (
     <div className="table-main border">
-      <h3 className="title">{title}</h3>
       {/* table toolbar */}
       <TableToolbar
+        title={title}
         searchText={searchText}
         setSearchText={setSearchText}
         additionalLeftSideToolbarComp={additionalLeftSideToolbarComp}

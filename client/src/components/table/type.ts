@@ -6,6 +6,7 @@ export interface TableHeadProps {
 }
 
 export interface TableToolbarProps {
+  title: string;
   additionalLeftSideToolbarComp?: React.ReactNode;
 }
 

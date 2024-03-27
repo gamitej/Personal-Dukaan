@@ -37,6 +37,8 @@ const SalesModel: FC = () => {
   const { mutate: mutateAddSalesData } = useMutation({
     mutationFn: addSalesDataApi,
     onSuccess: () => {
+      setResetSalesFormData();
+      setIsModalOpen(false);
       toast.success("Sales data added successfully", { duration: 1200 });
       queryClient.invalidateQueries({
         queryKey: ["sales-row-data"],
@@ -61,7 +63,6 @@ const SalesModel: FC = () => {
     e.preventDefault();
     setIsSalesAddApiLoading(true);
     mutateAddSalesData(formData);
-    setResetSalesFormData();
   };
 
   /**

@@ -7,6 +7,7 @@ interface TableToolbarPageProps extends TableToolbarProps {
 }
 
 const TableToolbar: FC<TableToolbarPageProps> = ({
+  title,
   searchText,
   setSearchText,
   additionalLeftSideToolbarComp,
@@ -16,9 +17,13 @@ const TableToolbar: FC<TableToolbarPageProps> = ({
    */
   return (
     <div className="table-toolbar">
-      <div className="toolbar-left">{additionalLeftSideToolbarComp}</div>
+      <div className="toolbar-left">
+        <div>
+          <h3 className="title">{title}</h3>
+        </div>
+      </div>
       <div className="toolbar-right">
-        <div></div>
+        <div> {additionalLeftSideToolbarComp}</div>
         <div>
           <input
             type="text"

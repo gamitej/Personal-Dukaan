@@ -39,6 +39,8 @@ const PurchaseModal: FC = () => {
   const { mutate: mutateAddPurchaseData } = useMutation({
     mutationFn: addPurchaseDataApi,
     onSuccess: () => {
+      setResetPurchaseFormData();
+      setIsModalOpen(false);
       toast.success("purchase data added successfully", { duration: 1200 });
       queryClient.invalidateQueries({
         queryKey: ["purchase-row-data"],
@@ -63,7 +65,6 @@ const PurchaseModal: FC = () => {
     e.preventDefault();
     setIsPurchaseAddApiLoading(true);
     mutateAddPurchaseData(formData);
-    setResetPurchaseFormData();
   };
 
   /**
