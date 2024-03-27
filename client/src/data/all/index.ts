@@ -8,3 +8,13 @@ export const weightTypeOptions = [
   { id: 1, label: "KG", value: "kg" },
   { id: 2, label: "GM", value: "gm" },
 ];
+
+export const companyNameOptions = [
+  { id: 1, label: "KAMADHAGIRI", value: "kamadhagiri" },
+  { id: 2, label: "UNNAT", value: "unnat" },
+];
+
+export const partyNameOptions = [
+  { id: 1, label: "Agro Clinic", value: "agro-clinic" },
+  { id: 2, label: "Company-1", value: "company-1" },
+];

@@ -6,12 +6,11 @@ import PurchaseModal from "./PurchaseModal";
 import Table from "@/components/table/Table";
 import AddButton from "@/components/button/AddButton";
 // data
-import { salesCols } from "@/data/sales";
+import { purchaseCols, purchaseRows } from "@/data/purchase";
 // store
 import { usePurchaseStore } from "@/store/purchase/usePurchaseStore";
 // services
 import { getSalesTableDataApi } from "@/services/APIs/sales.service";
-import { purchaseCols, purchaseRows } from "@/data/purchase/inde";
 
 const Purchase = () => {
   const {

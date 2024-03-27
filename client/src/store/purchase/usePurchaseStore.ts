@@ -5,7 +5,7 @@ type purchaseFormDataType = "ADD" | "EDIT";
 
 interface PurchaseState {
   isModalOpen: boolean;
-  isSalesAddApiLoading: boolean;
+  isPurchaseAddApiLoading: boolean;
   purchaseFormData: purchaseFormType;
   setResetPurchaseFormData: () => void;
   purchaseFormDataType: purchaseFormDataType;
@@ -27,7 +27,7 @@ const defaultFormData = {
 };
 
 export const usePurchaseStore = create<PurchaseState>((set) => ({
-  isSalesAddApiLoading: false,
+  isPurchaseAddApiLoading: false,
   setIsPurchaseAddApiLoading: (value) => {
     set((state) => ({ ...state, isSalesAddApiLoading: value }));
   },
@@ -46,7 +46,7 @@ export const usePurchaseStore = create<PurchaseState>((set) => ({
   setPurchaseFormData: (object) => {
     set((state) => ({
       ...state,
-      salesFormData: { ...state.purchaseFormData, ...object },
+      purchaseFormData: { ...state.purchaseFormData, ...object },
     }));
   },
   setResetPurchaseFormData: () => {

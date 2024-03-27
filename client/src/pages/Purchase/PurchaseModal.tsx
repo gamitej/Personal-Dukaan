@@ -9,21 +9,26 @@ import InputField from "@/components/fields/input/InputField";
 // services
 import { addSalesDataApi } from "@/services/APIs/sales.service";
 // data
-import { productOptions, weightTypeOptions } from "@/data/all";
+import {
+  companyNameOptions,
+  partyNameOptions,
+  productOptions,
+  weightTypeOptions,
+} from "@/data/all";
 // store
-import { useSalesStore } from "@/store/sales/useSalesStore";
+import { usePurchaseStore } from "@/store/purchase/usePurchaseStore";
 
 const PurchaseModal: FC = () => {
   const {
     isModalOpen,
     setIsModalOpen,
-    isSalesAddApiLoading,
-    salesFormData: formData,
-    setIsSalesAddApiLoading,
-    setSalesFormData: setFormData,
-    setResetSalesFormData,
-    salesFormDataType,
-  } = useSalesStore();
+    isPurchaseAddApiLoading,
+    purchaseFormData: formData,
+    setIsPurchaseAddApiLoading,
+    setPurchaseFormData: setFormData,
+    setResetPurchaseFormData,
+    purchaseFormDataType,
+  } = usePurchaseStore();
 
   const queryClient = useQueryClient();
 
@@ -37,10 +42,10 @@ const PurchaseModal: FC = () => {
       queryClient.invalidateQueries({
         queryKey: ["sales-row-data"],
       });
-      setIsSalesAddApiLoading(false);
+      setIsPurchaseAddApiLoading(false);
     },
     onError: () => {
-      setIsSalesAddApiLoading(false);
+      setIsPurchaseAddApiLoading(false);
       console.error("Error adding sales data");
       toast.error("Error while adding sales data", { duration: 1200 });
     },
@@ -55,9 +60,9 @@ const PurchaseModal: FC = () => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsSalesAddApiLoading(true);
+    setIsPurchaseAddApiLoading(true);
     mutateAddSalesData(formData);
-    setResetSalesFormData();
+    setResetPurchaseFormData();
   };
 
   /**
@@ -66,17 +71,17 @@ const PurchaseModal: FC = () => {
   return (
     <Modal
       modalWidth="30rem"
-      title={`${salesFormDataType} SALE`}
+      title={`${purchaseFormDataType} PURCHASE`}
       isOpen={isModalOpen}
       onClose={() => {
-        setResetSalesFormData();
+        setResetPurchaseFormData();
         setIsModalOpen(false);
       }}
-      modalHeight="25rem"
+      modalHeight="fit-content"
     >
       <form
         onSubmit={handleSubmit}
-        className="w-full mt-4 h-[100%] flex flex-col items-center gap-14"
+        className="w-full mt-4 h-[100%] flex flex-col items-center gap-12"
       >
         <div className="flex justify-center items-center gap-3 w-[100%]">
           <DateField
@@ -96,6 +101,22 @@ const PurchaseModal: FC = () => {
         </div>
 
         <div className="w-full flex justify-between items-center">
+          <Dropdown
+            width="49%"
+            label="Party name"
+            options={partyNameOptions}
+            selectedValue={formData.party}
+            onChange={(value: string) => setFormData({ party: value })}
+          />
+          <Dropdown
+            width="49%"
+            label="Product Company"
+            options={companyNameOptions}
+            selectedValue={formData.company}
+            onChange={(value: string) => setFormData({ company: value })}
+          />
+        </div>
+        <div className="w-full flex justify-between items-center">
           <InputField
             type="number"
             width="31%"
@@ -104,6 +125,7 @@ const PurchaseModal: FC = () => {
             onChange={handleChange}
             value={formData.quantity}
           />
+
           <InputField
             type="number"
             width="31%"
@@ -131,9 +153,9 @@ const PurchaseModal: FC = () => {
 
         <button
           type="submit"
-          disabled={isSalesAddApiLoading}
+          disabled={isPurchaseAddApiLoading}
           className={`-mt-8 w-full ${
-            isSalesAddApiLoading
+            isPurchaseAddApiLoading
               ? "bg-gray-300 cursor-not-allowed"
               : "bg-primaryBlue cursor-pointer "
           }`}
