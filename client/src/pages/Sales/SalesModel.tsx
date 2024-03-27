@@ -14,6 +14,8 @@ import { productOptions, weightTypeOptions } from "@/data/all";
 import { useSalesStore } from "@/store/sales/useSalesStore";
 
 const SalesModel: FC = () => {
+  const queryClient = useQueryClient();
+
   const {
     isModalOpen,
     setIsModalOpen,
@@ -24,8 +26,6 @@ const SalesModel: FC = () => {
     setResetSalesFormData,
     salesFormDataType,
   } = useSalesStore();
-
-  const queryClient = useQueryClient();
 
   // =================== API CALL'S START ======================
 

@@ -1,6 +1,6 @@
 import moment from "moment";
 import { useMemo } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 // components
 import SalesModel from "./SalesModel";
 import Table from "@/components/table/Table";
@@ -10,9 +10,17 @@ import { salesCols } from "@/data/sales";
 // store
 import { useSalesStore } from "@/store/sales/useSalesStore";
 // services
-import { getSalesTableDataApi } from "@/services/APIs/sales.service";
+import {
+  deleteSalesDataApi,
+  getSalesTableDataApi,
+} from "@/services/APIs/sales.service";
+import toast from "react-hot-toast";
 
 const Sales = () => {
+  const queryClient = useQueryClient();
+
+  // =================== API CALL'S START ======================
+
   const {
     setIsModalOpen,
     setSalesFormData: setFormData,
@@ -23,6 +31,21 @@ const Sales = () => {
   const { data: salesRowsData = [] } = useQuery({
     queryKey: ["sales-row-data"],
     queryFn: () => getSalesTableDataApi(),
+  });
+
+  // Mutation to add sales data
+  const { mutate: mutateDeleteSalesData } = useMutation({
+    mutationFn: deleteSalesDataApi,
+    onSuccess: () => {
+      toast.success("Sales deleted added successfully", { duration: 1200 });
+      queryClient.invalidateQueries({
+        queryKey: ["sales-row-data"],
+      });
+    },
+    onError: () => {
+      console.error("Error delete sales data");
+      toast.error("Error while deleting sales data", { duration: 1200 });
+    },
   });
 
   // ================== EVENT HANDLERS ==================
@@ -54,6 +77,7 @@ const Sales = () => {
         tableHeight="20rem"
         showEntriesPerPage={5}
         handleEditRow={handleEditRow}
+        handleDeleteRow={(id) => mutateDeleteSalesData(id)}
         rows={dateFormattedRowsData || []}
         additionalLeftSideToolbarComp={
           <AddButton
