@@ -22,6 +22,7 @@ const SalesModel: FC = () => {
     setIsSalesAddApiLoading,
     setSalesFormData: setFormData,
     setResetSalesFormData,
+    salesFormDataType,
   } = useSalesStore();
 
   const queryClient = useQueryClient();
@@ -65,7 +66,7 @@ const SalesModel: FC = () => {
   return (
     <Modal
       modalWidth="30rem"
-      title="ADD SALE"
+      title={`${salesFormDataType} SALE`}
       isOpen={isModalOpen}
       onClose={() => {
         setResetSalesFormData();

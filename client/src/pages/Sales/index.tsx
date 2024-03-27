@@ -13,7 +13,11 @@ import { useSalesStore } from "@/store/sales/useSalesStore";
 import { getSalesTableDataApi } from "@/services/APIs/sales.service";
 
 const Sales = () => {
-  const { setIsModalOpen, setSalesFormData: setFormData } = useSalesStore();
+  const {
+    setIsModalOpen,
+    setSalesFormData: setFormData,
+    setSalesFormDataType,
+  } = useSalesStore();
 
   // Query to fetch sales data
   const { data: salesRowsData = [] } = useQuery({
@@ -34,6 +38,7 @@ const Sales = () => {
     console.log(rowData);
     setIsModalOpen(true);
     setFormData(rowData);
+    setSalesFormDataType("EDIT");
   };
 
   /**
@@ -51,7 +56,12 @@ const Sales = () => {
         handleEditRow={handleEditRow}
         rows={dateFormattedRowsData || []}
         additionalLeftSideToolbarComp={
-          <AddButton handleClick={() => setIsModalOpen(true)} />
+          <AddButton
+            handleClick={() => {
+              setSalesFormDataType("ADD");
+              setIsModalOpen(true);
+            }}
+          />
         }
       />
       <SalesModel />
