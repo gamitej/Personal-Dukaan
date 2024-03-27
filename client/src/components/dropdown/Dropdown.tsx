@@ -73,7 +73,7 @@ const Dropdown = <T extends DropdownValue>({
       className={`dropdown ${showOptions && "active"}`}
       style={{ width: width }}
     >
-      {selectedValue !== null && <label>{label}</label>}
+      <label>{label}</label>
       <div className="dropdown-title" onClick={handleOpen}>
         <div
           className="selected-option"
@@ -91,28 +91,31 @@ const Dropdown = <T extends DropdownValue>({
           )}
         </div>
       </div>
+      {/* ================ OPTIONS =============== */}
       {showOptions && (
         <div
-          className="dropdown-options"
+          className="dropdown-options overflow-auto"
           style={{ ...calculateDropdownPosition() }}
         >
-          {options?.length === 0 && (
-            <div className="option" onClick={() => setShowOptions(false)}>
-              None
-            </div>
-          )}
-          {options?.length > 0 &&
-            options?.map((item, idx) => (
-              <div
-                className="option"
-                key={`${idx}-options`}
-                onClick={() => handleChange(item.value)}
-              >
-                <div>
-                  <span title={`${item.label}`}>{item.label}</span>
-                </div>
+          <div className="max-h-[13.5rem]">
+            {options?.length === 0 && (
+              <div className="option" onClick={() => setShowOptions(false)}>
+                None
               </div>
-            ))}
+            )}
+            {options?.length > 0 &&
+              options?.map((item, idx) => (
+                <div
+                  className="option"
+                  key={`${idx}-options`}
+                  onClick={() => handleChange(item.value)}
+                >
+                  <div>
+                    <span title={`${item.label}`}>{item.label}</span>
+                  </div>
+                </div>
+              ))}
+          </div>
         </div>
       )}
     </div>
