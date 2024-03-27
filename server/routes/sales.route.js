@@ -14,6 +14,7 @@ router.get("/", async (req, res) => {
         "weight",
         "amount",
         "id",
+        "company",
       ],
       order: [["date", "desc"]],
     });
@@ -26,16 +27,12 @@ router.get("/", async (req, res) => {
 
 router.post("/", async (req, res) => {
   try {
-    const { date, product, amount, quantity, weight, weightType, type } =
-      req.body;
+    const { date, weight, weightType } = req.body;
 
     const newSale = await Sales.create({
       date: new Date(date),
-      product,
-      quantity,
       weight: `${weight}${weightType}`,
-      amount,
-      type,
+      ...req.body,
     });
 
     return res.status(200).json(newSale);
@@ -48,8 +45,7 @@ router.post("/", async (req, res) => {
 router.put("/:id", async (req, res) => {
   try {
     const saleId = req.params.id;
-    const { date, product, amount, quantity, weight, weightType, type } =
-      req.body;
+    const { date, weight, weightType } = req.body;
 
     const updatedSale = await Sales.findByPk(saleId);
     if (!updatedSale) {
@@ -58,11 +54,8 @@ router.put("/:id", async (req, res) => {
 
     await updatedSale.update({
       date: new Date(date),
-      product,
-      quantity,
       weight: `${weight}${weightType}`,
-      amount,
-      type,
+      ...req.body,
     });
 
     return res.status(200).json(updatedSale);
