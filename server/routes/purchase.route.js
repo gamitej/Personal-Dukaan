@@ -54,4 +54,58 @@ router.post("/", async (req, res) => {
   }
 });
 
+// Update a sale
+router.put("/:id", async (req, res) => {
+  try {
+    const saleId = req.params.id;
+    const {
+      date,
+      product,
+      amount,
+      quantity,
+      weight,
+      weightType,
+      company,
+      party,
+    } = req.body;
+
+    const updatedPurchase = await Purchase.findByPk(saleId);
+    if (!updatedPurchase) {
+      return res.status(404).json({ message: "Purchase not found" });
+    }
+
+    await updatedPurchase.update({
+      date: new Date(date),
+      product,
+      quantity,
+      weight: `${weight}${weightType}`,
+      amount,
+      company,
+      party,
+    });
+
+    return res.status(200).json(updatedPurchase);
+  } catch (error) {
+    return res.status(500).json(error.message || error);
+  }
+});
+
+// Delete a sale
+router.delete("/:id", async (req, res) => {
+  try {
+    const saleId = req.params.id;
+
+    const deletedPurchase = await Purchase.findByPk(saleId);
+    if (!deletedPurchase) {
+      return res.status(404).json({ message: "Purchase not found" });
+    }
+
+    await deletedPurchase.destroy();
+
+    return res.status(200).json({ message: "Purchase deleted successfully" });
+  } catch (error) {
+    return res.status(500).json(error.message || error);
+  }
+});
+
 export default router;

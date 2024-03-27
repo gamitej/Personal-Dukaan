@@ -70,7 +70,6 @@ const Sales = () => {
   return (
     <div className="px-[2rem] py-[3rem]">
       <Table
-        enableEdit
         title="Sales"
         enableDelete
         cols={salesCols}
