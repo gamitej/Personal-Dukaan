@@ -1,18 +1,24 @@
 import moment from "moment";
 import { useMemo } from "react";
-import { useQuery } from "@tanstack/react-query";
+import toast from "react-hot-toast";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 // components
 import PurchaseModal from "./PurchaseModal";
 import Table from "@/components/table/Table";
 import AddButton from "@/components/button/AddButton";
 // data
-import { purchaseCols, purchaseRows } from "@/data/purchase";
+import { purchaseCols } from "@/data/purchase";
 // store
 import { usePurchaseStore } from "@/store/purchase/usePurchaseStore";
 // services
-import { getSalesTableDataApi } from "@/services/APIs/sales.service";
+import {
+  deletePurchaseDataApi,
+  getPurchaseTableDataApi,
+} from "@/services/APIs/purchase.service";
 
 const Purchase = () => {
+  const queryClient = useQueryClient();
+
   const {
     setIsModalOpen,
     setPurchaseFormData: setFormData,
@@ -20,19 +26,34 @@ const Purchase = () => {
   } = usePurchaseStore();
 
   // Query to fetch sales data
-  const { data: salesRowsData = [] } = useQuery({
-    queryKey: ["sales-row-data"],
-    queryFn: () => getSalesTableDataApi(),
+  const { data: purchaseRowsData = [] } = useQuery({
+    queryKey: ["purchase-row-data"],
+    queryFn: () => getPurchaseTableDataApi(),
+  });
+
+  // Mutation to delete sales data
+  const { mutate: mutateDeletePurchaseData } = useMutation({
+    mutationFn: deletePurchaseDataApi,
+    onSuccess: () => {
+      toast.success("Purchase deleted added successfully", { duration: 1200 });
+      queryClient.invalidateQueries({
+        queryKey: ["purchase-row-data"],
+      });
+    },
+    onError: () => {
+      console.error("Error delete purchase data");
+      toast.error("Error while deleting purchase data", { duration: 1200 });
+    },
   });
 
   // ================== EVENT HANDLERS ==================
 
   const dateFormattedRowsData = useMemo(() => {
-    return salesRowsData.map((item: any) => ({
+    return purchaseRowsData.map((item: any) => ({
       ...item,
       date: moment(new Date(item.date)).format("DD-MM-YYYY"),
     }));
-  }, [salesRowsData]);
+  }, [purchaseRowsData]);
 
   const handleEditRow = (rowData: any) => {
     console.log(rowData);
@@ -54,7 +75,8 @@ const Purchase = () => {
         tableHeight="20rem"
         showEntriesPerPage={5}
         handleEditRow={handleEditRow}
-        rows={purchaseRows || []}
+        rows={dateFormattedRowsData || []}
+        handleDeleteRow={(id) => mutateDeletePurchaseData(id)}
         additionalLeftSideToolbarComp={
           <AddButton
             handleClick={() => {

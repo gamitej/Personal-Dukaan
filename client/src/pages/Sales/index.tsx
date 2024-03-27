@@ -33,7 +33,7 @@ const Sales = () => {
     queryFn: () => getSalesTableDataApi(),
   });
 
-  // Mutation to add sales data
+  // Mutation to delete sales data
   const { mutate: mutateDeleteSalesData } = useMutation({
     mutationFn: deleteSalesDataApi,
     onSuccess: () => {

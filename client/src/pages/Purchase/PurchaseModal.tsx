@@ -7,7 +7,7 @@ import Dropdown from "@/components/dropdown/Dropdown";
 import DateField from "@/components/fields/date/DateField";
 import InputField from "@/components/fields/input/InputField";
 // services
-import { addSalesDataApi } from "@/services/APIs/sales.service";
+import { addPurchaseDataApi } from "@/services/APIs/purchase.service";
 // data
 import {
   companyNameOptions,
@@ -34,20 +34,20 @@ const PurchaseModal: FC = () => {
 
   // =================== API CALL'S START ======================
 
-  // Mutation to add sales data
-  const { mutate: mutateAddSalesData } = useMutation({
-    mutationFn: addSalesDataApi,
+  // Mutation to add purchase data
+  const { mutate: mutateAddPurchaseData } = useMutation({
+    mutationFn: addPurchaseDataApi,
     onSuccess: () => {
-      toast.success("Sales data added successfully", { duration: 1200 });
+      toast.success("purchase data added successfully", { duration: 1200 });
       queryClient.invalidateQueries({
-        queryKey: ["sales-row-data"],
+        queryKey: ["purchase-row-data"],
       });
       setIsPurchaseAddApiLoading(false);
     },
     onError: () => {
       setIsPurchaseAddApiLoading(false);
-      console.error("Error adding sales data");
-      toast.error("Error while adding sales data", { duration: 1200 });
+      console.error("Error adding purchase data");
+      toast.error("Error while adding purchase data", { duration: 1200 });
     },
   });
 
@@ -61,7 +61,7 @@ const PurchaseModal: FC = () => {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsPurchaseAddApiLoading(true);
-    mutateAddSalesData(formData);
+    mutateAddPurchaseData(formData);
     setResetPurchaseFormData();
   };
 
