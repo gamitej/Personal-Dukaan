@@ -17,6 +17,7 @@ interface SalesState {
 
 const defaultFormData = {
   date: null,
+  type: null,
   weight: null,
   amount: null,
   product: null,

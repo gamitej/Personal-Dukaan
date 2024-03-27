@@ -3,6 +3,7 @@ export const purchaseCols = [
   { label: "Party Name", value: "party", width: "10rem" },
   { label: "Product", value: "product", width: "8rem" },
   { label: "Product Company", value: "company", width: "10rem" },
+  { label: "Type", value: "type", width: "5rem" },
   { label: "Quantity", value: "quantity", width: "5rem" },
   { label: "Weight (kg/gm)", value: "weight", width: "3rem" },
   { label: "Amount (Rs)", value: "amount", width: "3rem" },
@@ -17,5 +18,6 @@ export const purchaseRows = [
     amount: "20000",
     company: "hi hello",
     party: "hi hi re hi",
+    type: "wheat",
   },
 ];

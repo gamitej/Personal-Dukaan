@@ -21,3 +21,9 @@ export const partyNameOptions = [
   { id: 2, label: "Company-1", value: "company-1" },
   { id: 3, label: "OTHERS", value: "others" },
 ];
+
+export const productTypeOptions = [
+  { id: 1, label: "WHEAT", value: "wheat" },
+  { id: 2, label: "UREA", value: "urea" },
+  { id: 3, label: "RICE", value: "rice" },
+];

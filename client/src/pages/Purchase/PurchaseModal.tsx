@@ -13,6 +13,7 @@ import {
   companyNameOptions,
   partyNameOptions,
   productOptions,
+  productTypeOptions,
   weightTypeOptions,
 } from "@/data/all";
 // store
@@ -70,7 +71,7 @@ const PurchaseModal: FC = () => {
    */
   return (
     <Modal
-      modalWidth="30rem"
+      modalWidth="35rem"
       title={`${purchaseFormDataType} PURCHASE`}
       isOpen={isModalOpen}
       onClose={() => {
@@ -86,17 +87,24 @@ const PurchaseModal: FC = () => {
         <div className="flex justify-center items-center gap-3 w-[100%]">
           <DateField
             id="date"
-            width="35%"
+            width="30%"
             label="Date"
             value={formData.date}
             onChange={handleChange}
           />
           <Dropdown
-            width="65%"
+            width="40%"
             label="Product"
             options={productOptions}
             selectedValue={formData.product}
             onChange={(value: string) => setFormData({ product: value })}
+          />
+          <Dropdown
+            width="30%"
+            label="Product Type"
+            options={productTypeOptions}
+            selectedValue={formData.type}
+            onChange={(value: string) => setFormData({ type: value })}
           />
         </div>
 

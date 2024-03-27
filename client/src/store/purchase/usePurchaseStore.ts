@@ -17,13 +17,14 @@ interface PurchaseState {
 
 const defaultFormData = {
   date: null,
+  type: null,
+  party: null,
   weight: null,
   amount: null,
+  company: null,
   product: null,
   quantity: null,
   weightType: null,
-  company: null,
-  party: null,
 };
 
 export const usePurchaseStore = create<PurchaseState>((set) => ({

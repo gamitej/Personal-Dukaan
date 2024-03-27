@@ -1,5 +1,6 @@
 export interface purchaseFormType {
   date: string | null;
+  type: string | null;
   party: string | null;
   weight: number | null;
   amount: number | null;

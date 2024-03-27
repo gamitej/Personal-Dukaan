@@ -9,7 +9,11 @@ import InputField from "@/components/fields/input/InputField";
 // services
 import { addSalesDataApi } from "@/services/APIs/sales.service";
 // data
-import { productOptions, weightTypeOptions } from "@/data/all";
+import {
+  productOptions,
+  productTypeOptions,
+  weightTypeOptions,
+} from "@/data/all";
 // store
 import { useSalesStore } from "@/store/sales/useSalesStore";
 
@@ -65,7 +69,7 @@ const SalesModel: FC = () => {
    */
   return (
     <Modal
-      modalWidth="30rem"
+      modalWidth="35rem"
       title={`${salesFormDataType} SALE`}
       isOpen={isModalOpen}
       onClose={() => {
@@ -81,17 +85,25 @@ const SalesModel: FC = () => {
         <div className="flex justify-center items-center gap-3 w-[100%]">
           <DateField
             id="date"
-            width="35%"
+            width="30%"
             label="Date"
             value={formData.date}
             onChange={handleChange}
           />
           <Dropdown
-            width="65%"
+            width="40%"
             label="Product"
             options={productOptions}
             selectedValue={formData.product}
             onChange={(value: string) => setFormData({ product: value })}
+          />
+
+          <Dropdown
+            width="30%"
+            label="Product Type"
+            options={productTypeOptions}
+            selectedValue={formData.type}
+            onChange={(value: string) => setFormData({ type: value })}
           />
         </div>
 
