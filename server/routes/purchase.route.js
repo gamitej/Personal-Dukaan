@@ -9,6 +9,7 @@ router.get("/", async (req, res) => {
       attributes: [
         "date",
         "product",
+        "type",
         "company",
         "party",
         "quantity",
@@ -30,6 +31,7 @@ router.post("/", async (req, res) => {
     const {
       date,
       product,
+      type,
       amount,
       quantity,
       weight,
@@ -46,6 +48,7 @@ router.post("/", async (req, res) => {
       amount,
       party,
       company,
+      type,
     });
 
     return res.status(200).json(newPurchase);
@@ -67,6 +70,7 @@ router.put("/:id", async (req, res) => {
       weightType,
       company,
       party,
+      type,
     } = req.body;
 
     const updatedPurchase = await Purchase.findByPk(saleId);
@@ -82,6 +86,7 @@ router.put("/:id", async (req, res) => {
       amount,
       company,
       party,
+      type,
     });
 
     return res.status(200).json(updatedPurchase);

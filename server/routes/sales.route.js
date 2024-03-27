@@ -6,7 +6,15 @@ const router = express.Router();
 router.get("/", async (req, res) => {
   try {
     const sales = await Sales.findAll({
-      attributes: ["date", "product", "quantity", "weight", "amount", "id"],
+      attributes: [
+        "date",
+        "product",
+        "type",
+        "quantity",
+        "weight",
+        "amount",
+        "id",
+      ],
       order: [["date", "desc"]],
     });
 
@@ -18,7 +26,8 @@ router.get("/", async (req, res) => {
 
 router.post("/", async (req, res) => {
   try {
-    const { date, product, amount, quantity, weight, weightType } = req.body;
+    const { date, product, amount, quantity, weight, weightType, type } =
+      req.body;
 
     const newSale = await Sales.create({
       date: new Date(date),
@@ -26,6 +35,7 @@ router.post("/", async (req, res) => {
       quantity,
       weight: `${weight}${weightType}`,
       amount,
+      type,
     });
 
     return res.status(200).json(newSale);
@@ -38,7 +48,8 @@ router.post("/", async (req, res) => {
 router.put("/:id", async (req, res) => {
   try {
     const saleId = req.params.id;
-    const { date, product, amount, quantity, weight, weightType } = req.body;
+    const { date, product, amount, quantity, weight, weightType, type } =
+      req.body;
 
     const updatedSale = await Sales.findByPk(saleId);
     if (!updatedSale) {
@@ -51,6 +62,7 @@ router.put("/:id", async (req, res) => {
       quantity,
       weight: `${weight}${weightType}`,
       amount,
+      type,
     });
 
     return res.status(200).json(updatedSale);

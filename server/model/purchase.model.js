@@ -15,6 +15,10 @@ const Sales = sequelize.define("Purchase", {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  type: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
   company: {
     type: DataTypes.STRING,
     allowNull: false,

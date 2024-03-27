@@ -15,6 +15,10 @@ const Sales = sequelize.define("Sales", {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  type: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
   quantity: {
     type: DataTypes.INTEGER,
     allowNull: false,
