@@ -8,11 +8,13 @@
     position: absolute;
     top: -1.7rem;
     left: 0;
+    color: rgb(80, 77, 77);
   }
 
   input[type="text"] {
     border: none;
     font-size: 1rem;
+    color: rgb(80, 77, 77);
     caret-color: #5d87ff;
     border-radius: 0.2rem;
     padding: 0.4rem 0.8rem;
@@ -27,6 +29,7 @@
   input[type="number"] {
     border: none;
     font-size: 1rem;
+    color: rgb(80, 77, 77);
     border-radius: 0.2rem;
     padding: 0.4rem 0.8rem;
     box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px,

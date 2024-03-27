@@ -69,18 +69,18 @@ const SalesModel: FC = () => {
    */
   return (
     <Modal
-      modalWidth="35rem"
+      modalWidth="fit-content"
       title={`${salesFormDataType} SALE`}
       isOpen={isModalOpen}
       onClose={() => {
         setResetSalesFormData();
         setIsModalOpen(false);
       }}
-      modalHeight="25rem"
+      modalHeight="fit-content"
     >
       <form
         onSubmit={handleSubmit}
-        className="w-full mt-4 h-[100%] flex flex-col items-center gap-14"
+        className="w-full px-6 pt-8 pb-4 h-[100%] flex flex-col items-center gap-14"
       >
         <div className="flex justify-center items-center gap-3 w-[100%]">
           <DateField
@@ -144,7 +144,7 @@ const SalesModel: FC = () => {
         <button
           type="submit"
           disabled={isSalesAddApiLoading}
-          className={`-mt-8 w-full ${
+          className={`-mt-4 w-full ${
             isSalesAddApiLoading
               ? "bg-gray-300 cursor-not-allowed"
               : "bg-primaryBlue cursor-pointer "

@@ -16,6 +16,7 @@
     left: 0rem;
     text-transform: capitalize;
     color: rgb(49, 48, 48);
+    color: rgb(80, 77, 77);
   }
 
   .dropdown-title {
@@ -23,6 +24,7 @@
     padding: 0.3rem 0.7rem;
     text-transform: capitalize;
     color: rgb(82, 80, 80);
+    color: rgb(80, 77, 77);
 
     display: flex;
     justify-content: space-between;
@@ -32,6 +34,7 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      color: rgb(80, 77, 77);
     }
 
     div {
@@ -47,6 +50,7 @@
     left: 0;
     background-color: #ffffff;
     border-radius: 0.2rem;
+    color: rgb(80, 77, 77);
 
     z-index: 99;
     box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,

@@ -71,7 +71,7 @@ const PurchaseModal: FC = () => {
    */
   return (
     <Modal
-      modalWidth="35rem"
+      modalWidth="fit-content"
       title={`${purchaseFormDataType} PURCHASE`}
       isOpen={isModalOpen}
       onClose={() => {
@@ -82,7 +82,7 @@ const PurchaseModal: FC = () => {
     >
       <form
         onSubmit={handleSubmit}
-        className="w-full mt-4 h-[100%] flex flex-col items-center gap-12"
+        className="w-full px-6 pt-8 pb-4 h-[100%] flex flex-col items-center gap-12"
       >
         <div className="flex justify-center items-center gap-3 w-[100%]">
           <DateField
@@ -162,7 +162,7 @@ const PurchaseModal: FC = () => {
         <button
           type="submit"
           disabled={isPurchaseAddApiLoading}
-          className={`-mt-8 w-full ${
+          className={`-mt-2 w-full ${
             isPurchaseAddApiLoading
               ? "bg-gray-300 cursor-not-allowed"
               : "bg-primaryBlue cursor-pointer "
