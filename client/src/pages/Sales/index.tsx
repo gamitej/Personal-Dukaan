@@ -8,7 +8,7 @@ import { salesCols } from "@/data/sales";
 import { useQuery } from "@tanstack/react-query";
 import { getSalesTableDataApi } from "@/services/APIs/sales.service";
 import moment from "moment";
-import { salesFormType } from "@/types/sales/inex";
+import { salesFormType } from "@/types/sales";
 
 const defaultFormData = {
   date: null,
@@ -29,6 +29,8 @@ const Sales = () => {
     queryFn: () => getSalesTableDataApi(),
   });
 
+  // ================== EVENT HANDLERS ==================
+
   const dateFormattedRowsData = useMemo(() => {
     return salesRowsData.map((item: any) => ({
       ...item,
@@ -39,7 +41,6 @@ const Sales = () => {
   const handleEditRow = (rowData: any) => {
     console.log(rowData);
     setIsModalOpen(true);
-
     setFormData(rowData);
   };
 
