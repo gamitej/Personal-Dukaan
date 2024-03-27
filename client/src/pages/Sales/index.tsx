@@ -1,27 +1,19 @@
-import { useMemo, useState } from "react";
+import moment from "moment";
+import { useMemo } from "react";
+import { useQuery } from "@tanstack/react-query";
 // components
 import SalesModel from "./SalesModel";
 import Table from "@/components/table/Table";
 import AddButton from "@/components/button/AddButton";
 // data
 import { salesCols } from "@/data/sales";
-import { useQuery } from "@tanstack/react-query";
+// store
+import { useSalesStore } from "@/store/sales/useSalesStore";
+// services
 import { getSalesTableDataApi } from "@/services/APIs/sales.service";
-import moment from "moment";
-import { salesFormType } from "@/types/sales";
-
-const defaultFormData = {
-  date: null,
-  product: null,
-  amount: null,
-  quantity: null,
-  weight: null,
-  weightType: null,
-};
 
 const Sales = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [formData, setFormData] = useState<salesFormType>(defaultFormData);
+  const { setIsModalOpen, setSalesFormData: setFormData } = useSalesStore();
 
   // Query to fetch sales data
   const { data: salesRowsData = [] } = useQuery({
@@ -44,10 +36,6 @@ const Sales = () => {
     setFormData(rowData);
   };
 
-  const reset = () => {
-    setFormData(defaultFormData);
-  };
-
   /**
    * TSX
    */
@@ -66,13 +54,7 @@ const Sales = () => {
           <AddButton handleClick={() => setIsModalOpen(true)} />
         }
       />
-      <SalesModel
-        reset={reset}
-        formData={formData}
-        isOpen={isModalOpen}
-        onClose={setIsModalOpen}
-        setFormData={setFormData}
-      />
+      <SalesModel />
     </div>
   );
 };

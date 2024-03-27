@@ -1,5 +1,5 @@
 export interface salesFormType {
-  date: Date | null;
+  date: string | null;
   product: string | null;
   amount: number | null;
   quantity: number | null;

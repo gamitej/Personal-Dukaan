@@ -1,6 +1,6 @@
 import toast from "react-hot-toast";
+import { ChangeEvent, FC, FormEvent } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { ChangeEvent, FC, FormEvent, useEffect, useState } from "react";
 // components
 import Modal from "@/components/modal/Modal";
 import Dropdown from "@/components/dropdown/Dropdown";
@@ -10,27 +10,21 @@ import InputField from "@/components/fields/input/InputField";
 import { addSalesDataApi } from "@/services/APIs/sales.service";
 // data
 import { productOptions, weightTypeOptions } from "@/data/all";
+// store
+import { useSalesStore } from "@/store/sales/useSalesStore";
 
-interface SalesModelProps {
-  formData: any;
-  isOpen: boolean;
-  reset: () => void;
-  setFormData: (data: any) => void;
-  onClose: (val: boolean) => void;
-}
+const SalesModel: FC = () => {
+  const {
+    isModalOpen,
+    setIsModalOpen,
+    isSalesAddApiLoading,
+    salesFormData: formData,
+    setIsSalesAddApiLoading,
+    setSalesFormData: setFormData,
+    setResetSalesFormData,
+  } = useSalesStore();
 
-const SalesModel: FC<SalesModelProps> = ({
-  isOpen,
-  onClose,
-  setFormData,
-  formData,
-  reset,
-}) => {
   const queryClient = useQueryClient();
-  const [apiCallStatus, setApiCallStatus] = useState({
-    error: false,
-    loading: false,
-  });
 
   // =================== API CALL'S START ======================
 
@@ -42,12 +36,12 @@ const SalesModel: FC<SalesModelProps> = ({
       queryClient.invalidateQueries({
         queryKey: ["sales-row-data"],
       });
-      setApiCallStatus({ error: false, loading: false });
+      setIsSalesAddApiLoading(false);
     },
     onError: () => {
-      setApiCallStatus({ error: true, loading: false });
-      toast.error("Error while adding sales data", { duration: 1200 });
+      setIsSalesAddApiLoading(false);
       console.error("Error adding sales data");
+      toast.error("Error while adding sales data", { duration: 1200 });
     },
   });
 
@@ -55,23 +49,15 @@ const SalesModel: FC<SalesModelProps> = ({
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
-    setFormData((prev: any) => ({ ...prev, [id]: value }));
+    setFormData({ name: id, value });
   };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setApiCallStatus({ error: false, loading: true });
+    setIsSalesAddApiLoading(true);
     mutateAddSalesData(formData);
-    reset();
+    setResetSalesFormData();
   };
-
-  // ==================== USE-EFFECT HOOK =======================
-
-  useEffect(() => {
-    if (apiCallStatus.error) {
-      onClose(false);
-    }
-  }, [apiCallStatus.error]);
 
   /**
    * TSX
@@ -80,8 +66,8 @@ const SalesModel: FC<SalesModelProps> = ({
     <Modal
       modalWidth="30rem"
       title="ADD SALE"
-      isOpen={isOpen}
-      onClose={onClose}
+      isOpen={isModalOpen}
+      onClose={() => setIsModalOpen(false)}
       modalHeight="25rem"
     >
       <form
@@ -102,7 +88,7 @@ const SalesModel: FC<SalesModelProps> = ({
             options={productOptions}
             selectedValue={formData.product}
             onChange={(value: string) =>
-              setFormData({ ...formData, product: value })
+              setFormData({ name: "product", value })
             }
           />
         </div>
@@ -130,7 +116,7 @@ const SalesModel: FC<SalesModelProps> = ({
             options={weightTypeOptions}
             selectedValue={formData.weightType}
             onChange={(value: string) =>
-              setFormData({ ...formData, weightType: value })
+              setFormData({ name: "weightType", value })
             }
           />
         </div>
@@ -145,9 +131,9 @@ const SalesModel: FC<SalesModelProps> = ({
 
         <button
           type="submit"
-          disabled={apiCallStatus.loading}
+          disabled={isSalesAddApiLoading}
           className={`-mt-8 w-full ${
-            apiCallStatus.loading
+            isSalesAddApiLoading
               ? "bg-gray-300 cursor-not-allowed"
               : "bg-primaryBlue cursor-pointer "
           }`}

@@ -3,8 +3,12 @@ import { salesFormType } from "@/types/sales";
 
 interface SalesState {
   isModalOpen: boolean;
-  setIsModalOpen: (value: boolean) => void;
   salesFormData: salesFormType;
+  isSalesAddApiLoading: boolean;
+  setResetSalesFormData: () => void;
+  setIsModalOpen: (value: boolean) => void;
+  setIsSalesAddApiLoading: (value: boolean) => void;
+  setSalesFormData: (values: { name: string; value: any }) => void;
 }
 
 const defaultFormData = {
@@ -17,10 +21,25 @@ const defaultFormData = {
 };
 
 export const useSalesStore = create<SalesState>((set) => ({
+  isSalesAddApiLoading: false,
+  setIsSalesAddApiLoading: (value) => {
+    set((state) => ({ ...state, isSalesAddApiLoading: value }));
+  },
+
   isModalOpen: false,
   setIsModalOpen: (value) => {
     set(() => ({ isModalOpen: value }));
   },
 
   salesFormData: defaultFormData,
+  setSalesFormData: (values) => {
+    const { name, value } = values;
+    set((state) => ({
+      ...state,
+      salesFormData: { ...state.salesFormData, [name]: value },
+    }));
+  },
+  setResetSalesFormData: () => {
+    set((state) => ({ ...state, salesFormData: { ...defaultFormData } }));
+  },
 }));
