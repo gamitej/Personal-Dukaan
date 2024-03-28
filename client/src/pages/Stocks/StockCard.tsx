@@ -17,9 +17,9 @@ const StockCard: FC<StockCardProps> = ({
    * TSX
    */
   return (
-    <div className="border-2 border-[#673DE6] shadow-lg rounded-xl bg-[#EBE4FF]">
+    <div className="shadow-md rounded-xl bg-slate-100 border-2 border-blue-300">
       <div className="flex justify-between items-center p-4">
-        <h2 className="text-[#2F1C6A] font-[500] text-xl uppercase">
+        <h2 className="text-primaryBlue font-[600] text-xl uppercase">
           {cardTitle}
         </h2>
         <div>
@@ -40,24 +40,24 @@ const StockCard: FC<StockCardProps> = ({
           <div
             key={`stock-card-${idx}`}
             className={`flex justify-between items-center ${
-              idx + 1 !== productList?.length && "border-b"
+              idx + 1 !== productList?.length && ""
             } py-1 px-6`}
           >
             <div className="py-1">
-              <p className="text-sm text-[#472D94] font-semibold">{product}</p>
-              <p className="text-[#472D94] font-semibold text-sm">
+              <p className="text-sm text-slate-600 font-semibold">{product}</p>
+              <p className="text-slate-500 font-semibold text-sm">
                 ( {company} )
               </p>
             </div>
-            <p className="text-[#472D94] font-semibold">{stock}</p>
+            <p className="text-salte-600 font-[500]">{stock}</p>
           </div>
         ))}
       </div>
       <div className="border-t border-slate-300"></div>
       <div className="flex justify-center items-center">
         <div className="w-full p-4 flex justify-between items-center">
-          <h2>Total Stock</h2>
-          <p>{totalStock}</p>
+          <h2 className="font-[500]">Total Stock</h2>
+          <p className="font-[500]">{totalStock}</p>
         </div>
       </div>
     </div>
