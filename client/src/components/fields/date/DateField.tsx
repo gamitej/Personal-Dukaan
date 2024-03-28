@@ -8,6 +8,7 @@ interface DateFieldProps {
   width?: string;
   label?: string;
   value: string | null;
+  minDateValue?: string | string;
   maxDateValue?: string | string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
@@ -17,6 +18,7 @@ const DateField: FC<DateFieldProps> = ({
   value = null,
   width = "100%",
   label = "Select Date",
+  minDateValue = null,
   maxDateValue = moment(new Date()).format("YYYY-MM-DD"),
   onChange,
 }) => {
@@ -25,8 +27,9 @@ const DateField: FC<DateFieldProps> = ({
     return {
       date: convertToDefaultDateFormate(value),
       maxDate: convertToDefaultDateFormate(maxDateValue),
+      minDate: convertToDefaultDateFormate(minDateValue),
     };
-  }, [value, maxDateValue]);
+  }, [value, minDateValue, maxDateValue]);
 
   /**
    * TSX
@@ -38,6 +41,7 @@ const DateField: FC<DateFieldProps> = ({
         id={id}
         type="date"
         onChange={onChange}
+        min={formattedValue.minDate || ""}
         max={formattedValue.maxDate || ""}
         value={formattedValue.date || ""}
       />
