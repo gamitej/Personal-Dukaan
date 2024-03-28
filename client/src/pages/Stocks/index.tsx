@@ -1,28 +1,22 @@
 import "./StockCard.scss";
 import StockCard from "./StockCard";
-
-const stockList = [
-  {
-    title: "UREA",
-    isAvail: true,
-    productList: [{ product: "Urea-HV", company: "HV", stock: 300 }],
-    total: 500,
-  },
-  {
-    title: "WHEAT",
-    isAvail: false,
-    productList: [{ product: "Urea-HV", company: "HV", stock: 300 }],
-    total: 500,
-  },
-];
+import { useQuery } from "@tanstack/react-query";
+import { getStockDataApi } from "@/services/APIs/stock.service";
+import { stockAvailListType } from "@/types/stock";
 
 const Stocks = () => {
+  // Query to fetch stocks data
+  const { data: stockAvailList = [] } = useQuery<stockAvailListType[]>({
+    queryKey: ["stocks-avail-data"],
+    queryFn: () => getStockDataApi(),
+  });
+
   /**
    * TSX
    */
   return (
     <div className="w-full px-[2rem] py-[3rem] grid grid-cols-12 gap-4">
-      {stockList.map((item, idx) => (
+      {stockAvailList?.map((item, idx: number) => (
         <div key={idx} className="lg:col-span-4">
           <StockCard
             cardTitle={item.title}
