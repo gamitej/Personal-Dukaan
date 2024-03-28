@@ -1,24 +1,13 @@
 import express from "express";
-import Sales from "../model/sales.model.js";
+import Stock from "../models/stock.model.js";
 
 const router = express.Router();
 
 router.get("/", async (req, res) => {
   try {
-    const sales = await Sales.findAll({
-      attributes: [
-        "date",
-        "product",
-        "type",
-        "quantity",
-        "weight",
-        "amount",
-        "id",
-      ],
-      order: [["date", "desc"]],
-    });
+    const stock = await Stock.findAll();
 
-    return res.status(200).json(sales);
+    return res.status(200).json(stock);
   } catch (error) {
     return res.status(500).json(error.message || error);
   }

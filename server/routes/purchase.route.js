@@ -1,11 +1,12 @@
 import express from "express";
-import Purchase from "../model/purchase.model.js";
+import Purchase from "../models/purchase.model.js";
+import { updateStockAfterPurchase } from "../utils/updateStock.js";
 
 const router = express.Router();
 
 router.get("/", async (req, res) => {
   try {
-    const sales = await Purchase.findAll({
+    const purchase = await Purchase.findAll({
       attributes: [
         "date",
         "product",
@@ -20,12 +21,13 @@ router.get("/", async (req, res) => {
       order: [["date", "desc"]],
     });
 
-    return res.status(200).json(sales);
+    return res.status(200).json(purchase);
   } catch (error) {
     return res.status(500).json(error.message || error);
   }
 });
 
+// Add purchased products
 router.post("/", async (req, res) => {
   try {
     const { date, weight, weightType } = req.body;
@@ -36,13 +38,16 @@ router.post("/", async (req, res) => {
       ...req.body,
     });
 
-    return res.status(200).json(newPurchase);
+    const { error, data } = updateStockAfterPurchase(req.body);
+
+    if (!error) return res.status(200).json(newPurchase);
+    return res.status(404).json(data);
   } catch (error) {
     return res.status(500).json(error.message || error);
   }
 });
 
-// Update a sale
+// Update a purchase
 router.put("/:id", async (req, res) => {
   try {
     const saleId = req.params.id;

@@ -1,5 +1,6 @@
 import express from "express";
-import Sales from "../model/sales.model.js";
+import Sales from "../models/sales.model.js";
+import { updateStockAfterSale } from "../utils/updateStock.js";
 
 const router = express.Router();
 
@@ -29,13 +30,18 @@ router.post("/", async (req, res) => {
   try {
     const { date, weight, weightType } = req.body;
 
-    const newSale = await Sales.create({
-      date: new Date(date),
-      weight: `${weight}${weightType}`,
-      ...req.body,
-    });
+    const { error, data } = updateStockAfterSale(req.body);
 
-    return res.status(200).json(newSale);
+    if (!error) {
+      const newSale = await Sales.create({
+        date: new Date(date),
+        weight: `${weight}${weightType}`,
+        ...req.body,
+      });
+      return res.status(200).json(newSale);
+    }
+
+    return res.status(404).json(data);
   } catch (error) {
     return res.status(500).json(error.message || error);
   }
