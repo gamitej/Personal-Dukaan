@@ -1,5 +1,5 @@
 import toast from "react-hot-toast";
-import { ChangeEvent, FC, FormEvent } from "react";
+import { ChangeEvent, FC, FormEvent, useCallback } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 // components
 import Modal from "@/components/modal/Modal";
@@ -71,7 +71,7 @@ const SalesModel: FC = () => {
    */
   return (
     <Modal
-      modalWidth="w-[35rem]"
+      modalWidth="55rem"
       title={`${salesFormDataType} SALE`}
       isOpen={isModalOpen}
       onClose={() => {
@@ -97,7 +97,9 @@ const SalesModel: FC = () => {
             label="Product"
             options={productOptions}
             selectedValue={formData.product}
-            onChange={(value: string) => setFormData({ product: value })}
+            onChange={(value: string) =>
+              setFormData({ product: value, type: value.split("-")[0] })
+            }
           />
 
           <Dropdown
@@ -113,7 +115,7 @@ const SalesModel: FC = () => {
           <Dropdown
             label="Product Company"
             width="30%"
-            options={companyNameOptions}
+            options={formData.type ? companyNameOptions[formData.type] : []}
             selectedValue={formData.company}
             onChange={(value: string) => setFormData({ company: value })}
           />

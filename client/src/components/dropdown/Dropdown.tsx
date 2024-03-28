@@ -9,7 +9,7 @@ interface DropdownProps<T extends DropdownValue> {
   width?: string;
   selectedValue: T | null;
   onChange: (value: T) => void;
-  options: { label: T; value: T }[];
+  options: { label: T; value: T }[] | [];
 }
 
 const Dropdown = <T extends DropdownValue>({

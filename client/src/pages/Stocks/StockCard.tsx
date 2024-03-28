@@ -44,12 +44,12 @@ const StockCard: FC<StockCardProps> = ({
             } py-1 px-6`}
           >
             <div className="py-1">
-              <p className="text-sm text-slate-600 font-semibold">{product}</p>
-              <p className="text-slate-500 font-semibold text-sm">
-                ( {company} )
+              <p className="text-lg text-slate-600 font-[400] uppercase">
+                {product}
               </p>
+              <p className="text-slate-500 font-[400] text-md">( {company} )</p>
             </div>
-            <p className="text-salte-600 font-[500]">{stock}</p>
+            <p className="text-salte-600 font-[400]">{stock}</p>
           </div>
         ))}
       </div>

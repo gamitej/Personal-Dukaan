@@ -10,17 +10,34 @@ export const weightTypeOptions = [
   { id: 2, label: "GM", value: "gm" },
 ];
 
-export const companyNameOptions = [
+// ================== COMPANY OPTIONS ===============
+
+export const wheatCompanyOptions = [
   { id: 1, label: "KAMADHAGIRI", value: "kamadhagiri" },
   { id: 2, label: "UNNAT", value: "unnat" },
   { id: 3, label: "OTHERS", value: "others" },
 ];
 
+export const ureaCompanyOptions = [
+  { id: 1, label: "NFL", value: "nfl" },
+  { id: 2, label: "HURL", value: "hurl" },
+];
+
+export const companyNameOptions: {
+  [key: string]: { id: number; label: string; value: string }[];
+} = {
+  urea: ureaCompanyOptions,
+  wheat: wheatCompanyOptions,
+};
+
+// ===================== PARTY OPTIONS ================
 export const partyNameOptions = [
   { id: 1, label: "Agro Clinic", value: "agro-clinic" },
-  { id: 2, label: "Company-1", value: "company-1" },
+  { id: 2, label: "Agrawal Trading", value: "agrawal-trading" },
   { id: 3, label: "OTHERS", value: "others" },
 ];
+
+// ===================== PRODUCT TYPE OPTIONS ================
 
 export const productTypeOptions = [
   { id: 1, label: "WHEAT", value: "wheat" },

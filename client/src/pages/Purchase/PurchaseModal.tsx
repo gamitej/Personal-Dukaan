@@ -120,7 +120,7 @@ const PurchaseModal: FC = () => {
           <Dropdown
             width="49%"
             label="Product Company"
-            options={companyNameOptions}
+            options={formData.type ? companyNameOptions[formData.type] : []}
             selectedValue={formData.company}
             onChange={(value: string) => setFormData({ company: value })}
           />
