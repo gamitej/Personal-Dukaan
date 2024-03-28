@@ -5,14 +5,16 @@ export async function updateStockAfterPurchase(purchase) {
   try {
     const { product, quantity, company, type } = purchase;
 
+    const purchaseQuantity = parseInt(quantity);
+
     // Update stock table with the purchased quantity
     const [stock, created] = await Stock.findOrCreate({
       where: { product: product, company: company, type: type },
-      defaults: { quantity: quantity },
+      defaults: { quantity: purchaseQuantity },
     });
 
     if (!created) {
-      stock.quantity += quantity;
+      stock.quantity = parseInt(stock.quantity) + purchaseQuantity;
       await stock.save();
     }
 
@@ -37,14 +39,16 @@ export async function updateStockAfterSale(sale) {
   try {
     const { product, quantity, company, type } = sale;
 
+    const purchaseQuantity = parseInt(quantity);
+
     // Update stock table to reflect the sale
     const stock = await Stock.findOne({
       where: { product: product, company: company, type: type },
     });
 
     if (stock) {
-      if (stock.quantity > quantity) {
-        stock.quantity -= quantity;
+      if (parseInt(stock.quantity) > purchaseQuantity) {
+        stock.quantity = parseInt(stock.quantity) - purchaseQuantity;
         await stock.save();
         const res = {
           error: false,

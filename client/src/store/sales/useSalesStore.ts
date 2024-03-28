@@ -21,6 +21,7 @@ const defaultFormData = {
   weight: null,
   amount: null,
   product: null,
+  company: null,
   quantity: null,
   weightType: null,
 };

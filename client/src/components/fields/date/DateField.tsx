@@ -20,12 +20,18 @@ const DateField: FC<DateFieldProps> = ({
   // Convert Date to string
   const newDate = useMemo(() => {
     if (!value) return null;
-    const parts = value.split("-");
-    const day = parseInt(parts[0], 10);
-    const month = parseInt(parts[1], 10) - 1;
-    const year = parseInt(parts[2], 10);
 
-    return new Date(year, month, day);
+    const isValidDateFormat = /^\d{4}-\d{2}-\d{2}$/.test(value);
+    if (isValidDateFormat) {
+      return value;
+    }
+
+    const parts = value.split("-");
+    const day = parts[0];
+    const month = parts[1];
+    const year = parts[2];
+
+    return new Date(`${year}-${month}-${day}`);
   }, [value]);
 
   const formattedValue = newDate ? moment(newDate).format("YYYY-MM-DD") : "";

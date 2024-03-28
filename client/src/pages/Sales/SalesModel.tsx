@@ -10,6 +10,7 @@ import InputField from "@/components/fields/input/InputField";
 import { addSalesDataApi } from "@/services/APIs/sales.service";
 // data
 import {
+  companyNameOptions,
   productOptions,
   productTypeOptions,
   weightTypeOptions,
@@ -70,7 +71,7 @@ const SalesModel: FC = () => {
    */
   return (
     <Modal
-      modalWidth="fit-content"
+      modalWidth="w-[35rem]"
       title={`${salesFormDataType} SALE`}
       isOpen={isModalOpen}
       onClose={() => {
@@ -109,9 +110,16 @@ const SalesModel: FC = () => {
         </div>
 
         <div className="w-full flex justify-between items-center">
+          <Dropdown
+            label="Product Company"
+            width="30%"
+            options={companyNameOptions}
+            selectedValue={formData.company}
+            onChange={(value: string) => setFormData({ company: value })}
+          />
           <InputField
             type="number"
-            width="31%"
+            width="25%"
             label="Quantity"
             id="quantity"
             onChange={handleChange}
@@ -119,7 +127,7 @@ const SalesModel: FC = () => {
           />
           <InputField
             type="number"
-            width="31%"
+            width="20%"
             label="Weight"
             id="weight"
             onChange={handleChange}
@@ -127,7 +135,7 @@ const SalesModel: FC = () => {
           />
           <Dropdown
             label="(KG/GM)"
-            width="31%"
+            width="20%"
             options={weightTypeOptions}
             selectedValue={formData.weightType}
             onChange={(value: string) => setFormData({ weightType: value })}

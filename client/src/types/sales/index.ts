@@ -4,6 +4,7 @@ export interface salesFormType {
   amount: number | null;
   weight: number | null;
   product: string | null;
+  company: string | null;
   quantity: number | null;
   weightType: string | null;
 }
