@@ -15,6 +15,7 @@ import {
   getSalesTableDataApi,
 } from "@/services/APIs/sales.service";
 import toast from "react-hot-toast";
+import HeaderCard from "@/components/card/HeaderCard";
 
 const Sales = () => {
   const queryClient = useQueryClient();
@@ -68,7 +69,8 @@ const Sales = () => {
    * TSX
    */
   return (
-    <div className="px-[2rem] py-[3rem]">
+    <div className="px-[2rem] py-[3rem] w-full flex flex-col justify-center items-center gap-4">
+      <HeaderCard />
       <Table
         title="Sales"
         enableDelete
