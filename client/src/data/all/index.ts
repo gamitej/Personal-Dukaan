@@ -1,7 +1,7 @@
 export const productOptions = [
   { id: 1, label: "UREA", value: "urea" },
   { id: 2, label: "UREA-1", value: "urea-1" },
-  { id: 3, label: "Wheat 1010", value: "Wheat-1010" },
+  { id: 3, label: "Wheat 1010", value: "wheat-1010" },
   { id: 4, label: "Wheat 4037", value: "wheat-4037" },
 ];
 

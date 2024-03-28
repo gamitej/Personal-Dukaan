@@ -98,7 +98,13 @@ const PurchaseModal: FC = () => {
             label="Product"
             options={productOptions}
             selectedValue={formData.product}
-            onChange={(value: string) => setFormData({ product: value })}
+            onChange={(value: string) =>
+              setFormData({
+                product: value,
+                type: value.split("-")[0],
+                company: null,
+              })
+            }
           />
           <Dropdown
             width="30%"

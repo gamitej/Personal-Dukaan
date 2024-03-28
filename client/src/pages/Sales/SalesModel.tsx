@@ -98,7 +98,11 @@ const SalesModel: FC = () => {
             options={productOptions}
             selectedValue={formData.product}
             onChange={(value: string) =>
-              setFormData({ product: value, type: value.split("-")[0] })
+              setFormData({
+                product: value,
+                type: value.split("-")[0],
+                company: null,
+              })
             }
           />
 
