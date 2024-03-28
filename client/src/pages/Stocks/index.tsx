@@ -11,6 +11,14 @@ const Stocks = () => {
     queryFn: () => getStockDataApi(),
   });
 
+  if (stockAvailList.length === 0) {
+    return (
+      <div className="flex justify-center items-center h-[60vh]">
+        <p className="text-2xl">No Stock Data Available</p>
+      </div>
+    );
+  }
+
   /**
    * TSX
    */

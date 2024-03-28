@@ -30,9 +30,10 @@ router.post("/", async (req, res) => {
   try {
     const { date, weight, weightType } = req.body;
 
-    const { error, data } = updateStockAfterSale(req.body);
+    const { error, data } = await updateStockAfterSale(req.body);
 
     if (!error) {
+      console.log("hi");
       const newSale = await Sales.create({
         date: new Date(date),
         weight: `${weight}${weightType}`,
@@ -41,10 +42,10 @@ router.post("/", async (req, res) => {
       return res.status(200).json(newSale);
     }
 
-    return res.status(404).json(data);
+    return res.status(404).json(data.message);
   } catch (error) {
     console.error(error);
-    return res.status(500).json(error.message || error);
+    return res.status(500).json(error.message || "Something went wrong");
   }
 });
 

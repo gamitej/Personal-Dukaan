@@ -1,6 +1,7 @@
 export const salesCols = [
   { label: "Date", value: "date", width: "5rem" },
   { label: "Product", value: "product", width: "8rem" },
+  { label: "Product Company", value: "company", width: "10rem" },
   { label: "Type", value: "type", width: "5rem" },
   { label: "Quantity", value: "quantity", width: "5rem" },
   { label: "Weight (kg/gm)", value: "weight", width: "3rem" },

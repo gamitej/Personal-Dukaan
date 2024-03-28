@@ -46,8 +46,10 @@ export async function updateStockAfterSale(sale) {
       where: { product: product, company: company, type: type },
     });
 
+    console.log(parseInt(stock.quantity), purchaseQuantity);
+
     if (stock) {
-      if (parseInt(stock.quantity) > purchaseQuantity) {
+      if (parseInt(stock.quantity) >= purchaseQuantity) {
         stock.quantity = parseInt(stock.quantity) - purchaseQuantity;
         await stock.save();
         const res = {
@@ -66,7 +68,7 @@ export async function updateStockAfterSale(sale) {
       return res;
     }
     const res = {
-      error: false,
+      error: true,
       data: {
         message: `Stock not found for product: ${product} & type ${type} ${company}`,
         details: product,
