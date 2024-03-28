@@ -11,37 +11,6 @@ const stockList = [
   {
     title: "WHEAT",
     isAvail: false,
-    productList: [
-      { product: "Urea-HV", company: "HV", stock: 300 },
-      { product: "Urea-HV", company: "HV", stock: 300 },
-      { product: "Urea-HV", company: "HV", stock: 300 },
-      { product: "Urea-HV", company: "HV", stock: 300 },
-      { product: "Urea-HV", company: "HV", stock: 300 },
-      { product: "Urea-HV", company: "HV", stock: 300 },
-      { product: "Urea-HV", company: "HV", stock: 300 },
-      { product: "Urea-HV", company: "HV", stock: 300 },
-      { product: "Urea-HV", company: "HV", stock: 300 },
-      { product: "Urea-HV", company: "HV", stock: 300 },
-      { product: "Urea-HV", company: "HV", stock: 300 },
-      { product: "Urea-HV", company: "HV", stock: 300 },
-    ],
-    total: 500,
-  },
-  {
-    title: "UREA",
-    isAvail: true,
-    productList: [{ product: "Urea-HV", company: "HV", stock: 300 }],
-    total: 500,
-  },
-  {
-    title: "UREA",
-    isAvail: true,
-    productList: [{ product: "Urea-HV", company: "HV", stock: 300 }],
-    total: 500,
-  },
-  {
-    title: "UREA",
-    isAvail: true,
     productList: [{ product: "Urea-HV", company: "HV", stock: 300 }],
     total: 500,
   },
@@ -57,7 +26,7 @@ const Stocks = () => {
         <div key={idx} className="lg:col-span-4">
           <StockCard
             cardTitle={item.title}
-            isAvail={item.isAvail}
+            isAvail={item.total > 0}
             totalStock={item.total}
             productList={item.productList}
           />
