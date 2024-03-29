@@ -1,4 +1,3 @@
-import Dropdown from "../dropdown/Dropdown";
 import DateField from "../fields/date/DateField";
 
 const HeaderCard = () => {
@@ -7,18 +6,10 @@ const HeaderCard = () => {
    */
   return (
     <div
-      className="rounded-md border shadow-md border-slate-200"
+      className="rounded-md h-[8rem] pt-6 px-8 border-2 border-blue-400 shadow-md"
       style={{ width: "fit-content" }}
     >
-      <div className="flex px-8 pt-12 pb-8 items-center gap-4">
-        <Dropdown
-          width="12rem"
-          options={[]}
-          label="Periodicity"
-          onChange={() => {}}
-          selectedValue={null}
-        />
-
+      <div className="flex h-[100%] items-center gap-4">
         <div className="flex gap-2 justify-center items-center">
           <p className="text-xl">Select Date :-</p>
           <div className="flex gap-4">

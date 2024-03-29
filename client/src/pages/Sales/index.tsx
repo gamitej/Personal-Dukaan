@@ -16,6 +16,7 @@ import {
 } from "@/services/APIs/sales.service";
 import toast from "react-hot-toast";
 import HeaderCard from "@/components/card/HeaderCard";
+import CountCard from "@/components/card/CountCard";
 
 const Sales = () => {
   const queryClient = useQueryClient();
@@ -69,8 +70,12 @@ const Sales = () => {
    * TSX
    */
   return (
-    <div className="px-[2rem] py-[3rem] w-full flex flex-col justify-center items-center gap-8">
-      <HeaderCard />
+    <div className="px-[2rem] py-[3rem] w-full flex flex-col justify-center items-center gap-12">
+      <div className="w-full h-[100%] flex items-center gap-6">
+        <HeaderCard />
+        <CountCard />
+        <CountCard />
+      </div>
       <Table
         title="Sales"
         enableDelete
