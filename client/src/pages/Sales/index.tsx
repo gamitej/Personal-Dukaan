@@ -73,8 +73,8 @@ const Sales = () => {
     <div className="px-[2rem] py-[3rem] w-full flex flex-col justify-center items-center gap-12">
       <div className="w-full h-[100%] flex items-center gap-6">
         <HeaderCard />
-        <CountCard />
-        <CountCard />
+        <CountCard title="Sales" label="rs" amount={32000} />
+        <CountCard title="Quantity" amount={300} />
       </div>
       <Table
         title="Sales"

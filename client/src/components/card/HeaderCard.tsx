@@ -6,7 +6,7 @@ const HeaderCard = () => {
    */
   return (
     <div
-      className="rounded-md h-[8rem] pt-6 px-8 border-2 border-blue-400 shadow-md"
+      className="rounded-md h-[8rem] pt-6 px-8 border shadow-md"
       style={{ width: "fit-content" }}
     >
       <div className="flex h-[100%] items-center gap-4">
