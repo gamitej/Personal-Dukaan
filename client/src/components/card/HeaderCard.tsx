@@ -2,15 +2,12 @@ import Dropdown from "../dropdown/Dropdown";
 import DateField from "../fields/date/DateField";
 
 const HeaderCard = () => {
-
-    
-
   /**
    * TSX
    */
   return (
     <div
-      className="rounded-md border border-slate-200"
+      className="rounded-md border shadow-md border-slate-200"
       style={{ width: "fit-content" }}
     >
       <div className="flex px-8 pt-12 pb-8 items-center gap-4">
