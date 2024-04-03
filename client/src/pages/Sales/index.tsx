@@ -61,6 +61,21 @@ const Sales = () => {
 
   // ================== EVENT HANDLERS ==================
 
+  const { totalAmount, totalQuantity } = useMemo(() => {
+    return totalSales.reduce(
+      (
+        acc: any,
+        { amount, quantity }: { amount: number; quantity: number }
+      ) => {
+        // Calculate the total amount and total quantity
+        acc.totalAmount += amount;
+        acc.totalQuantity += quantity;
+        return acc;
+      },
+      { totalAmount: 0, totalQuantity: 0 }
+    );
+  }, [totalSales]);
+
   const dateFormattedRowsData = useMemo(() => {
     return salesRowsData.map((item: any) => ({
       ...item,
@@ -80,10 +95,10 @@ const Sales = () => {
    */
   return (
     <div className="px-[2rem] py-[3rem] w-full flex flex-col justify-center items-center gap-12">
-      <div className="w-full h-[100%] flex items-center gap-6">
+      <div className="w-full h-[100%] flex items-center gap-6 flex-wrap">
         <HeaderCard />
-        <CountCard title="Sales" label="rs" amount={32000} />
-        <CountCard title="Quantity" amount={300} />
+        <CountCard title="Sales" label="rs" value={totalAmount} />
+        <CountCard title="Quantity" value={totalQuantity} />
       </div>
       <Table
         title="Sales"

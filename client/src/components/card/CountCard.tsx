@@ -3,14 +3,14 @@ import { FC } from "react";
 interface CountCardProps {
   title: string;
   label?: string;
-  amount: number;
+  value: number;
   enableDetails?: boolean;
   handleDetails?: () => void;
 }
 
 const CountCard: FC<CountCardProps> = ({
   label = "",
-  amount = "0",
+  value = "0",
   handleDetails,
   title = "Sales",
   enableDetails = false,
@@ -31,7 +31,7 @@ const CountCard: FC<CountCardProps> = ({
             <span className="text-slate-500 font-poppins text-[16px] mr-1 uppercase">
               {label}
             </span>
-            {amount}
+            {value}
           </p>
         </div>
         {enableDetails && (

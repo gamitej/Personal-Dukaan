@@ -10,8 +10,8 @@ router.get("/total-sales", async (req, res) => {
     const sales = await Sales.findAll({
       attributes: [
         "type",
-        [sequelize.fn("sum", sequelize.col("quantity")), "total_quantity"],
-        [sequelize.fn("sum", sequelize.col("amount")), "total_amount"],
+        [sequelize.fn("sum", sequelize.col("quantity")), "quantity"],
+        [sequelize.fn("sum", sequelize.col("amount")), "amount"],
       ],
       group: ["type"],
       order: [["type", "ASC"]],
