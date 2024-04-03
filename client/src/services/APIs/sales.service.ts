@@ -6,6 +6,11 @@ export async function getSalesTableDataApi() {
   return data;
 }
 
+export async function getTotalSalesDataApi() {
+  const { data } = await http.get(`/sales/total-sales`);
+  return data;
+}
+
 export async function addSalesDataApi(req: salesFormType) {
   const { data } = await http.post(`/sales`, req);
   return data;

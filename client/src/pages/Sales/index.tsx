@@ -13,6 +13,7 @@ import { useSalesStore } from "@/store/sales/useSalesStore";
 import {
   deleteSalesDataApi,
   getSalesTableDataApi,
+  getTotalSalesDataApi,
 } from "@/services/APIs/sales.service";
 import toast from "react-hot-toast";
 import HeaderCard from "@/components/card/HeaderCard";
@@ -34,6 +35,14 @@ const Sales = () => {
     queryKey: ["sales-row-data"],
     queryFn: () => getSalesTableDataApi(),
   });
+
+  // Query to fetch sales data
+  const { data: totalSales = [] } = useQuery({
+    queryKey: ["total-sales-data"],
+    queryFn: () => getTotalSalesDataApi(),
+  });
+
+  console.log({ totalSales });
 
   // Mutation to delete sales data
   const { mutate: mutateDeleteSalesData } = useMutation({
