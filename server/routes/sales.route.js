@@ -29,11 +29,9 @@ router.get("/", async (req, res) => {
 router.post("/", async (req, res) => {
   try {
     const { date, weight, weightType } = req.body;
-
-    const { error, data } = await updateStockAfterSale(req.body);
+    const { error, data } = await updateStockAfterSale(req.body, "update");
 
     if (!error) {
-      console.log("hi");
       const newSale = await Sales.create({
         date: new Date(date),
         weight: `${weight}${weightType}`,
@@ -82,9 +80,15 @@ router.delete("/:id", async (req, res) => {
       return res.status(404).json({ message: "Sale not found" });
     }
 
-    await deletedSale.destroy();
+    const deletedData = deletedSale.toJSON();
+    const { error, data } = updateStockAfterSale(deletedData, "delete");
 
-    return res.status(200).json({ message: "Sale deleted successfully" });
+    if (!error) {
+      await deletedSale.destroy();
+      return res.status(200).json({ message: "Sale deleted successfully" });
+    }
+
+    return res.status(400).json({ message: "Error occured while deleting" });
   } catch (error) {
     return res.status(500).json(error.message || error);
   }

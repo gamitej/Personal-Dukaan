@@ -38,7 +38,7 @@ router.post("/", async (req, res) => {
       ...req.body,
     });
 
-    const { error, data } = updateStockAfterPurchase(req.body);
+    const { error, data } = updateStockAfterPurchase(req.body, "update");
 
     if (!error) return res.status(200).json(newPurchase);
     return res.status(404).json(data);
@@ -70,19 +70,25 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-// Delete a sale
+// Delete a purchase
 router.delete("/:id", async (req, res) => {
   try {
-    const saleId = req.params.id;
+    const purchaseId = req.params.id;
 
-    const deletedPurchase = await Purchase.findByPk(saleId);
+    const deletedPurchase = await Purchase.findByPk(purchaseId);
     if (!deletedPurchase) {
       return res.status(404).json({ message: "Purchase not found" });
     }
 
-    await deletedPurchase.destroy();
+    const deletedData = deletedPurchase.toJSON();
+    const { error, data } = updateStockAfterPurchase(deletedData, "delete");
 
-    return res.status(200).json({ message: "Purchase deleted successfully" });
+    if (!error) {
+      await deletedPurchase.destroy();
+      return res.status(200).json({ message: "Purchase deleted successfully" });
+    }
+
+    return res.status(400).json({ message: "Error occured while deleting" });
   } catch (error) {
     return res.status(500).json(error.message || error);
   }
