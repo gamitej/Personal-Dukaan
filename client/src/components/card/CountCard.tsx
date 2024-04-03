@@ -1,20 +1,23 @@
-import { FC } from "react";
+import { FC, useState } from "react";
+import Modal from "../modal/Modal";
 
 interface CountCardProps {
   title: string;
   label?: string;
   value: number;
+  totalDetails?: any;
   enableDetails?: boolean;
-  handleDetails?: () => void;
 }
 
 const CountCard: FC<CountCardProps> = ({
   label = "",
   value = "0",
-  handleDetails,
   title = "Sales",
   enableDetails = false,
+  totalDetails = [],
 }) => {
+  const [isModelOpen, setIsModalOpen] = useState(false);
+
   /**
    * TSX
    */
@@ -36,13 +39,41 @@ const CountCard: FC<CountCardProps> = ({
         </div>
         {enableDetails && (
           <span
-            onClick={handleDetails}
-            className="absolute bottom-4 right-4 text-slate-600 hover:text-blue-500 cursor-pointer text-sm"
+            onClick={() => setIsModalOpen(true)}
+            className="absolute bottom-2 right-4 text-slate-600 hover:text-blue-500 cursor-pointer text-sm"
           >
-            details
+            more
           </span>
         )}
       </div>
+      <Modal
+        isOpen={isModelOpen}
+        onClose={() => setIsModalOpen(false)}
+        title="Total Sales Detail"
+      >
+        <div className="overflow-auto h-[100%]">
+          {totalDetails.length === 0 && (
+            <div className="h-[100%] w-full flex justify-center items-center">
+              <div>No record found</div>
+            </div>
+          )}
+          {totalDetails.map((item: any, idx: number) => (
+            <div
+              key={idx}
+              className="flex justify-between items-center py-1 px-2 text-lg"
+            >
+              <p className="uppercase">
+                {item.type} <span className="text-sm">({item.quantity})</span>
+              </p>
+              <p>
+                {item.amount && "Rs"}
+                {item.amount}
+                {item.quantity && ""}{" "}
+              </p>
+            </div>
+          ))}
+        </div>
+      </Modal>
     </div>
   );
 };

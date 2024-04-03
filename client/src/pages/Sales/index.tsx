@@ -38,7 +38,7 @@ const Sales = () => {
 
   // Query to fetch sales data
   const { data: totalSales = [] } = useQuery({
-    queryKey: ["total-sales-data"],
+    queryKey: ["total-sales-data", salesRowsData],
     queryFn: () => getTotalSalesDataApi(),
   });
 
@@ -97,7 +97,13 @@ const Sales = () => {
     <div className="px-[2rem] py-[3rem] w-full flex flex-col justify-center items-center gap-12">
       <div className="w-full h-[100%] flex items-center gap-6 flex-wrap">
         <HeaderCard />
-        <CountCard title="Sales" label="rs" value={totalAmount} />
+        <CountCard
+          title="Sales"
+          label="rs"
+          value={totalAmount}
+          enableDetails
+          totalDetails={totalSales}
+        />
         <CountCard title="Quantity" value={totalQuantity} />
       </div>
       <Table
