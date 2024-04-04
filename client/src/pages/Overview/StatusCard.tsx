@@ -12,8 +12,6 @@ import { useMemo } from "react";
 const StatusCard = () => {
   // =================== API CALL'S START ======================
 
-  // getProfitDataApi
-
   // Query to fetch sales data
   const { data: totalProfit = [] } = useQuery({
     queryKey: ["total-profit-data"],
@@ -36,14 +34,17 @@ const StatusCard = () => {
 
   // ==================== EVENT HANDLERS =====================
 
+  // total sales data calculation
   const { totalAmount: totalAmtSales } = useMemo(() => {
     return getTotalAmtAndQut(totalSales);
   }, [totalSales]);
 
+  // total purchase data calculation
   const { totalAmount: totalAmtPurchase } = useMemo(() => {
     return getTotalAmtAndQut(totalPurchase);
   }, [totalPurchase]);
 
+  // total profit data calculation
   const { totalAmount: totalProfitAmt, totalDetails = [] } = useMemo(() => {
     const totalAmount = totalProfit.reduce(
       (acc: any, { profit }: { profit: number }) => {
@@ -54,8 +55,6 @@ const StatusCard = () => {
     );
 
     const totalDetails = totalProfit.map((item: any) => {
-      // console.log(item);
-
       return {
         product: item.type,
         quantity: `${item.total_sold_quantity}/${item.total_purchase_quantity}`,
@@ -72,8 +71,6 @@ const StatusCard = () => {
 
     return { ...totalAmount, totalDetails };
   }, [totalProfit]);
-
-  console.log({ totalProfit });
 
   /**
    * TSX
