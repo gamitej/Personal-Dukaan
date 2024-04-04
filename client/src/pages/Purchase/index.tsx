@@ -72,7 +72,7 @@ const Purchase = () => {
         enableDelete
         cols={purchaseCols}
         tableHeight="20rem"
-        showEntriesPerPage={5}
+        showEntriesPerPage={10}
         handleEditRow={handleEditRow}
         rows={dateFormattedRowsData || []}
         handleDeleteRow={(id) => mutateDeletePurchaseData(id)}

@@ -43,11 +43,13 @@ const StockCard: FC<StockCardProps> = ({
               idx + 1 !== productList?.length && ""
             } py-1 px-6`}
           >
-            <div className="py-1">
+            <div className="py-1 flex justify-center items-center gap-1">
               <p className="text-lg text-slate-600 font-[400] uppercase">
                 {product}
               </p>
-              <p className="text-slate-500 font-[400] text-md">( {company} )</p>
+              <p className="text-slate-500 font-[400] text-[14px] uppercase">
+                ({company})
+              </p>
             </div>
             <p className="text-salte-600 font-[400]">{stock}</p>
           </div>

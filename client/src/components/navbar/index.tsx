@@ -4,8 +4,8 @@ import { Link, useLocation } from "react-router-dom";
 const navLink = [
   { to: "/", name: "Overview" },
   { to: "/purchase", name: "Purchase" },
-  { to: "/stocks", name: "Stocks" },
   { to: "/sales", name: "Sales" },
+  { to: "/stocks", name: "Stocks" },
 ];
 
 const Navbar = () => {
