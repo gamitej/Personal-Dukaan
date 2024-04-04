@@ -38,7 +38,7 @@ const CountCard: FC<CountCardProps> = ({
           <span className="ml-6 uppercase">{title}</span>
         </div>
         <div>
-          <p className="text-3xl font-[500] font-poppins text-slate-700">
+          <p className={`text-3xl font-[500] font-poppins text-slate-700`}>
             <span className="text-slate-500 font-poppins text-[16px] mr-1 uppercase">
               {label}
             </span>

@@ -1,8 +1,11 @@
 import CountCard from "@/components/card/CountCard";
+import { countCardProfitColsData } from "@/data/overview";
+import { countCardPurchaseColsData } from "@/data/purchase";
+import { countCardSalesColsData } from "@/data/sales";
 import { getProfitDataApi } from "@/services/APIs/overview.service";
 import { getTotalPurchaseDataApi } from "@/services/APIs/purchase.service";
 import { getTotalSalesDataApi } from "@/services/APIs/sales.service";
-import { getTotalAmtAndQut } from "@/utils";
+import { formattedRows, getTotalAmtAndQut } from "@/utils";
 import { useQuery } from "@tanstack/react-query";
 import { useMemo } from "react";
 
@@ -54,19 +57,23 @@ const StatusCard = () => {
       // console.log(item);
 
       return {
-        product_type: item.type,
+        product: item.type,
         quantity: `${item.total_sold_quantity}/${item.total_purchase_quantity}`,
-        avg: Math.round(item.total_sold_amount / item.total_sold_quantity),
-        profit: item.profit,
-        profit1: item.profit,
-        profit2: item.profit,
+        avg: `rs ${Math.round(
+          item.total_sold_amount / item.total_sold_quantity
+        )}/${Math.round(
+          item.total_purchase_amount / item.total_purchase_quantity
+        )}`,
+        sold: `Rs ${item.total_sold_amount}`,
+        purchased: `Rs ${item.total_purchase_amount}`,
+        profit: `Rs ${item.profit}`,
       };
     });
 
     return { ...totalAmount, totalDetails };
   }, [totalProfit]);
 
-  console.log({ totalDetails });
+  console.log({ totalProfit });
 
   /**
    * TSX
@@ -78,18 +85,11 @@ const StatusCard = () => {
         label="Rs"
         enableDetails
         modalWidth="80%"
-        totalDetails={totalDetails}
         title="Profit"
         value={totalProfitAmt}
+        totalDetails={totalDetails}
         modalTitle="Total Profit Details"
-        modalTableCols={[
-          "Product Type",
-          "Quantity (sales/pur)",
-          "Avg Price (sales/pur)",
-          "Total Sales Of Product",
-          "Total Purchase Of Product",
-          "Profit",
-        ]}
+        modalTableCols={countCardProfitColsData}
       />
       {/* ============ PURCHASE =========== */}
       <CountCard
@@ -97,8 +97,9 @@ const StatusCard = () => {
         enableDetails
         title="Purchase"
         value={totalAmtPurchase}
-        totalDetails={totalPurchase}
         modalTitle="Total Purchase Details"
+        modalTableCols={countCardPurchaseColsData}
+        totalDetails={formattedRows(totalPurchase)}
       />
       {/* ============ SALES =========== */}
       <CountCard
@@ -108,6 +109,7 @@ const StatusCard = () => {
         value={totalAmtSales}
         totalDetails={totalSales}
         modalTitle="Total Sales Details"
+        modalTableCols={countCardSalesColsData}
       />
     </div>
   );
