@@ -16,6 +16,7 @@
     "@mui/material": "^5.13.1",
     "@tanstack/react-query": "^5.28.8",
     "axios": "^1.6.8",
+    "number-to-words": "^1.2.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.4.1",

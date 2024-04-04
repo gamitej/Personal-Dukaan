@@ -1,5 +1,6 @@
 import { FC, useState } from "react";
 import Modal from "../modal/Modal";
+import { spawn } from "child_process";
 
 interface CountCardProps {
   title: string;
@@ -47,6 +48,7 @@ const CountCard: FC<CountCardProps> = ({
         )}
       </div>
       <Modal
+        modalWidth="35rem"
         isOpen={isModelOpen}
         onClose={() => setIsModalOpen(false)}
         title="Total Sales Detail"
@@ -66,9 +68,12 @@ const CountCard: FC<CountCardProps> = ({
                 {item.type} <span className="text-sm">({item.quantity})</span>
               </p>
               <p>
-                {item.amount && "Rs"}
+                <span className="text-sm">(avg) Rs </span>
+                {Math.round(item.amount / item.quantity)}
+              </p>
+              <p>
+                {item.amount && <span className="text-sm">Rs</span>}
                 {item.amount}
-                {item.quantity && ""}{" "}
               </p>
             </div>
           ))}
