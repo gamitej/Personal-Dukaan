@@ -1,4 +1,5 @@
 import toast from "react-hot-toast";
+import Converter from "number-to-words";
 import { ChangeEvent, FC, FormEvent } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 // components
@@ -167,14 +168,19 @@ const PurchaseModal: FC = () => {
             onChange={(value: string) => setFormData({ weightType: value })}
           />
         </div>
-        <InputField
-          type="number"
-          width="100%"
-          label="Amount (Rs)"
-          id="amount"
-          onChange={handleChange}
-          value={formData.amount}
-        />
+        <div className="w-full">
+          <InputField
+            type="number"
+            width="100%"
+            label="Amount (Rs)"
+            id="amount"
+            onChange={handleChange}
+            value={formData.amount}
+          />
+          <p className="mt-2 uppercase text-md text-slate-600">
+            {formData.amount ? Converter.toWords(formData.amount) : null}{" "}
+          </p>
+        </div>
 
         {isError.error && (
           <p className="text-lg text-red-400 -mt-4 -mb-4">
