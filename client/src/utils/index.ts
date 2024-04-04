@@ -39,3 +39,14 @@ export function getTotalAmtAndQut(totalArray = []) {
     { totalAmount: 0, totalQuantity: 0 }
   );
 }
+
+export const formattedRows = (totalDetails = []) => {
+  return totalDetails.map((item: any) => {
+    return {
+      product: item.type,
+      quantity: item.quantity,
+      avg: `Rs ${Math.round(item.amount / item.quantity)}`,
+      amount: `Rs ${item.amount}`,
+    };
+  });
+};

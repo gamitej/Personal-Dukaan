@@ -22,3 +22,10 @@ export const purchaseRows = [
     type: "wheat",
   },
 ];
+
+export const countCardPurchaseColsData = [
+  { value: "product", label: "Product Type" },
+  { value: "quantity", label: "Quantity" },
+  { value: "avg", label: "Avg Price" },
+  { value: "amount", label: "Total Sales Of Product" },
+];

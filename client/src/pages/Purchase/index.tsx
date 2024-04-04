@@ -7,7 +7,7 @@ import PurchaseModal from "./PurchaseModal";
 import Table from "@/components/table/Table";
 import AddButton from "@/components/button/AddButton";
 // data
-import { purchaseCols } from "@/data/purchase";
+import { countCardPurchaseColsData, purchaseCols } from "@/data/purchase";
 // store
 import { usePurchaseStore } from "@/store/purchase/usePurchaseStore";
 // services
@@ -17,7 +17,7 @@ import {
   getTotalPurchaseDataApi,
 } from "@/services/APIs/purchase.service";
 import CountCard from "@/components/card/CountCard";
-import { getTotalAmtAndQut } from "@/utils";
+import { formattedRows, getTotalAmtAndQut } from "@/utils";
 
 const Purchase = () => {
   const queryClient = useQueryClient();
@@ -86,11 +86,13 @@ const Purchase = () => {
     <div className="px-[2rem] py-[3rem] w-full flex flex-col justify-center items-center gap-12">
       <div className="w-full h-[100%] flex items-center gap-6 flex-wrap">
         <CountCard
-          title="Purchase"
           label="rs"
-          value={totalAmount}
           enableDetails
-          totalDetails={totalPurchase}
+          title="Purchase"
+          value={totalAmount}
+          modalTitle="Total Purchase Details"
+          modalTableCols={countCardPurchaseColsData}
+          totalDetails={formattedRows(totalPurchase)}
         />
         <CountCard title="Quantity" value={totalQuantity} />
       </div>

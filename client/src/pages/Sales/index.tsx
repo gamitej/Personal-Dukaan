@@ -6,7 +6,7 @@ import SalesModel from "./SalesModel";
 import Table from "@/components/table/Table";
 import AddButton from "@/components/button/AddButton";
 // data
-import { salesCols } from "@/data/sales";
+import { countCardSalesColsData, salesCols } from "@/data/sales";
 // store
 import { useSalesStore } from "@/store/sales/useSalesStore";
 // services
@@ -18,7 +18,7 @@ import {
 import toast from "react-hot-toast";
 import HeaderCard from "@/components/card/HeaderCard";
 import CountCard from "@/components/card/CountCard";
-import { getTotalAmtAndQut } from "@/utils";
+import { formattedRows, getTotalAmtAndQut } from "@/utils";
 
 const Sales = () => {
   const queryClient = useQueryClient();
@@ -90,9 +90,11 @@ const Sales = () => {
         <CountCard
           title="Sales"
           label="rs"
-          value={totalAmount}
           enableDetails
-          totalDetails={totalSales}
+          value={totalAmount}
+          modalTitle="Total Sales Details"
+          totalDetails={formattedRows(totalSales)}
+          modalTableCols={countCardSalesColsData}
         />
         <CountCard title="Quantity" value={totalQuantity} />
       </div>

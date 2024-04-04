@@ -18,3 +18,10 @@ export const salesRows = [
     amount: "20000",
   },
 ];
+
+export const countCardSalesColsData = [
+  { value: "product", label: "Product Type" },
+  { value: "quantity", label: "Quantity" },
+  { value: "avg", label: "Avg Price" },
+  { value: "amount", label: "Total Sales Of Product" },
+];

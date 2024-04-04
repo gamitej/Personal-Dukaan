@@ -17,8 +17,6 @@ const StatusCard = () => {
     queryFn: () => getProfitDataApi(),
   });
 
-  console.log({ totalProfit });
-
   // Query to fetch sales data
   const { data: totalSales = [] } = useQuery({
     queryKey: ["total-sales-data"],
@@ -43,25 +41,73 @@ const StatusCard = () => {
     return getTotalAmtAndQut(totalPurchase);
   }, [totalPurchase]);
 
+  const { totalAmount: totalProfitAmt, totalDetails = [] } = useMemo(() => {
+    const totalAmount = totalProfit.reduce(
+      (acc: any, { profit }: { profit: number }) => {
+        acc.totalAmount += profit;
+        return acc;
+      },
+      { totalAmount: 0 }
+    );
+
+    const totalDetails = totalProfit.map((item: any) => {
+      // console.log(item);
+
+      return {
+        product_type: item.type,
+        quantity: `${item.total_sold_quantity}/${item.total_purchase_quantity}`,
+        avg: Math.round(item.total_sold_amount / item.total_sold_quantity),
+        profit: item.profit,
+        profit1: item.profit,
+        profit2: item.profit,
+      };
+    });
+
+    return { ...totalAmount, totalDetails };
+  }, [totalProfit]);
+
+  console.log({ totalDetails });
+
   /**
    * TSX
    */
   return (
     <div className="w-full flex items-center gap-6 flex-wrap">
-      <CountCard title="Profit" value={0} label="Rs" />
+      {/* ============ PROFIT =========== */}
+      <CountCard
+        label="Rs"
+        enableDetails
+        modalWidth="80%"
+        totalDetails={totalDetails}
+        title="Profit"
+        value={totalProfitAmt}
+        modalTitle="Total Profit Details"
+        modalTableCols={[
+          "Product Type",
+          "Quantity (sales/pur)",
+          "Avg Price (sales/pur)",
+          "Total Sales Of Product",
+          "Total Purchase Of Product",
+          "Profit",
+        ]}
+      />
+      {/* ============ PURCHASE =========== */}
       <CountCard
         label="Rs"
         enableDetails
         title="Purchase"
         value={totalAmtPurchase}
         totalDetails={totalPurchase}
+        modalTitle="Total Purchase Details"
       />
+      {/* ============ SALES =========== */}
       <CountCard
         label="Rs"
         title="Sales"
         enableDetails
         value={totalAmtSales}
         totalDetails={totalSales}
+        modalTitle="Total Sales Details"
       />
     </div>
   );

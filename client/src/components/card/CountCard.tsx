@@ -1,4 +1,4 @@
-import { FC, useMemo, useState } from "react";
+import { FC, useState } from "react";
 // components
 import Modal from "../modal/Modal";
 import NormalTable from "./NormalTable";
@@ -8,28 +8,23 @@ interface CountCardProps {
   label?: string;
   value: number;
   totalDetails?: any;
+  modalTitle?: string;
+  modalWidth?: string;
   enableDetails?: boolean;
+  modalTableCols?: any[];
 }
 
 const CountCard: FC<CountCardProps> = ({
   label = "",
   value = "0",
   title = "Sales",
-  enableDetails = false,
   totalDetails = [],
+  enableDetails = false,
+  modalTitle = "Total Details",
+  modalWidth = "45rem",
+  modalTableCols = [],
 }) => {
   const [isModelOpen, setIsModalOpen] = useState(false);
-
-  const formattedRows = useMemo(() => {
-    return totalDetails.map((item: any) => {
-      return {
-        product: item.type,
-        quantity: item.quantity,
-        avg: `Rs ${Math.round(item.amount / item.quantity)}`,
-        amount: `Rs ${item.amount}`,
-      };
-    });
-  }, [totalDetails]);
 
   /**
    * TSX
@@ -60,10 +55,10 @@ const CountCard: FC<CountCardProps> = ({
         )}
       </div>
       <Modal
-        modalWidth="45rem"
+        title={modalTitle}
         isOpen={isModelOpen}
+        modalWidth={modalWidth}
         onClose={() => setIsModalOpen(false)}
-        title="Total Sales Details"
       >
         <div className="overflow-auto h-[100%]">
           {totalDetails.length === 0 && (
@@ -71,7 +66,9 @@ const CountCard: FC<CountCardProps> = ({
               <div className="text-slate-500 text-xl">No record found</div>
             </div>
           )}
-          {totalDetails.length > 0 && <NormalTable rows={formattedRows} />}
+          {totalDetails.length > 0 && (
+            <NormalTable cols={modalTableCols} rows={totalDetails} />
+          )}
         </div>
       </Modal>
     </div>

@@ -46,13 +46,13 @@ router.get("/total-profit", async (req, res) => {
 
       return {
         type: saleData.type,
-        total_sold_quantity: saleData.total_sold_quantity,
+        total_sold_quantity: parseInt(saleData.total_sold_quantity),
         total_purchase_quantity: purchaseData
-          ? purchaseData.total_purchase_quantity
+          ? parseInt(purchaseData.total_purchase_quantity)
           : 0,
-        total_sold_amount: saleData.total_sold_amount,
+        total_sold_amount: parseInt(saleData.total_sold_amount),
         total_purchase_amount: purchaseData
-          ? purchaseData.total_purchase_amount
+          ? parseInt(purchaseData.total_purchase_amount)
           : 0,
         profit: profit,
       };
