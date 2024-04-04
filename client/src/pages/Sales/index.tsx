@@ -18,6 +18,7 @@ import {
 import toast from "react-hot-toast";
 import HeaderCard from "@/components/card/HeaderCard";
 import CountCard from "@/components/card/CountCard";
+import { getTotalAmtAndQut } from "@/utils";
 
 const Sales = () => {
   const queryClient = useQueryClient();
@@ -62,18 +63,7 @@ const Sales = () => {
   // ==================== EVENT HANDLERS =====================
 
   const { totalAmount, totalQuantity } = useMemo(() => {
-    return totalSales.reduce(
-      (
-        acc: any,
-        { amount, quantity }: { amount: number; quantity: number }
-      ) => {
-        // Calculate the total amount and total quantity
-        acc.totalAmount += amount;
-        acc.totalQuantity += quantity;
-        return acc;
-      },
-      { totalAmount: 0, totalQuantity: 0 }
-    );
+    return getTotalAmtAndQut(totalSales);
   }, [totalSales]);
 
   const dateFormattedRowsData = useMemo(() => {

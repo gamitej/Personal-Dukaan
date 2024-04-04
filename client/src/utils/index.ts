@@ -19,6 +19,7 @@ export const convertToDefaultDateFormate = (
   return formattedValue;
 };
 
+// to find the null value of a given object key
 export function isAnyValueNull(formData: any) {
   for (const key in formData) {
     if (formData[key] === null) {
@@ -26,4 +27,15 @@ export function isAnyValueNull(formData: any) {
     }
   }
   return { isNull: false, key: null };
+}
+
+export function getTotalAmtAndQut(totalArray = []) {
+  return totalArray.reduce(
+    (acc: any, { amount, quantity }: { amount: number; quantity: number }) => {
+      acc.totalAmount += amount;
+      acc.totalQuantity += quantity;
+      return acc;
+    },
+    { totalAmount: 0, totalQuantity: 0 }
+  );
 }

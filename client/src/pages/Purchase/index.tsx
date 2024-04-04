@@ -17,6 +17,7 @@ import {
   getTotalPurchaseDataApi,
 } from "@/services/APIs/purchase.service";
 import CountCard from "@/components/card/CountCard";
+import { getTotalAmtAndQut } from "@/utils";
 
 const Purchase = () => {
   const queryClient = useQueryClient();
@@ -29,19 +30,19 @@ const Purchase = () => {
 
   // =================== API CALL'S START ======================
 
-  // Query to fetch sales data
+  // Query to fetch purchase data
   const { data: purchaseRowsData = [] } = useQuery({
     queryKey: ["purchase-row-data"],
     queryFn: () => getPurchaseTableDataApi(),
   });
 
-  // Query to fetch sales data
+  // Query to fetch purchase data
   const { data: totalPurchase = [] } = useQuery({
     queryKey: ["total-purchase-data", purchaseRowsData],
     queryFn: () => getTotalPurchaseDataApi(),
   });
 
-  // Mutation to delete sales data
+  // Mutation to delete purchase data
   const { mutate: mutateDeletePurchaseData } = useMutation({
     mutationFn: deletePurchaseDataApi,
     onSuccess: () => {
@@ -61,18 +62,7 @@ const Purchase = () => {
   // ==================== EVENT HANDLERS =====================
 
   const { totalAmount, totalQuantity } = useMemo(() => {
-    return totalPurchase.reduce(
-      (
-        acc: any,
-        { amount, quantity }: { amount: number; quantity: number }
-      ) => {
-        // Calculate the total amount and total quantity
-        acc.totalAmount += amount;
-        acc.totalQuantity += quantity;
-        return acc;
-      },
-      { totalAmount: 0, totalQuantity: 0 }
-    );
+    return getTotalAmtAndQut(totalPurchase);
   }, [totalPurchase]);
 
   const dateFormattedRowsData = useMemo(() => {
