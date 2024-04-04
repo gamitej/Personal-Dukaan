@@ -12,6 +12,7 @@ interface CountCardProps {
   modalWidth?: string;
   enableDetails?: boolean;
   modalTableCols?: any[];
+  modalHeight?: string;
 }
 
 const CountCard: FC<CountCardProps> = ({
@@ -23,6 +24,7 @@ const CountCard: FC<CountCardProps> = ({
   modalTitle = "Total Details",
   modalWidth = "45rem",
   modalTableCols = [],
+  modalHeight = "25rem",
 }) => {
   const [isModelOpen, setIsModalOpen] = useState(false);
 
@@ -57,6 +59,7 @@ const CountCard: FC<CountCardProps> = ({
       <Modal
         title={modalTitle}
         isOpen={isModelOpen}
+        modalHeight={modalHeight}
         modalWidth={modalWidth}
         onClose={() => setIsModalOpen(false)}
       >
