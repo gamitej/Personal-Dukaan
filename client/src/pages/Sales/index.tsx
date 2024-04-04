@@ -1,10 +1,13 @@
 import moment from "moment";
 import { useMemo } from "react";
+import toast from "react-hot-toast";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 // components
 import SalesModel from "./SalesModel";
 import Table from "@/components/table/Table";
+import CountCard from "@/components/card/CountCard";
 import AddButton from "@/components/button/AddButton";
+import HeaderCard from "@/components/card/HeaderCard";
 // data
 import { countCardSalesColsData, salesCols } from "@/data/sales";
 // store
@@ -15,9 +18,7 @@ import {
   getSalesTableDataApi,
   getTotalSalesDataApi,
 } from "@/services/APIs/sales.service";
-import toast from "react-hot-toast";
-import HeaderCard from "@/components/card/HeaderCard";
-import CountCard from "@/components/card/CountCard";
+// utils
 import { formattedRows, getTotalAmtAndQut } from "@/utils";
 
 const Sales = () => {

@@ -3,7 +3,9 @@ import { Link, useLocation } from "react-router-dom";
 
 const navLink = [
   { to: "/", name: "Overview" },
+  { to: "/expenses", name: "Expenses" },
   { to: "/purchase", name: "Purchase" },
+  { to: "/payments", name: "Payments" },
   { to: "/sales", name: "Sales" },
   { to: "/stocks", name: "Stocks" },
 ];

@@ -5,6 +5,8 @@ const Sales = lazy(() => import("@/pages/Sales"));
 const Stocks = lazy(() => import("@/pages/Stocks"));
 const Overview = lazy(() => import("@/pages/Overview"));
 const Purchase = lazy(() => import("@/pages/Purchase"));
+const Expenses = lazy(() => import("@/pages/Expenses"));
+const Payments = lazy(() => import("@/pages/Payments"));
 
 const Router = () => {
   const route = useRoutes([
@@ -23,6 +25,14 @@ const Router = () => {
     {
       path: "/sales",
       element: <Sales />,
+    },
+    {
+      path: "/expenses",
+      element: <Expenses />,
+    },
+    {
+      path: "/payments",
+      element: <Payments />,
     },
     {
       path: "*",
