@@ -52,11 +52,11 @@ const Purchase = () => {
     return purchaseRowsData.map((item: any) => ({
       ...item,
       date: moment(new Date(item.date)).format("DD-MM-YYYY"),
+      avg: Math.round(item.amount / item.quantity),
     }));
   }, [purchaseRowsData]);
 
   const handleEditRow = (rowData: any) => {
-    console.log(rowData);
     setIsModalOpen(true);
     setFormData(rowData);
     setPurchaseFormDataType("EDIT");

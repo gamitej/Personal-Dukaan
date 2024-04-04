@@ -42,8 +42,6 @@ const Sales = () => {
     queryFn: () => getTotalSalesDataApi(),
   });
 
-  console.log({ totalSales });
-
   // Mutation to delete sales data
   const { mutate: mutateDeleteSalesData } = useMutation({
     mutationFn: deleteSalesDataApi,
@@ -80,11 +78,11 @@ const Sales = () => {
     return salesRowsData.map((item: any) => ({
       ...item,
       date: moment(new Date(item.date)).format("DD-MM-YYYY"),
+      avg: Math.round(item.amount / item.quantity),
     }));
   }, [salesRowsData]);
 
   const handleEditRow = (rowData: any) => {
-    console.log(rowData);
     setIsModalOpen(true);
     setFormData(rowData);
     setSalesFormDataType("EDIT");

@@ -1,11 +1,12 @@
 export const purchaseCols = [
   { label: "Date", value: "date", width: "5rem" },
-  { label: "Party Name", value: "party", width: "10rem" },
+  { label: "Party Name", value: "party", width: "8rem" },
   { label: "Product", value: "product", width: "8rem" },
-  { label: "Product Company", value: "company", width: "10rem" },
+  { label: "Product Company", value: "company", width: "8rem" },
   { label: "Type", value: "type", width: "5rem" },
   { label: "Quantity", value: "quantity", width: "5rem" },
-  { label: "Weight (kg/gm)", value: "weight", width: "3rem" },
+  { label: "Weight (kg/gm)", value: "weight", width: "5rem" },
+  { label: "Avg Price (Rs)", value: "avg", width: "5rem" },
   { label: "Amount (Rs)", value: "amount", width: "3rem" },
 ];
 
