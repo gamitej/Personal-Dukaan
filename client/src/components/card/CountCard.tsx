@@ -1,6 +1,7 @@
-import { FC, useState } from "react";
+import { FC, useMemo, useState } from "react";
 import Modal from "../modal/Modal";
 import { spawn } from "child_process";
+import NormalTable from "./NormalTable";
 
 interface CountCardProps {
   title: string;
@@ -18,6 +19,17 @@ const CountCard: FC<CountCardProps> = ({
   totalDetails = [],
 }) => {
   const [isModelOpen, setIsModalOpen] = useState(false);
+
+  const formattedRows = useMemo(() => {
+    return totalDetails.map((item: any) => {
+      return {
+        product: item.type,
+        quantity: item.quantity,
+        avg: `Rs ${Math.round(item.amount / item.quantity)}`,
+        amount: `Rs ${item.amount}`,
+      };
+    });
+  }, [totalDetails]);
 
   /**
    * TSX
@@ -48,7 +60,7 @@ const CountCard: FC<CountCardProps> = ({
         )}
       </div>
       <Modal
-        modalWidth="35rem"
+        modalWidth="45rem"
         isOpen={isModelOpen}
         onClose={() => setIsModalOpen(false)}
         title="Total Sales Detail"
@@ -59,24 +71,7 @@ const CountCard: FC<CountCardProps> = ({
               <div>No record found</div>
             </div>
           )}
-          {totalDetails.map((item: any, idx: number) => (
-            <div
-              key={idx}
-              className="flex justify-between items-center py-1 px-2 text-lg"
-            >
-              <p className="uppercase">
-                {item.type} <span className="text-sm">({item.quantity})</span>
-              </p>
-              <p>
-                <span className="text-sm">(avg) Rs </span>
-                {Math.round(item.amount / item.quantity)}
-              </p>
-              <p>
-                {item.amount && <span className="text-sm">Rs</span>}
-                {item.amount}
-              </p>
-            </div>
-          ))}
+          <NormalTable rows={formattedRows} />
         </div>
       </Modal>
     </div>

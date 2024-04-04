@@ -44,7 +44,7 @@ const Modal = ({
         </div>
         <div className="border-bottom"></div>
         {/* body */}
-        <div className="children">{children}</div>
+        <div className="children w-full h-[100%]">{children}</div>
       </div>
     </div>
   );
