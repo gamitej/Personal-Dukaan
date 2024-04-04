@@ -18,9 +18,12 @@ import {
 } from "@/data/all";
 // store
 import { usePurchaseStore } from "@/store/purchase/usePurchaseStore";
+import { isAnyValueNull } from "@/utils";
 
 const PurchaseModal: FC = () => {
   const {
+    isError,
+    setIsError,
     isModalOpen,
     setIsModalOpen,
     isPurchaseAddApiLoading,
@@ -63,8 +66,15 @@ const PurchaseModal: FC = () => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsPurchaseAddApiLoading(true);
-    mutateAddPurchaseData(formData);
+
+    const { isNull, key } = isAnyValueNull(formData);
+
+    if (!isNull) {
+      setIsPurchaseAddApiLoading(true);
+      mutateAddPurchaseData(formData);
+    } else {
+      setIsError(true, key);
+    }
   };
 
   /**
@@ -166,6 +176,12 @@ const PurchaseModal: FC = () => {
           value={formData.amount}
         />
 
+        {isError.error && (
+          <p className="text-lg text-red-400 -mt-4 -mb-4">
+            <span className="capitalize">{isError.keyName}</span> field cannot
+            be empty
+          </p>
+        )}
         <button
           type="submit"
           disabled={isPurchaseAddApiLoading}

@@ -18,3 +18,12 @@ export const convertToDefaultDateFormate = (
 
   return formattedValue;
 };
+
+export function isAnyValueNull(formData: any) {
+  for (const key in formData) {
+    if (formData[key] === null) {
+      return { isNull: true, key: key };
+    }
+  }
+  return { isNull: false, key: null };
+}

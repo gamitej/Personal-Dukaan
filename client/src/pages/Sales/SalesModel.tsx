@@ -17,11 +17,14 @@ import {
 } from "@/data/all";
 // store
 import { useSalesStore } from "@/store/sales/useSalesStore";
+import { isAnyValueNull } from "@/utils";
 
 const SalesModel: FC = () => {
   const queryClient = useQueryClient();
 
   const {
+    isError,
+    setIsError,
     isModalOpen,
     setIsModalOpen,
     isSalesAddApiLoading,
@@ -62,8 +65,15 @@ const SalesModel: FC = () => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsSalesAddApiLoading(true);
-    mutateAddSalesData(formData);
+
+    const { isNull, key } = isAnyValueNull(formData);
+
+    if (!isNull) {
+      setIsSalesAddApiLoading(true);
+      mutateAddSalesData(formData);
+    } else {
+      setIsError(true, key);
+    }
   };
 
   /**
@@ -156,6 +166,12 @@ const SalesModel: FC = () => {
           value={formData.amount}
         />
 
+        {isError.error && (
+          <p className="text-lg text-red-400 -mt-4 -mb-4">
+            <span className="capitalize">{isError.keyName}</span> field cannot
+            be empty
+          </p>
+        )}
         <button
           type="submit"
           disabled={isSalesAddApiLoading}

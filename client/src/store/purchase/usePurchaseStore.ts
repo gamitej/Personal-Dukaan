@@ -4,6 +4,8 @@ import { purchaseFormType } from "@/types/purchase";
 type purchaseFormDataType = "ADD" | "EDIT";
 
 interface PurchaseState {
+  isError: { error: boolean; keyName: string | null };
+  setIsError: (error: boolean, key: string | null) => void;
   isModalOpen: boolean;
   isPurchaseAddApiLoading: boolean;
   purchaseFormData: purchaseFormType;
@@ -28,6 +30,11 @@ const defaultFormData = {
 };
 
 export const usePurchaseStore = create<PurchaseState>((set) => ({
+  isError: { error: false, keyName: null },
+  setIsError: (error, key) => {
+    set((state) => ({ ...state, isError: { error: error, keyName: key } }));
+  },
+
   isPurchaseAddApiLoading: false,
   setIsPurchaseAddApiLoading: (value) => {
     set((state) => ({ ...state, isSalesAddApiLoading: value }));
@@ -48,9 +55,14 @@ export const usePurchaseStore = create<PurchaseState>((set) => ({
     set((state) => ({
       ...state,
       purchaseFormData: { ...state.purchaseFormData, ...object },
+      isError: { error: false, keyName: null },
     }));
   },
   setResetPurchaseFormData: () => {
-    set((state) => ({ ...state, purchaseFormData: { ...defaultFormData } }));
+    set((state) => ({
+      ...state,
+      purchaseFormData: { ...defaultFormData },
+      isError: { error: false, keyName: null },
+    }));
   },
 }));

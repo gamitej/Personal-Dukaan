@@ -4,6 +4,8 @@ import { salesFormType } from "@/types/sales";
 type salesFormDataType = "ADD" | "EDIT";
 
 interface SalesState {
+  isError: { error: boolean; keyName: string | null };
+  setIsError: (error: boolean, key: string | null) => void;
   isModalOpen: boolean;
   salesFormData: salesFormType;
   isSalesAddApiLoading: boolean;
@@ -27,6 +29,11 @@ const defaultFormData = {
 };
 
 export const useSalesStore = create<SalesState>((set) => ({
+  isError: { error: false, keyName: null },
+  setIsError: (error, key) => {
+    set((state) => ({ ...state, isError: { error: error, keyName: key } }));
+  },
+
   isSalesAddApiLoading: false,
   setIsSalesAddApiLoading: (value) => {
     set((state) => ({ ...state, isSalesAddApiLoading: value }));
@@ -47,9 +54,14 @@ export const useSalesStore = create<SalesState>((set) => ({
     set((state) => ({
       ...state,
       salesFormData: { ...state.salesFormData, ...object },
+      isError: { error: false, keyName: null },
     }));
   },
   setResetSalesFormData: () => {
-    set((state) => ({ ...state, salesFormData: { ...defaultFormData } }));
+    set((state) => ({
+      ...state,
+      salesFormData: { ...defaultFormData },
+      isError: { error: false, keyName: null },
+    }));
   },
 }));
