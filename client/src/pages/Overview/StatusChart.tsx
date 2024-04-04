@@ -21,7 +21,7 @@ const StatusChart = () => {
       markersSize={5}
       chartHeight={350}
       yAxisTitle="Price"
-      title="Report Chart"
+      title="Overview"
       xAxisData={[]}
       additionalRightHeadComp={
         <Dropdown

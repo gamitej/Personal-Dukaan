@@ -107,9 +107,9 @@ const StatusCard = () => {
         title="Sales"
         enableDetails
         value={totalAmtSales}
-        totalDetails={totalSales}
         modalTitle="Total Sales Details"
         modalTableCols={countCardSalesColsData}
+        totalDetails={formattedRows(totalSales)}
       />
     </div>
   );
