@@ -1,6 +1,9 @@
 import express from "express";
-import sequelize from "../database/connection.js";
+//models
 import Sales from "../models/sales.model.js";
+// database
+import sequelize from "../database/connection.js";
+// utils
 import { updateStockAfterSale } from "../utils/updateStock.js";
 
 const router = express.Router();
