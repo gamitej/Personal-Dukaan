@@ -57,7 +57,9 @@ const Sales = () => {
     },
   });
 
-  // ================== EVENT HANDLERS ==================
+  // =================== API CALL'S END ======================
+
+  // ==================== EVENT HANDLERS =====================
 
   const { totalAmount, totalQuantity } = useMemo(() => {
     return totalSales.reduce(

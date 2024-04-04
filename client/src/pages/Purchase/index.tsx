@@ -14,7 +14,9 @@ import { usePurchaseStore } from "@/store/purchase/usePurchaseStore";
 import {
   deletePurchaseDataApi,
   getPurchaseTableDataApi,
+  getTotalPurchaseDataApi,
 } from "@/services/APIs/purchase.service";
+import CountCard from "@/components/card/CountCard";
 
 const Purchase = () => {
   const queryClient = useQueryClient();
@@ -25,10 +27,18 @@ const Purchase = () => {
     setPurchaseFormDataType,
   } = usePurchaseStore();
 
+  // =================== API CALL'S START ======================
+
   // Query to fetch sales data
   const { data: purchaseRowsData = [] } = useQuery({
     queryKey: ["purchase-row-data"],
     queryFn: () => getPurchaseTableDataApi(),
+  });
+
+  // Query to fetch sales data
+  const { data: totalPurchase = [] } = useQuery({
+    queryKey: ["total-purchase-data", purchaseRowsData],
+    queryFn: () => getTotalPurchaseDataApi(),
   });
 
   // Mutation to delete sales data
@@ -46,7 +56,24 @@ const Purchase = () => {
     },
   });
 
-  // ================== EVENT HANDLERS ==================
+  // =================== API CALL'S END ======================
+
+  // ==================== EVENT HANDLERS =====================
+
+  const { totalAmount, totalQuantity } = useMemo(() => {
+    return totalPurchase.reduce(
+      (
+        acc: any,
+        { amount, quantity }: { amount: number; quantity: number }
+      ) => {
+        // Calculate the total amount and total quantity
+        acc.totalAmount += amount;
+        acc.totalQuantity += quantity;
+        return acc;
+      },
+      { totalAmount: 0, totalQuantity: 0 }
+    );
+  }, [totalPurchase]);
 
   const dateFormattedRowsData = useMemo(() => {
     return purchaseRowsData.map((item: any) => ({
@@ -66,7 +93,17 @@ const Purchase = () => {
    * TSX
    */
   return (
-    <div className="px-[2rem] py-[3rem]">
+    <div className="px-[2rem] py-[3rem] w-full flex flex-col justify-center items-center gap-12">
+      <div className="w-full h-[100%] flex items-center gap-6 flex-wrap">
+        <CountCard
+          title="Purchase"
+          label="rs"
+          value={totalAmount}
+          enableDetails
+          totalDetails={totalPurchase}
+        />
+        <CountCard title="Quantity" value={totalQuantity} />
+      </div>
       <Table
         title="Purchase"
         enableDelete

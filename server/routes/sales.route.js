@@ -5,6 +5,7 @@ import { updateStockAfterSale } from "../utils/updateStock.js";
 
 const router = express.Router();
 
+// total sales number data
 router.get("/total-sales", async (req, res) => {
   try {
     const sales = await Sales.findAll({
@@ -23,6 +24,7 @@ router.get("/total-sales", async (req, res) => {
   }
 });
 
+// get the sales table data
 router.get("/", async (req, res) => {
   try {
     const sales = await Sales.findAll({

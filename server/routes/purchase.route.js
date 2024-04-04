@@ -4,6 +4,26 @@ import { updateStockAfterPurchase } from "../utils/updateStock.js";
 
 const router = express.Router();
 
+// total purchase number data
+router.get("/total-purchase", async (req, res) => {
+  try {
+    const sales = await Purchase.findAll({
+      attributes: [
+        "type",
+        [sequelize.fn("sum", sequelize.col("quantity")), "quantity"],
+        [sequelize.fn("sum", sequelize.col("amount")), "amount"],
+      ],
+      group: ["type"],
+      order: [["type", "ASC"]],
+    });
+
+    return res.status(200).json(sales);
+  } catch (error) {
+    return res.status(500).json(error.message || error);
+  }
+});
+
+// get the purchase table data
 router.get("/", async (req, res) => {
   try {
     const purchase = await Purchase.findAll({

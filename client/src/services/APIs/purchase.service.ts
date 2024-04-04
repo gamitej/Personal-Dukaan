@@ -6,6 +6,11 @@ export async function getPurchaseTableDataApi() {
   return data;
 }
 
+export async function getTotalPurchaseDataApi() {
+  const { data } = await http.get(`/purchase/total-purchase`);
+  return data;
+}
+
 export async function addPurchaseDataApi(req: purchaseFormType) {
   const { data } = await http.post(`/purchase`, req);
   return data;

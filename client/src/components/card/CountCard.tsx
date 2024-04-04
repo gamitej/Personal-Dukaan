@@ -67,11 +67,11 @@ const CountCard: FC<CountCardProps> = ({
       >
         <div className="overflow-auto h-[100%]">
           {totalDetails.length === 0 && (
-            <div className="h-[100%] w-full flex justify-center items-center">
-              <div>No record found</div>
+            <div className="h-[70%] w-full flex justify-center items-center">
+              <div className="text-slate-500 text-xl">No record found</div>
             </div>
           )}
-          <NormalTable rows={formattedRows} />
+          {totalDetails.length > 0 && <NormalTable rows={formattedRows} />}
         </div>
       </Modal>
     </div>
