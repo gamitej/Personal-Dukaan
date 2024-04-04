@@ -1,6 +1,6 @@
 import { FC, useMemo, useState } from "react";
+// components
 import Modal from "../modal/Modal";
-import { spawn } from "child_process";
 import NormalTable from "./NormalTable";
 
 interface CountCardProps {
@@ -63,7 +63,7 @@ const CountCard: FC<CountCardProps> = ({
         modalWidth="45rem"
         isOpen={isModelOpen}
         onClose={() => setIsModalOpen(false)}
-        title="Total Sales Detail"
+        title="Total Sales Details"
       >
         <div className="overflow-auto h-[100%]">
           {totalDetails.length === 0 && (
