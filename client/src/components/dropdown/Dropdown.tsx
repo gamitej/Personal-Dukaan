@@ -8,6 +8,7 @@ interface DropdownProps<T extends DropdownValue> {
   label: string;
   width?: string;
   selectedValue: T | null;
+  backgroundColor?: string;
   onChange: (value: T) => void;
   options: { label: T; value: T }[] | [];
 }
@@ -18,6 +19,7 @@ const Dropdown = <T extends DropdownValue>({
   selectedValue,
   options = [],
   onChange,
+  backgroundColor = "whitesmoke",
 }: DropdownProps<T>) => {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [showOptions, setShowOptions] = useState<boolean>(false);
@@ -71,7 +73,7 @@ const Dropdown = <T extends DropdownValue>({
     <div
       ref={dropdownRef}
       className={`dropdown ${showOptions && "active"}`}
-      style={{ width: width }}
+      style={{ width: width, backgroundColor: backgroundColor }}
     >
       <label>{label}</label>
       <div className="dropdown-title" onClick={handleOpen}>
