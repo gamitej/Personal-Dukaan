@@ -5,6 +5,7 @@ import database from "./database/connection.js";
 import SalesRoute from "./routes/sales.route.js";
 import StockRoute from "./routes/stock.route.js";
 import PurchaseRoute from "./routes/purchase.route.js";
+import OverviewRoute from "./routes/overview.route.js";
 
 const PORT = 3000;
 const app = express();
@@ -15,6 +16,7 @@ app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 app.use("/api/sales", SalesRoute);
 app.use("/api/stock", StockRoute);
 app.use("/api/purchase", PurchaseRoute);
+app.use("/api/overview", OverviewRoute);
 
 try {
   await database.sync();

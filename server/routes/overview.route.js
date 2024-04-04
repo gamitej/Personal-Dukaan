@@ -7,18 +7,61 @@ const router = express.Router();
 
 router.get("/total-profit", async (req, res) => {
   try {
-    const sales = await Sales.findAll({
+    // Fetching sales data grouped by type
+    const salesByType = await Sales.findAll({
       attributes: [
         "type",
-        [sequelize.fn("sum", sequelize.col("quantity")), "quantity"],
-        [sequelize.fn("sum", sequelize.col("amount")), "amount"],
+        [sequelize.fn("SUM", sequelize.col("amount")), "total_sold_amount"],
+        [sequelize.fn("SUM", sequelize.col("quantity")), "total_sold_quantity"],
       ],
       group: ["type"],
-      order: [["type", "ASC"]],
     });
 
-    return res.status(200).json(sales);
+    // Fetching purchase data grouped by type
+    const purchaseByType = await Purchase.findAll({
+      attributes: [
+        "type",
+        [sequelize.fn("SUM", sequelize.col("amount")), "total_purchase_amount"],
+        [
+          sequelize.fn("SUM", sequelize.col("quantity")),
+          "total_purchase_quantity",
+        ],
+      ],
+      group: ["type"],
+    });
+
+    // Calculating profit by type
+    const profitByType = salesByType.map((sale) => {
+      const saleData = sale.toJSON();
+
+      const purchase = purchaseByType.find(
+        (purchase) => purchase.toJSON().type === saleData.type
+      );
+
+      const purchaseData = purchase.toJSON();
+
+      const profit =
+        parseInt(saleData.total_sold_amount) -
+        (purchaseData ? parseInt(purchaseData.total_purchase_amount) : 0);
+
+      return {
+        type: saleData.type,
+        total_sold_quantity: saleData.total_sold_quantity,
+        total_purchase_quantity: purchaseData
+          ? purchaseData.total_purchase_quantity
+          : 0,
+        total_sold_amount: saleData.total_sold_amount,
+        total_purchase_amount: purchaseData
+          ? purchaseData.total_purchase_amount
+          : 0,
+        profit: profit,
+      };
+    });
+
+    return res.status(200).json(profitByType);
   } catch (error) {
     return res.status(500).json(error.message || error);
   }
 });
+
+export default router;

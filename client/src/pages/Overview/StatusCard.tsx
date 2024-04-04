@@ -1,4 +1,5 @@
 import CountCard from "@/components/card/CountCard";
+import { getProfitDataApi } from "@/services/APIs/overview.service";
 import { getTotalPurchaseDataApi } from "@/services/APIs/purchase.service";
 import { getTotalSalesDataApi } from "@/services/APIs/sales.service";
 import { getTotalAmtAndQut } from "@/utils";
@@ -7,6 +8,16 @@ import { useMemo } from "react";
 
 const StatusCard = () => {
   // =================== API CALL'S START ======================
+
+  // getProfitDataApi
+
+  // Query to fetch sales data
+  const { data: totalProfit = [] } = useQuery({
+    queryKey: ["total-profit-data"],
+    queryFn: () => getProfitDataApi(),
+  });
+
+  console.log({ totalProfit });
 
   // Query to fetch sales data
   const { data: totalSales = [] } = useQuery({
@@ -36,7 +47,7 @@ const StatusCard = () => {
    * TSX
    */
   return (
-    <div className="w-full flex items-center gap-6">
+    <div className="w-full flex items-center gap-6 flex-wrap">
       <CountCard title="Profit" value={0} label="Rs" />
       <CountCard
         label="Rs"
