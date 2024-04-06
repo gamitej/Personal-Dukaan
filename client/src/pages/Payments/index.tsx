@@ -5,8 +5,11 @@ import CountCard from "@/components/card/CountCard";
 import AddButton from "@/components/button/AddButton";
 // data
 import { paymentsCols, paymentsRows } from "@/data/payments";
+import { usePaymentStore } from "@/store/payments/usePaymentStore";
 
 const Expenses = () => {
+  const { setIsModalOpen } = usePaymentStore();
+
   /**
    * TSX
    */
@@ -37,7 +40,7 @@ const Expenses = () => {
             size="sm"
             handleClick={() => {
               //   setSalesFormDataType("ADD");
-              //   setIsModalOpen(true);
+              setIsModalOpen(true);
             }}
           />
         }

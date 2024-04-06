@@ -12,9 +12,9 @@ interface PaymentState {
   isPaymentAddApiLoading: boolean;
   setIsPaymentAddApiLoading: (value: boolean) => void;
   paymentFormData: paymentFormType;
-  setPaymentFormDataType: (name: paymentFormDataType) => void;
-  paymentFormDataType: paymentFormDataType;
   setPaymentFormData: (values: { [key: string]: any }) => void;
+  paymentFormDataType: paymentFormDataType;
+  setPaymentFormDataType: (name: paymentFormDataType) => void;
   setResetPaymentFormData: () => void;
 }
 
@@ -53,7 +53,7 @@ export const usePaymentStore = create<PaymentState>((set) => ({
   setPaymentFormData: (object) => {
     set((state) => ({
       ...state,
-      purchaseFormData: { ...state.paymentFormData, ...object },
+      paymentFormData: { ...state.paymentFormData, ...object },
       isError: { error: false, keyName: null },
     }));
   },

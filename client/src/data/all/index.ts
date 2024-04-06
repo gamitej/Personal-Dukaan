@@ -57,3 +57,11 @@ export const productTypeOptions = [
   { id: 3, label: "RICE", value: "rice" },
   { id: 3, label: "PESTICIDE", value: "pesticide" },
 ];
+
+// ===================== PAYMENT MODE OPTIONS ================
+
+export const paymentModeOptions = [
+  { id: 1, label: "UPI", value: "upi" },
+  { id: 2, label: "CASH", value: "cash" },
+  { id: 3, label: "ACCOUNT", value: "account" },
+];
