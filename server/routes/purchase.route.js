@@ -5,10 +5,11 @@ import sequelize from "../database/connection.js";
 import Purchase from "../models/purchase.model.js";
 // utils
 import { updateStockAfterPurchase } from "../utils/updateStock.js";
+import { updatePendingPaymentRecord } from "../utils/updatePayment.js";
 
 const router = express.Router();
 
-// total purchase number data
+// Total purchase number data
 router.get("/total-purchase", async (req, res) => {
   try {
     const sales = await Purchase.findAll({
@@ -27,7 +28,7 @@ router.get("/total-purchase", async (req, res) => {
   }
 });
 
-// get the purchase table data
+// Get the purchase table data
 router.get("/", async (req, res) => {
   try {
     const purchase = await Purchase.findAll({
@@ -62,12 +63,20 @@ router.post("/", async (req, res) => {
       ...req.body,
     });
 
-    const { error, data } = updateStockAfterPurchase(req.body, "update");
+    const { error: pendingStock, data } = updateStockAfterPurchase(
+      req.body,
+      "update"
+    );
+    const { error: pendingError } = updatePendingPaymentRecord(
+      req.body,
+      "update"
+    );
 
-    if (!error) return res.status(200).json(newPurchase);
+    if (!pendingStock && !pendingError)
+      return res.status(200).json(newPurchase);
     return res.status(404).json(data);
-  } catch (error) {
-    return res.status(500).json(error.message || error);
+  } catch (pendingStock) {
+    return res.status(500).json(pendingStock.message || pendingStock);
   }
 });
 
