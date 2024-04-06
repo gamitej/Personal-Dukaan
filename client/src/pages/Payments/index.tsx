@@ -1,14 +1,34 @@
+import { useQuery } from "@tanstack/react-query";
 // components
 import PaymentModel from "./PaymentModel";
 import Table from "@/components/table/Table";
 import CountCard from "@/components/card/CountCard";
 import AddButton from "@/components/button/AddButton";
 // data
-import { paymentsCols, paymentsRows } from "@/data/payments";
+import { paymentsCols } from "@/data/payments";
+// store
 import { usePaymentStore } from "@/store/payments/usePaymentStore";
+// service
+import { getPaymentsTableDataApi } from "@/services/APIs/payment.service";
 
 const Expenses = () => {
-  const { setIsModalOpen } = usePaymentStore();
+  const { setIsModalOpen, setPaymentFormDataType } = usePaymentStore();
+
+  // =================== API CALL'S START ======================
+
+  // Query to fetch sales data
+  const { data: paymentsRowsData = [] } = useQuery({
+    queryKey: ["sales-row-data"],
+    queryFn: () => getPaymentsTableDataApi(),
+  });
+
+  // Query to fetch sales data
+  // const { data: totalSales = [] } = useQuery({
+  //   queryKey: ["total-sales-data", salesRowsData],
+  //   queryFn: () => getTotalPaymentDataApi(),
+  // });
+
+  // =================== API CALL'S END ======================
 
   /**
    * TSX
@@ -34,12 +54,12 @@ const Expenses = () => {
         showEntriesPerPage={10}
         // handleEditRow={handleEditRow}
         // handleDeleteRow={(id) => mutateDeleteSalesData(id)}
-        rows={paymentsRows || []}
+        rows={paymentsRowsData || []}
         additionalLeftSideToolbarComp={
           <AddButton
             size="sm"
             handleClick={() => {
-              //   setSalesFormDataType("ADD");
+              setPaymentFormDataType("ADD");
               setIsModalOpen(true);
             }}
           />

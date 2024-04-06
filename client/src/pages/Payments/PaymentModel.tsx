@@ -37,8 +37,6 @@ const PaymentModel: FC = () => {
     setPaymentFormData: setFormData,
   } = usePaymentStore();
 
-  console.log({ formData });
-
   // =================== API CALL'S START ======================
 
   // Mutation to add sales data
