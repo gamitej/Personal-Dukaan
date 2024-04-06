@@ -7,8 +7,8 @@ export async function getSalesTableDataApi(dateField: DateFieldType | null) {
   return data;
 }
 
-export async function getTotalSalesDataApi() {
-  const { data } = await http.get(`/sales/total-sales`);
+export async function getTotalSalesDataApi(dateField: DateFieldType | null) {
+  const { data } = await http.post(`/sales/total-sales`, dateField);
   return data;
 }
 

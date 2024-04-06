@@ -10,8 +10,29 @@ import { updateStockAfterSale } from "../utils/updateStock.js";
 const router = express.Router();
 
 // total sales number data
-router.get("/total-sales", async (req, res) => {
+router.post("/total-sales", async (req, res) => {
   try {
+    const { startDate, endDate } = req.body;
+
+    if (startDate !== null && endDate !== null) {
+      const sales = await Sales.findAll({
+        attributes: [
+          "type",
+          [sequelize.fn("sum", sequelize.col("quantity")), "quantity"],
+          [sequelize.fn("sum", sequelize.col("amount")), "amount"],
+        ],
+        group: ["type"],
+        order: [["type", "ASC"]],
+        where: {
+          date: {
+            [Op.between]: [startDate, endDate],
+          },
+        },
+      });
+
+      return res.status(200).json(sales);
+    }
+
     const sales = await Sales.findAll({
       attributes: [
         "type",

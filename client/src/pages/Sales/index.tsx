@@ -45,8 +45,8 @@ const Sales = () => {
 
   // Query to fetch sales data
   const { data: totalSales = [] } = useQuery({
-    queryKey: ["total-sales-data", salesRowsData],
-    queryFn: () => getTotalSalesDataApi(),
+    queryKey: ["total-sales-data", salesRowsData, dateField],
+    queryFn: () => getTotalSalesDataApi(dateField),
   });
 
   // Mutation to delete sales data
