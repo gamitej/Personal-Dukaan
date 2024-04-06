@@ -39,22 +39,21 @@ const PaymentModel: FC = () => {
 
   // =================== API CALL'S START ======================
 
-  // Mutation to add sales data
+  // Mutation to add payment data
   const { mutate: mutateAddPaymentData } = useMutation({
     mutationFn: addPaymentsDataApi,
     onSuccess: () => {
       setResetPaymentFormData();
       setIsModalOpen(false);
-      toast.success("Sales data added successfully", { duration: 1200 });
+      toast.success("Payment data added successfully", { duration: 1600 });
       queryClient.invalidateQueries({
-        queryKey: ["sales-row-data"],
+        queryKey: ["payment-row-data"],
       });
       setIsPaymentAddApiLoading(false);
     },
     onError: () => {
       setIsPaymentAddApiLoading(false);
-      console.error("Error adding sales data");
-      toast.error("Error while adding sales data", { duration: 1200 });
+      toast.error("Error while adding payment data", { duration: 1600 });
     },
   });
 

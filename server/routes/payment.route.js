@@ -53,11 +53,8 @@ router.delete("/:id", async (req, res) => {
       return res.status(404).json({ message: "Payment data not found" });
     }
 
-    const deletedData = deletedPayment.toJSON();
-    const { error, data } = updateStockAfterSale(deletedData, "delete");
-
-    if (!error) {
-      await deletedPayment.destroy();
+    const data = await deletedPayment.destroy();
+    if (data) {
       return res
         .status(200)
         .json({ message: "Payment data deleted successfully" });

@@ -1,4 +1,7 @@
-import { useQuery } from "@tanstack/react-query";
+import moment from "moment";
+import { useMemo } from "react";
+import toast from "react-hot-toast";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 // components
 import PaymentModel from "./PaymentModel";
 import Table from "@/components/table/Table";
@@ -9,16 +12,20 @@ import { paymentsCols } from "@/data/payments";
 // store
 import { usePaymentStore } from "@/store/payments/usePaymentStore";
 // service
-import { getPaymentsTableDataApi } from "@/services/APIs/payment.service";
+import {
+  deletePaymentDataApi,
+  getPaymentsTableDataApi,
+} from "@/services/APIs/payment.service";
 
 const Expenses = () => {
+  const queryClient = useQueryClient();
   const { setIsModalOpen, setPaymentFormDataType } = usePaymentStore();
 
   // =================== API CALL'S START ======================
 
   // Query to fetch sales data
   const { data: paymentsRowsData = [] } = useQuery({
-    queryKey: ["sales-row-data"],
+    queryKey: ["payment-row-data"],
     queryFn: () => getPaymentsTableDataApi(),
   });
 
@@ -28,7 +35,29 @@ const Expenses = () => {
   //   queryFn: () => getTotalPaymentDataApi(),
   // });
 
+  // Mutation to delete sales data
+  const { mutate: mutateDeletePaymentData } = useMutation({
+    mutationFn: deletePaymentDataApi,
+    onSuccess: () => {
+      toast.success("Payment deleted added successfully", { duration: 1600 });
+      queryClient.invalidateQueries({
+        queryKey: ["payment-row-data"],
+      });
+    },
+    onError: () => {
+      console.error("Error delete payment data");
+      toast.error("Error while deleting payment data", { duration: 1600 });
+    },
+  });
+
   // =================== API CALL'S END ======================
+
+  const dateFormattedRowsData = useMemo(() => {
+    return paymentsRowsData.map((item: any) => ({
+      ...item,
+      date: moment(new Date(item.date)).format("DD-MM-YYYY"),
+    }));
+  }, [paymentsRowsData]);
 
   /**
    * TSX
@@ -52,9 +81,8 @@ const Expenses = () => {
         cols={paymentsCols}
         tableHeight="20rem"
         showEntriesPerPage={10}
-        // handleEditRow={handleEditRow}
-        // handleDeleteRow={(id) => mutateDeleteSalesData(id)}
-        rows={paymentsRowsData || []}
+        handleDeleteRow={(id) => mutateDeletePaymentData(id)}
+        rows={dateFormattedRowsData || []}
         additionalLeftSideToolbarComp={
           <AddButton
             size="sm"

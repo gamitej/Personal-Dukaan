@@ -10,3 +10,8 @@ export async function addPaymentsDataApi(req: paymentFormType) {
   const { data } = await http.post(`/payment`, req);
   return data;
 }
+
+export async function deletePaymentDataApi(id: number) {
+  const { data } = await http.delete(`/payment/${id}`);
+  return data;
+}
