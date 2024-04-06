@@ -65,3 +65,14 @@ export const paymentModeOptions = [
   { id: 2, label: "CASH", value: "cash" },
   { id: 3, label: "ACCOUNT", value: "account" },
 ];
+
+// ===================== PAYMENT MODE OPTIONS ================
+
+export const expenseOptions = [
+  { id: 1, label: "AUTO", value: "auto" },
+  { id: 2, label: "RENT", value: "rent" },
+  { id: 4, label: "DUKAAN", value: "dukaan" },
+  { id: 3, label: "PALEDAR", value: "paledar" },
+  { id: 3, label: "PETROL", value: "petrol" },
+  { id: 5, label: "OTHERS", value: "others" },
+];

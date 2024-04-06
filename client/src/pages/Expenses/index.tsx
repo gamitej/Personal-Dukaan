@@ -1,10 +1,27 @@
-import CountCard from "@/components/card/CountCard";
-import Table from "@/components/table/Table";
+import { useQuery } from "@tanstack/react-query";
+// components
 import ExpenseModal from "./ExpenseModal";
-import { expenseCols, expenseRows } from "@/data/expenses";
+import Table from "@/components/table/Table";
+import CountCard from "@/components/card/CountCard";
 import AddButton from "@/components/button/AddButton";
+// data
+import { expenseCols } from "@/data/expenses";
+// store
+import { useExpenseStore } from "@/store/expenses/useExpenseStore";
+// service
+import { getExpenseDataApi } from "@/services/APIs/expense.service";
 
 const Expenses = () => {
+  const { setIsModalOpen } = useExpenseStore();
+
+  // =================== API CALL'S START ======================
+
+  // Query to fetch expense data
+  const { data: expenseRowsData = [] } = useQuery({
+    queryKey: ["expense-row-data"],
+    queryFn: () => getExpenseDataApi(),
+  });
+
   /**
    * TSX
    */
@@ -29,13 +46,13 @@ const Expenses = () => {
         showEntriesPerPage={10}
         // handleEditRow={handleEditRow}
         // handleDeleteRow={(id) => mutateDeleteSalesData(id)}
-        rows={expenseRows || []}
+        rows={expenseRowsData || []}
         additionalLeftSideToolbarComp={
           <AddButton
             size="sm"
             handleClick={() => {
               //   setSalesFormDataType("ADD");
-              //   setIsModalOpen(true);
+              setIsModalOpen(true);
             }}
           />
         }
