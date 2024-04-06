@@ -3,7 +3,7 @@ export const expenseCols = [
   { label: "Expense", value: "expense", width: "15rem" },
   { label: "Type", value: "type", width: "5rem" },
   { label: "Amount (Rs)", value: "amount", width: "5rem" },
-  { label: "Payment Mode", value: "mode", width: "5rem" },
+  { label: "Payment Mode", value: "paymentMode", width: "5rem" },
 ];
 
 export const expenseRows = [
