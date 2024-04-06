@@ -52,14 +52,14 @@ router.get("/", async (req, res) => {
 
 router.post("/", async (req, res) => {
   try {
-    const { date, weight, weightType } = req.body;
+    const { date, weight, weightType, ...others } = req.body;
     const { error, data } = await updateStockAfterSale(req.body, "update");
 
     if (!error) {
       const newSale = await Sales.create({
         date: new Date(date),
         weight: `${weight}${weightType}`,
-        ...req.body,
+        ...others,
       });
       return res.status(200).json(newSale);
     }

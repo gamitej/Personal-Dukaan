@@ -23,7 +23,7 @@ export async function updatePendingPaymentRecord(
 
       const res = {
         error: false,
-        data: { message: "Payment record received", details: stock },
+        data: { message: "Payment record received", details: pending },
       };
 
       return res;

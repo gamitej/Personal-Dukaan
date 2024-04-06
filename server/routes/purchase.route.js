@@ -55,22 +55,22 @@ router.get("/", async (req, res) => {
 // Add purchased products
 router.post("/", async (req, res) => {
   try {
-    const { date, weight, weightType } = req.body;
+    const { date, weight, weightType, ...others } = req.body;
+
+    console.log(req.body);
 
     const newPurchase = await Purchase.create({
       date: new Date(date),
       weight: `${weight}${weightType}`,
-      ...req.body,
+      ...others,
     });
 
-    const { error: pendingStock, data } = updateStockAfterPurchase(
+    const { error: pendingStock, data } = await updateStockAfterPurchase(
       req.body,
       "update"
     );
-    const { error: pendingError } = updatePendingPaymentRecord(
-      req.body,
-      "update"
-    );
+    const { error: pendingError, data: pendingData } =
+      await updatePendingPaymentRecord(req.body, "update");
 
     if (!pendingStock && !pendingError)
       return res.status(200).json(newPurchase);
