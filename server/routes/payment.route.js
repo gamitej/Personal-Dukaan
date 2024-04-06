@@ -5,8 +5,33 @@ import Payment from "../models/payment.model.js";
 const router = express.Router();
 
 // get the payment table data
-router.get("/", async (req, res) => {
+router.post("/all", async (req, res) => {
   try {
+    const { startDate, endDate } = req.body;
+
+    if (startDate !== null && endDate !== null) {
+      const payment = await Payment.findAll({
+        attributes: [
+          "date",
+          "product",
+          "type",
+          "paymentMode",
+          "party",
+          "paid",
+          "id",
+          "company",
+        ],
+        order: [["date", "desc"]],
+        where: {
+          date: {
+            [Op.between]: [startDate, endDate],
+          },
+        },
+      });
+
+      return res.status(200).json(payment);
+    }
+
     const payment = await Payment.findAll({
       attributes: [
         "date",

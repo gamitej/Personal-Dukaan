@@ -15,19 +15,23 @@ import {
 } from "@/services/APIs/expense.service";
 import toast from "react-hot-toast";
 import moment from "moment";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
+import HeaderCard from "@/components/card/HeaderCard";
+import { DateFieldType } from "@/types/components.type";
 
 const Expenses = () => {
   const queryClient = useQueryClient();
+  const [dateField, setDateField] = useState<DateFieldType | null>({
+    startDate: null,
+    endDate: null,
+  });
   const { setIsModalOpen, setExpenseFormDataType } = useExpenseStore();
   // =================== API CALL'S START ======================
 
-  // deleteExpenseDataApi
-
   // Query to fetch expense data
   const { data: expenseRowsData = [] } = useQuery({
-    queryKey: ["expense-row-data"],
-    queryFn: () => getExpenseDataApi(),
+    queryKey: ["expense-row-data", dateField],
+    queryFn: () => getExpenseDataApi(dateField),
   });
 
   // Mutation to delete sales data
@@ -60,6 +64,7 @@ const Expenses = () => {
   return (
     <div className="px-[2rem] py-[3rem] w-full flex flex-col justify-center items-center gap-12">
       <div className="w-full h-[100%] flex items-center gap-6 flex-wrap">
+        <HeaderCard handleDateSubmit={setDateField} />
         <CountCard
           title="Expenses"
           label="rs"

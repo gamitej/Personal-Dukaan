@@ -5,8 +5,23 @@ import Expense from "../models/expense.model.js";
 const router = express.Router();
 
 // get the expense table data
-router.get("/", async (req, res) => {
+router.post("/all", async (req, res) => {
   try {
+    const { startDate, endDate } = req.body;
+
+    if (startDate !== null && endDate !== null) {
+      const expense = await Expense.findAll({
+        attributes: ["date", "type", "paymentMode", "amount", "expense", "id"],
+        order: [["date", "desc"]],
+        where: {
+          date: {
+            [Op.between]: [startDate, endDate],
+          },
+        },
+      });
+      return res.status(200).json(sales);
+    }
+
     const expense = await Expense.findAll({
       attributes: ["date", "type", "paymentMode", "amount", "expense", "id"],
       order: [["date", "desc"]],

@@ -1,8 +1,9 @@
 import http from "@/services/httpServices";
+import { DateFieldType } from "@/types/components.type";
 import { paymentFormType } from "@/types/payments";
 
-export async function getPaymentsTableDataApi() {
-  const { data } = await http.get(`/payment`);
+export async function getPaymentsTableDataApi(dateField: DateFieldType | null) {
+  const { data } = await http.post(`/payment/all`, dateField);
   return data;
 }
 

@@ -1,5 +1,5 @@
 import moment from "moment";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import toast from "react-hot-toast";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 // components
@@ -16,24 +16,24 @@ import {
   deletePaymentDataApi,
   getPaymentsTableDataApi,
 } from "@/services/APIs/payment.service";
+import HeaderCard from "@/components/card/HeaderCard";
+import { DateFieldType } from "@/types/components.type";
 
 const Expenses = () => {
   const queryClient = useQueryClient();
+  const [dateField, setDateField] = useState<DateFieldType | null>({
+    startDate: null,
+    endDate: null,
+  });
   const { setIsModalOpen, setPaymentFormDataType } = usePaymentStore();
 
   // =================== API CALL'S START ======================
 
   // Query to fetch sales data
   const { data: paymentsRowsData = [] } = useQuery({
-    queryKey: ["payment-row-data"],
-    queryFn: () => getPaymentsTableDataApi(),
+    queryKey: ["payment-row-data", dateField],
+    queryFn: () => getPaymentsTableDataApi(dateField),
   });
-
-  // Query to fetch sales data
-  // const { data: totalSales = [] } = useQuery({
-  //   queryKey: ["total-sales-data", salesRowsData],
-  //   queryFn: () => getTotalPaymentDataApi(),
-  // });
 
   // Mutation to delete sales data
   const { mutate: mutateDeletePaymentData } = useMutation({
@@ -65,6 +65,7 @@ const Expenses = () => {
   return (
     <div className="px-[2rem] py-[3rem] w-full flex flex-col justify-center items-center gap-12">
       <div className="w-full h-[100%] flex items-center gap-6 flex-wrap">
+        <HeaderCard handleDateSubmit={setDateField} />
         <CountCard
           title="Pending Payment"
           label="rs"

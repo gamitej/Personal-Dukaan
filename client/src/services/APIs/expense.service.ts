@@ -1,8 +1,9 @@
 import http from "@/services/httpServices";
+import { DateFieldType } from "@/types/components.type";
 import { expenseFormType } from "@/types/expense";
 
-export async function getExpenseDataApi() {
-  const { data } = await http.get(`/expense`);
+export async function getExpenseDataApi(dateField: DateFieldType | null) {
+  const { data } = await http.post(`/expense/all`, dateField);
   return data;
 }
 
