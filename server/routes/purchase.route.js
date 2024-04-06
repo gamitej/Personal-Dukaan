@@ -1,4 +1,5 @@
 import express from "express";
+import { Op } from "sequelize";
 // database connection
 import sequelize from "../database/connection.js";
 //models
@@ -10,9 +11,30 @@ import { updatePendingPaymentRecord } from "../utils/updatePayment.js";
 const router = express.Router();
 
 // Total purchase number data
-router.get("/total-purchase", async (req, res) => {
+router.post("/total-purchase", async (req, res) => {
   try {
-    const sales = await Purchase.findAll({
+    const { startDate, endDate } = req.body;
+
+    if (startDate !== null && endDate !== null) {
+      const purchase = await Purchase.findAll({
+        attributes: [
+          "type",
+          [sequelize.fn("sum", sequelize.col("quantity")), "quantity"],
+          [sequelize.fn("sum", sequelize.col("amount")), "amount"],
+        ],
+        group: ["type"],
+        order: [["type", "ASC"]],
+        where: {
+          date: {
+            [Op.between]: [startDate, endDate],
+          },
+        },
+      });
+
+      return res.status(200).json(purchase);
+    }
+
+    const purchase = await Purchase.findAll({
       attributes: [
         "type",
         [sequelize.fn("sum", sequelize.col("quantity")), "quantity"],
@@ -22,15 +44,41 @@ router.get("/total-purchase", async (req, res) => {
       order: [["type", "ASC"]],
     });
 
-    return res.status(200).json(sales);
+    return res.status(200).json(purchase);
   } catch (error) {
     return res.status(500).json(error.message || error);
   }
 });
 
 // Get the purchase table data
-router.get("/", async (req, res) => {
+router.post("/all", async (req, res) => {
   try {
+    const { startDate, endDate } = req.body;
+
+    if (startDate !== null && endDate !== null) {
+      const purchase = await Purchase.findAll({
+        attributes: [
+          "date",
+          "product",
+          "type",
+          "company",
+          "party",
+          "quantity",
+          "weight",
+          "amount",
+          "id",
+        ],
+        where: {
+          date: {
+            [Op.between]: [startDate, endDate],
+          },
+        },
+        order: [["date", "desc"]],
+      });
+
+      return res.status(200).json(purchase);
+    }
+
     const purchase = await Purchase.findAll({
       attributes: [
         "date",

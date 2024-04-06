@@ -1,13 +1,14 @@
 import http from "@/services/httpServices";
 import { purchaseFormType } from "@/types/purchase";
+import { DateFieldType } from "@/types/components.type";
 
-export async function getPurchaseTableDataApi() {
-  const { data } = await http.get(`/purchase`);
+export async function getPurchaseTableDataApi(dateField: DateFieldType | null) {
+  const { data } = await http.post(`/purchase/all`, dateField);
   return data;
 }
 
-export async function getTotalPurchaseDataApi() {
-  const { data } = await http.get(`/purchase/total-purchase`);
+export async function getTotalPurchaseDataApi(dateField: DateFieldType | null) {
+  const { data } = await http.post(`/purchase/total-purchase`, dateField);
   return data;
 }
 

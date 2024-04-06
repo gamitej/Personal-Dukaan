@@ -1,5 +1,5 @@
 import moment from "moment";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import toast from "react-hot-toast";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 // components
@@ -18,9 +18,15 @@ import {
 } from "@/services/APIs/purchase.service";
 import CountCard from "@/components/card/CountCard";
 import { formattedRows, getTotalAmtAndQut } from "@/utils";
+import HeaderCard from "@/components/card/HeaderCard";
+import { DateFieldType } from "@/types/components.type";
 
 const Purchase = () => {
   const queryClient = useQueryClient();
+  const [dateField, setDateField] = useState<DateFieldType | null>({
+    startDate: null,
+    endDate: null,
+  });
 
   const {
     setIsModalOpen,
@@ -32,14 +38,14 @@ const Purchase = () => {
 
   // Query to fetch purchase data
   const { data: purchaseRowsData = [] } = useQuery({
-    queryKey: ["purchase-row-data"],
-    queryFn: () => getPurchaseTableDataApi(),
+    queryKey: ["purchase-row-data", dateField],
+    queryFn: () => getPurchaseTableDataApi(dateField),
   });
 
   // Query to fetch purchase data
   const { data: totalPurchase = [] } = useQuery({
-    queryKey: ["total-purchase-data", purchaseRowsData],
-    queryFn: () => getTotalPurchaseDataApi(),
+    queryKey: ["total-purchase-data", purchaseRowsData, dateField],
+    queryFn: () => getTotalPurchaseDataApi(dateField),
   });
 
   // Mutation to delete purchase data
@@ -85,6 +91,7 @@ const Purchase = () => {
   return (
     <div className="px-[2rem] py-[3rem] w-full flex flex-col justify-center items-center gap-12">
       <div className="w-full h-[100%] flex items-center gap-6 flex-wrap">
+        <HeaderCard handleDateSubmit={setDateField} />
         <CountCard
           label="rs"
           enableDetails
