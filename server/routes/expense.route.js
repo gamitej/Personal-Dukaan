@@ -1,4 +1,5 @@
 import express from "express";
+import { Op } from "sequelize";
 //models
 import Expense from "../models/expense.model.js";
 
