@@ -1,9 +1,11 @@
-import express from "express";
 import cors from "cors";
+import express from "express";
+// database connection
 import database from "./database/connection.js";
 // routes
 import SalesRoute from "./routes/sales.route.js";
 import StockRoute from "./routes/stock.route.js";
+import PaymentRoute from "./routes/payment.route.js";
 import PurchaseRoute from "./routes/purchase.route.js";
 import OverviewRoute from "./routes/overview.route.js";
 
@@ -15,6 +17,7 @@ app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 
 app.use("/api/sales", SalesRoute);
 app.use("/api/stock", StockRoute);
+app.use("/api/payment", PaymentRoute);
 app.use("/api/purchase", PurchaseRoute);
 app.use("/api/overview", OverviewRoute);
 
