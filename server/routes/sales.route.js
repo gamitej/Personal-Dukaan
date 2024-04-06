@@ -1,4 +1,5 @@
 import express from "express";
+import { Op } from "sequelize";
 //models
 import Sales from "../models/sales.model.js";
 // database
@@ -28,8 +29,33 @@ router.get("/total-sales", async (req, res) => {
 });
 
 // get the sales table data
-router.get("/", async (req, res) => {
+router.post("/all", async (req, res) => {
   try {
+    const { startDate, endDate } = req.body;
+
+    if (startDate !== null && endDate !== null) {
+      const sales = await Sales.findAll({
+        attributes: [
+          "date",
+          "product",
+          "type",
+          "quantity",
+          "weight",
+          "amount",
+          "id",
+          "company",
+        ],
+        where: {
+          date: {
+            [Op.between]: [startDate, endDate],
+          },
+        },
+        order: [["date", "desc"]],
+      });
+
+      return res.status(200).json(sales);
+    }
+
     const sales = await Sales.findAll({
       attributes: [
         "date",

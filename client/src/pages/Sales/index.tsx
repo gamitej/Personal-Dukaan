@@ -1,6 +1,6 @@
 import moment from "moment";
-import { useMemo } from "react";
 import toast from "react-hot-toast";
+import { useMemo, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 // components
 import SalesModel from "./SalesModel";
@@ -19,10 +19,15 @@ import {
   getTotalSalesDataApi,
 } from "@/services/APIs/sales.service";
 // utils
+import { DateFieldType } from "@/types/components.type";
 import { formattedRows, getTotalAmtAndQut } from "@/utils";
 
 const Sales = () => {
   const queryClient = useQueryClient();
+  const [dateField, setDateField] = useState<DateFieldType | null>({
+    startDate: null,
+    endDate: null,
+  });
 
   // =================== API CALL'S START ======================
 
@@ -34,8 +39,8 @@ const Sales = () => {
 
   // Query to fetch sales data
   const { data: salesRowsData = [] } = useQuery({
-    queryKey: ["sales-row-data"],
-    queryFn: () => getSalesTableDataApi(),
+    queryKey: ["sales-row-data", dateField],
+    queryFn: () => getSalesTableDataApi(dateField),
   });
 
   // Query to fetch sales data
@@ -87,7 +92,7 @@ const Sales = () => {
   return (
     <div className="px-[2rem] py-[3rem] w-full flex flex-col justify-center items-center gap-12">
       <div className="w-full h-[100%] flex items-center gap-6 flex-wrap">
-        <HeaderCard />
+        <HeaderCard handleDateSubmit={setDateField} />
         <CountCard
           title="Sales"
           label="rs"

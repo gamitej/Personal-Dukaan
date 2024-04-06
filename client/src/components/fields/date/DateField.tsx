@@ -8,8 +8,8 @@ interface DateFieldProps {
   width?: string;
   label?: string;
   value: string | null;
-  minDateValue?: string | string;
-  maxDateValue?: string | string;
+  minDateValue?: string | null;
+  maxDateValue?: string | null;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 

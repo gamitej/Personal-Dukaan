@@ -1,6 +1,29 @@
+import { FC, useState } from "react";
+import toast from "react-hot-toast";
 import DateField from "../fields/date/DateField";
+import { DateFieldType } from "@/types/components.type";
 
-const HeaderCard = () => {
+interface HeaderCardProps {
+  handleDateSubmit: (props: DateFieldType) => void;
+}
+
+const HeaderCard: FC<HeaderCardProps> = ({ handleDateSubmit }) => {
+  const [dateField, setDateField] = useState<DateFieldType>({
+    startDate: null,
+    endDate: null,
+  });
+
+  const handleSubmit = () => {
+    if (
+      (dateField.startDate !== null && dateField.endDate === null) ||
+      (dateField.startDate === null && dateField.endDate !== null)
+    ) {
+      toast.error("Please select all date fields", { duration: 1600 });
+      return;
+    }
+    handleDateSubmit(dateField);
+  };
+
   /**
    * TSX
    */
@@ -16,19 +39,25 @@ const HeaderCard = () => {
             <DateField
               id="dateFrom"
               label="From"
-              onChange={() => {}}
-              value={null}
+              onChange={({ target }) =>
+                setDateField((prev) => ({ ...prev, startDate: target.value }))
+              }
+              value={dateField.startDate}
             />
             <DateField
               label="to"
               id="dateTo"
-              onChange={() => {}}
-              value={null}
+              minDateValue={dateField.startDate}
+              onChange={({ target }) =>
+                setDateField((prev) => ({ ...prev, endDate: target.value }))
+              }
+              value={dateField.endDate}
             />
           </div>
         </div>
         <div>
           <button
+            onClick={handleSubmit}
             className={`w-[5rem] ${
               true ? "" : "bg-slate-300 hover:bg-slate-300 cursor-not-allowed"
             } `}
