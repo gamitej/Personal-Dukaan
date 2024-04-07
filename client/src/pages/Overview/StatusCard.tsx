@@ -1,13 +1,16 @@
-import CountCard from "@/components/card/CountCard";
-import { countCardProfitColsData } from "@/data/overview";
-import { countCardPurchaseColsData } from "@/data/purchase";
-import { countCardSalesColsData } from "@/data/sales";
-import { getProfitDataApi } from "@/services/APIs/overview.service";
-import { getTotalPurchaseDataApi } from "@/services/APIs/purchase.service";
-import { getTotalSalesDataApi } from "@/services/APIs/sales.service";
-import { formattedRows, getTotalAmtAndQut } from "@/utils";
-import { useQuery } from "@tanstack/react-query";
 import { useMemo } from "react";
+import { useQuery } from "@tanstack/react-query";
+// components
+import CountCard from "@/components/card/CountCard";
+// data
+import { countCardSalesColsData } from "@/data/sales";
+import { countCardProfitColsData } from "@/data/overview";
+import { formattedRows, getTotalAmtAndQut } from "@/utils";
+import { countCardPurchaseColsData } from "@/data/purchase";
+// services
+import { getProfitDataApi } from "@/services/APIs/overview.service";
+import { getTotalSalesDataApi } from "@/services/APIs/sales.service";
+import { getTotalPurchaseDataApi } from "@/services/APIs/purchase.service";
 
 const StatusCard = () => {
   // =================== API CALL'S START ======================

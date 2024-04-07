@@ -20,13 +20,13 @@ const NormalTable: FC<NormalTableProps> = ({
       style={{ height: `calc(${height} - 7rem)` }}
     >
       <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-        <thead className="bg-gray-50 dark:bg-gray-700 sticky top-0">
+        <thead className="bg-slate-600 dark:bg-gray-700 sticky top-0 ">
           <tr>
             {cols.map((col, i) => (
               <th
                 key={`normal-cols-${i}`}
                 scope="col"
-                className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase dark:text-gray-400"
+                className="px-6 py-3 text-start text-xs font-medium text-[#DAA520] uppercase dark:text-gray-400"
               >
                 {col.label}
               </th>

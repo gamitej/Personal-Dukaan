@@ -72,6 +72,18 @@ const Expenses = () => {
     }));
   }, [paymentsRowsData]);
 
+  const { totalAmount: totalPendingAmount } = useMemo(() => {
+    const totalAmount = totalPendingPayment.reduce(
+      (acc: any, { amount }: { amount: number }) => {
+        acc.totalAmount += amount;
+        return acc;
+      },
+      { totalAmount: 0 }
+    );
+
+    return totalAmount;
+  }, [totalPendingPayment]);
+
   /**
    * TSX
    */
@@ -81,10 +93,10 @@ const Expenses = () => {
         <HeaderCard handleDateSubmit={setDateField} />
         <CountCard
           label="rs"
-          value={0}
           enableDetails
           title="Payment"
           topTitle="PENDING"
+          value={totalPendingAmount}
           modalTitle="Total Sales Details"
           modalTableCols={countCardPendingPaymentsColsData}
           totalDetails={formattRowForPendingPayment(totalPendingPayment)}
