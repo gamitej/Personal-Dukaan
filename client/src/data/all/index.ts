@@ -8,6 +8,8 @@ export const productOptions = [
 export const weightTypeOptions = [
   { id: 1, label: "KG", value: "kg" },
   { id: 2, label: "GM", value: "gm" },
+  { id: 2, label: "Liter", value: "l" },
+  { id: 2, label: "Mililiter", value: "ml" },
 ];
 
 // ================== COMPANY OPTIONS ===============
@@ -30,6 +32,7 @@ export const pesticideCompanyOptions = [
   { id: 4, label: "Dhanzyma", value: "dhanzyma" },
   { id: 5, label: "Bumber", value: "bumber" },
   { id: 6, label: "Saaf", value: "saaf" },
+  { id: 7, label: "Sandesh", value: "sandesh" },
 ];
 
 export const companyNameOptions: {
@@ -47,6 +50,11 @@ export const partyNameOptions = [
   { id: 3, label: "Bhawani Traders", value: "bhawani-traders" },
   { id: 4, label: "Sharda Krishi", value: "sharda-krishi" },
   { id: 5, label: "Putli Ghar", value: "putli-ghar" },
+  { id: 6, label: "Rajesh Inter", value: "rajesh-inter" },
+  { id: 7, label: "Jai Devi", value: "jai-devi" },
+  { id: 8, label: "Ganesh Trading", value: "ganesh-trading" },
+  { id: 8, label: "Gambhir Beej", value: "gambhir-beej" },
+  { id: 9, label: "Shakti Beej", value: "shakti-beej" },
 ];
 
 // ===================== PRODUCT TYPE OPTIONS ================

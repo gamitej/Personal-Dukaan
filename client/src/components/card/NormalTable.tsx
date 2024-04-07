@@ -25,20 +25,20 @@ const NormalTable: FC<NormalTableProps> = ({ cols = [], rows = [] }) => {
         </tr>
       </thead>
       <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
-        <tr>
-          {cols.map((col, idx) =>
-            rows.map((rowValue: any, rowIdx) => (
+        {rows.map((rowValue, rowIdx) => (
+          <tr key={`normal-row-${rowIdx}`}>
+            {cols.map((col, idx) => (
               <td
-                key={`normal-rows-${rowIdx}-${idx}`}
+                key={`normal-cell-${rowIdx}-${idx}`}
                 className={`px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-gray-200 ${
                   rowIdx === 0 ? "uppercase" : ""
                 }`}
               >
                 {rowValue[col.value]}
               </td>
-            ))
-          )}
-        </tr>
+            ))}
+          </tr>
+        ))}
       </tbody>
     </table>
   );
