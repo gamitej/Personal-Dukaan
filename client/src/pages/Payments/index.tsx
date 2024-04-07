@@ -8,16 +8,21 @@ import Table from "@/components/table/Table";
 import CountCard from "@/components/card/CountCard";
 import AddButton from "@/components/button/AddButton";
 // data
-import { paymentsCols } from "@/data/payments";
+import {
+  countCardPendingPaymentsColsData,
+  paymentsCols,
+} from "@/data/payments";
 // store
 import { usePaymentStore } from "@/store/payments/usePaymentStore";
 // service
 import {
   deletePaymentDataApi,
   getPaymentsTableDataApi,
+  getPendingPaymentsDataApi,
 } from "@/services/APIs/payment.service";
 import HeaderCard from "@/components/card/HeaderCard";
 import { DateFieldType } from "@/types/components.type";
+import { formattRowForPendingPayment } from "@/utils";
 
 const Expenses = () => {
   const queryClient = useQueryClient();
@@ -29,13 +34,21 @@ const Expenses = () => {
 
   // =================== API CALL'S START ======================
 
-  // Query to fetch sales data
+  // Query to fetch payment data
   const { data: paymentsRowsData = [] } = useQuery({
     queryKey: ["payment-row-data", dateField],
     queryFn: () => getPaymentsTableDataApi(dateField),
   });
 
-  // Mutation to delete sales data
+  // Query to fetch payment data
+  const { data: totalPendingPayment = [] } = useQuery({
+    queryKey: ["pending-payment-data", dateField],
+    queryFn: () => getPendingPaymentsDataApi(dateField),
+  });
+
+  console.log({ totalPendingPayment });
+
+  // Mutation to delete payment data
   const { mutate: mutateDeletePaymentData } = useMutation({
     mutationFn: deletePaymentDataApi,
     onSuccess: () => {
@@ -67,13 +80,14 @@ const Expenses = () => {
       <div className="w-full h-[100%] flex items-center gap-6 flex-wrap">
         <HeaderCard handleDateSubmit={setDateField} />
         <CountCard
-          title="Pending Payment"
           label="rs"
-          //   enableDetails
           value={0}
-          //   modalTitle="Total Sales Details"
-          //   totalDetails={formattedRows(totalSales)}
-          //   modalTableCols={countCardSalesColsData}
+          enableDetails
+          title="Payment"
+          topTitle="PENDING"
+          modalTitle="Total Sales Details"
+          modalTableCols={countCardPendingPaymentsColsData}
+          totalDetails={formattRowForPendingPayment(totalPendingPayment)}
         />
       </div>
       <Table

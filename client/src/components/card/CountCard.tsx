@@ -7,12 +7,13 @@ interface CountCardProps {
   title: string;
   label?: string;
   value: number;
+  topTitle?: string;
   totalDetails?: any;
   modalTitle?: string;
   modalWidth?: string;
-  enableDetails?: boolean;
-  modalTableCols?: any[];
   modalHeight?: string;
+  modalTableCols?: any[];
+  enableDetails?: boolean;
 }
 
 const CountCard: FC<CountCardProps> = ({
@@ -20,11 +21,12 @@ const CountCard: FC<CountCardProps> = ({
   value = "0",
   title = "Sales",
   totalDetails = [],
+  topTitle = "TOTAL",
+  modalTableCols = [],
+  modalWidth = "45rem",
+  modalHeight = "25rem",
   enableDetails = false,
   modalTitle = "Total Details",
-  modalWidth = "45rem",
-  modalTableCols = [],
-  modalHeight = "25rem",
 }) => {
   const [isModelOpen, setIsModalOpen] = useState(false);
 
@@ -35,7 +37,7 @@ const CountCard: FC<CountCardProps> = ({
     <div className="relative h-[8rem] border px-6 py-4 rounded-lg shadow-md bg-slate-200">
       <div className="flex justify-between items-center w-[20rem] h-[100%]">
         <div className="text-slate-600 font-[500] text-xl font-sans">
-          TOTAL
+          {topTitle}
           <br />
           <span className="ml-6 uppercase">{title}</span>
         </div>
@@ -70,7 +72,11 @@ const CountCard: FC<CountCardProps> = ({
             </div>
           )}
           {totalDetails.length > 0 && (
-            <NormalTable cols={modalTableCols} rows={totalDetails} />
+            <NormalTable
+              height={modalHeight}
+              cols={modalTableCols}
+              rows={totalDetails}
+            />
           )}
         </div>
       </Modal>

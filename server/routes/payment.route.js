@@ -1,9 +1,43 @@
 import express from "express";
 import { Op } from "sequelize";
+// database connection
+import sequelize from "../database/connection.js";
 //models
 import Payment from "../models/payment.model.js";
+import PendingPayment from "../models/pendingPayment.model.js";
+import { updatePendingPaymentRecord } from "../utils/updatePayment.js";
 
 const router = express.Router();
+
+// Total payment number data
+router.post("/total-pending-payment", async (req, res) => {
+  try {
+    const { startDate, endDate } = req.body;
+
+    if (startDate !== null && endDate !== null) {
+      const payment = await PendingPayment.findAll({
+        attributes: ["party", "type", "amount"],
+        order: [["type", "ASC"]],
+        where: {
+          date: {
+            [Op.between]: [startDate, endDate],
+          },
+        },
+      });
+
+      return res.status(200).json(payment);
+    }
+
+    const payment = await PendingPayment.findAll({
+      attributes: ["party", "type", "amount"],
+      order: [["type", "ASC"]],
+    });
+
+    return res.status(200).json(payment);
+  } catch (error) {
+    return res.status(500).json(error.message || error);
+  }
+});
 
 // get the payment table data
 router.post("/all", async (req, res) => {
@@ -58,6 +92,10 @@ router.post("/", async (req, res) => {
   try {
     const { date } = req.body;
 
+    const { error, data } = updatePendingPaymentRecord(req.body, "delete");
+
+    if (error) return res.status(500).json(data.message || data);
+
     const newPayment = await Payment.create({
       date: new Date(date),
       ...req.body,
@@ -78,6 +116,15 @@ router.delete("/:id", async (req, res) => {
     if (!deletedPayment) {
       return res.status(404).json({ message: "Payment data not found" });
     }
+
+    const deletedData = deletedPayment.toJSON();
+    const { error, data: resData } = updatePendingPaymentRecord(
+      deletedData,
+      "update"
+    );
+
+    if (error)
+      return res.status(error).json({ message: resData.message || resData });
 
     const data = await deletedPayment.destroy();
     if (data) {

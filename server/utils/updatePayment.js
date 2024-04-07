@@ -13,7 +13,8 @@ export async function updatePendingPaymentRecord(
     // for update type
     if (operationType === "update") {
       const [pending, created] = await Pending.findOrCreate({
-        where: { product: product, party: party, type: type, amount: amount },
+        where: { product: product, party: party, type: type },
+        defaults: { amount: paymentAmount },
       });
 
       if (!created) {
@@ -36,7 +37,14 @@ export async function updatePendingPaymentRecord(
 
       if (pending && parseInt(pending.amount) >= paymentAmount) {
         pending.amount = parseInt(pending.amount) - paymentAmount;
-        await pending.save();
+
+        if (parseInt(pending.amount) === 0) {
+          // If amount becomes zero, delete the record
+          await pending.destroy();
+        } else {
+          await pending.save();
+        }
+
         const res = {
           error: false,
           data: { message: "Payment updated successfully", details: pending },
