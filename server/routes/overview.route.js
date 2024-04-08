@@ -115,6 +115,26 @@ router.post("/total-profit", async (req, res) => {
       };
     });
 
+    // Add purchased types with no sales
+    purchaseByType.forEach((purchase) => {
+      const purchaseData = purchase.toJSON();
+      const typeExists = profitByType.some(
+        (profit) => profit.type === purchaseData.type
+      );
+      if (!typeExists) {
+        profitByType.push({
+          type: purchaseData.type,
+          total_sold_quantity: 0,
+          total_purchase_quantity: parseInt(
+            purchaseData.total_purchase_quantity
+          ),
+          total_sold_amount: 0,
+          total_purchase_amount: parseInt(purchaseData.total_purchase_amount),
+          profit: -parseInt(purchaseData.total_purchase_amount),
+        });
+      }
+    });
+
     return res.status(200).json(profitByType);
   } catch (error) {
     return res.status(500).json(error.message || error);

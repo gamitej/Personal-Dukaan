@@ -3,22 +3,23 @@ import { useQuery } from "@tanstack/react-query";
 // components
 import CountCard from "@/components/card/CountCard";
 // data
+import { GetOverallProfit } from "./data/func";
 import { countCardSalesColsData } from "@/data/sales";
 import { countCardProfitColsData } from "@/data/overview";
+import { countCardPurchaseColsData } from "@/data/purchase";
+import { countCardExpensesColsData } from "@/data/expenses";
 import {
   formattedRowForExpense,
   formattedRows,
   getTotalAmtAndQut,
 } from "@/utils";
-import { countCardPurchaseColsData } from "@/data/purchase";
+// type
+import { DateFieldType } from "@/types/components.type";
 // services
 import { getProfitDataApi } from "@/services/APIs/overview.service";
 import { getTotalSalesDataApi } from "@/services/APIs/sales.service";
-import { getTotalPurchaseDataApi } from "@/services/APIs/purchase.service";
-import { DateFieldType } from "@/types/components.type";
 import { getTotalExpensesDataApi } from "@/services/APIs/expense.service";
-import { GetOverallProfit } from "./data/func";
-import { countCardExpensesColsData } from "@/data/expenses";
+import { getTotalPurchaseDataApi } from "@/services/APIs/purchase.service";
 
 interface StatusCardProps {
   dateField: DateFieldType | null;
@@ -94,7 +95,7 @@ const StatusCard: FC<StatusCardProps> = ({ dateField }) => {
         enableDetails
         modalWidth="80%"
         title="Profit"
-        value={totalProfitAmt}
+        value={totalProfitAmt - totalExpenseAmount}
         totalDetails={totalDetails}
         modalTitle="Total Profit Details"
         modalTableCols={countCardProfitColsData}
