@@ -16,9 +16,7 @@ export const expenseRows = [
   },
 ];
 
-export const countCardExpenseColsData = [
-  { value: "product", label: "Product Type" },
-  { value: "quantity", label: "Quantity" },
-  { value: "avg", label: "Avg Price" },
-  { value: "amount", label: "Total Sales Of Product" },
+export const countCardExpensesColsData = [
+  { value: "type", label: "Expense Type" },
+  { value: "amount", label: "Expense Amount" },
 ];

@@ -60,3 +60,12 @@ export const formattRowForPendingPayment = (totalDetails = []) => {
     };
   });
 };
+
+export const formattRowForExpense = (totalDetails = []) => {
+  return totalDetails.map((item: any) => {
+    return {
+      type: item.type,
+      amount: `Rs ${item.amount}`,
+    };
+  });
+};

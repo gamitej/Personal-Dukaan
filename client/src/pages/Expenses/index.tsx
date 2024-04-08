@@ -5,19 +5,21 @@ import Table from "@/components/table/Table";
 import CountCard from "@/components/card/CountCard";
 import AddButton from "@/components/button/AddButton";
 // data
-import { expenseCols } from "@/data/expenses";
+import { countCardExpensesColsData, expenseCols } from "@/data/expenses";
 // store
 import { useExpenseStore } from "@/store/expenses/useExpenseStore";
 // service
 import {
   deleteExpenseDataApi,
   getExpenseDataApi,
+  getTotalExpensesDataApi,
 } from "@/services/APIs/expense.service";
 import toast from "react-hot-toast";
 import moment from "moment";
 import { useMemo, useState } from "react";
 import HeaderCard from "@/components/card/HeaderCard";
 import { DateFieldType } from "@/types/components.type";
+import { formattRowForExpense } from "@/utils";
 
 const Expenses = () => {
   const queryClient = useQueryClient();
@@ -26,12 +28,19 @@ const Expenses = () => {
     endDate: null,
   });
   const { setIsModalOpen, setExpenseFormDataType } = useExpenseStore();
+
   // =================== API CALL'S START ======================
 
   // Query to fetch expense data
   const { data: expenseRowsData = [] } = useQuery({
     queryKey: ["expense-row-data", dateField],
     queryFn: () => getExpenseDataApi(dateField),
+  });
+
+  // Query to fetch payment data
+  const { data: totalExpenses = [] } = useQuery({
+    queryKey: ["total-expense-data", expenseRowsData, dateField],
+    queryFn: () => getTotalExpensesDataApi(dateField),
   });
 
   // Mutation to delete sales data
@@ -58,6 +67,18 @@ const Expenses = () => {
     }));
   }, [expenseRowsData]);
 
+  const { totalAmount: totalExpenseAmount } = useMemo(() => {
+    const totalAmount = totalExpenses.reduce(
+      (acc: any, { amount }: { amount: number }) => {
+        acc.totalAmount += amount;
+        return acc;
+      },
+      { totalAmount: 0 }
+    );
+
+    return totalAmount;
+  }, [totalExpenses]);
+
   /**
    * TSX
    */
@@ -68,11 +89,11 @@ const Expenses = () => {
         <CountCard
           title="Expenses"
           label="rs"
-          //   enableDetails
-          value={0}
-          //   modalTitle="Total Sales Details"
-          //   totalDetails={formattedRows(totalSales)}
-          //   modalTableCols={countCardSalesColsData}
+          enableDetails
+          value={totalExpenseAmount}
+          modalTitle="Total Expense Details"
+          modalTableCols={countCardExpensesColsData}
+          totalDetails={formattRowForExpense(totalExpenses)}
         />
       </div>
       <Table
