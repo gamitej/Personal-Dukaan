@@ -1,5 +1,5 @@
 import "./Table.scss";
-import { FC, useMemo, useState } from "react";
+import { FC, useEffect, useMemo, useState } from "react";
 // components
 import TableToolbar from "./TableToolbar";
 import TableFooter from "./TableFooter";
@@ -58,6 +58,7 @@ const Table: FC<TableProps> = ({
     return data;
   }, [searchedRowsData, pageNo, paginationValue]);
 
+  // delete & edit row icon
   const { cols: updatedcolumns = [], rows: updatedRows = [] } = useMemo(() => {
     if (enableDelete || enableEdit) {
       const data = cols.concat([{ label: "", value: "icon", width: "3rem" }]);
@@ -94,6 +95,11 @@ const Table: FC<TableProps> = ({
 
     return { cols, rows: selectedPageRowsData };
   }, [enableDelete, enableEdit, selectedPageRowsData]);
+
+  
+  useEffect(() => {
+    setPageNo(1);
+  }, [searchText]);
 
   /**
    * TSX

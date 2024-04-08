@@ -27,6 +27,8 @@ const TableToolbar: FC<TableToolbarPageProps> = ({
         <div>
           <input
             type="text"
+            autoCorrect="off"
+            autoComplete="off"
             value={searchText}
             placeholder="search..."
             onChange={({ target }) => setSearchText(target.value)}

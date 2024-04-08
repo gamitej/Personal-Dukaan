@@ -1,8 +1,10 @@
 export const productOptions = [
   { id: 1, label: "UREA", value: "urea" },
-  { id: 1, label: "Pesticide", value: "pesticide" },
-  { id: 3, label: "Wheat 1010", value: "wheat-1010" },
-  { id: 4, label: "Wheat 4037", value: "wheat-4037" },
+  { id: 2, label: "Bareli", value: "bareli" },
+  { id: 4, label: "Pesticide", value: "pesticide" },
+  { id: 4, label: "Wheat 1010", value: "wheat-1010" },
+  { id: 5, label: "Wheat 4037", value: "wheat-4037" },
+  { id: 6, label: "Wheat JMD 4037", value: "wheat-JMD-4037" },
 ];
 
 export const weightTypeOptions = [
@@ -17,7 +19,15 @@ export const weightTypeOptions = [
 export const wheatCompanyOptions = [
   { id: 1, label: "KAMADHAGIRI", value: "kamadhagiri" },
   { id: 2, label: "UNNAT", value: "unnat" },
-  { id: 3, label: "OTHERS", value: "others" },
+  { id: 3, label: "RAJSHREE", value: "rajshree" },
+  { id: 6, label: "CHANDRA", value: "chandra" },
+  { id: 4, label: "LOKMAN", value: "lokman" },
+  { id: 5, label: "VARDHAMAN", value: "vardhaman" },
+  { id: 7, label: "OTHERS", value: "others" },
+];
+
+export const bareliCompanyOptions = [
+  { id: 1, label: "KAMADHAGIRI", value: "kamadhagiri" },
 ];
 
 export const ureaCompanyOptions = [
@@ -41,6 +51,7 @@ export const companyNameOptions: {
   urea: ureaCompanyOptions,
   wheat: wheatCompanyOptions,
   pesticide: pesticideCompanyOptions,
+  bareli: bareliCompanyOptions,
 };
 
 // ===================== PARTY OPTIONS ================
