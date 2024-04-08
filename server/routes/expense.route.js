@@ -60,7 +60,7 @@ router.post("/all", async (req, res) => {
           },
         },
       });
-      return res.status(200).json(sales);
+      return res.status(200).json(expense);
     }
 
     const expense = await Expense.findAll({

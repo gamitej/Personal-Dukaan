@@ -1,10 +1,15 @@
+import moment from "moment";
+import toast from "react-hot-toast";
+import { useMemo, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 // components
 import ExpenseModal from "./ExpenseModal";
 import Table from "@/components/table/Table";
 import CountCard from "@/components/card/CountCard";
 import AddButton from "@/components/button/AddButton";
+import HeaderCard from "@/components/card/HeaderCard";
 // data
+import { formattedRowForExpense } from "@/utils";
 import { countCardExpensesColsData, expenseCols } from "@/data/expenses";
 // store
 import { useExpenseStore } from "@/store/expenses/useExpenseStore";
@@ -14,12 +19,7 @@ import {
   getExpenseDataApi,
   getTotalExpensesDataApi,
 } from "@/services/APIs/expense.service";
-import toast from "react-hot-toast";
-import moment from "moment";
-import { useMemo, useState } from "react";
-import HeaderCard from "@/components/card/HeaderCard";
 import { DateFieldType } from "@/types/components.type";
-import { formattRowForExpense } from "@/utils";
 
 const Expenses = () => {
   const queryClient = useQueryClient();
@@ -37,7 +37,7 @@ const Expenses = () => {
     queryFn: () => getExpenseDataApi(dateField),
   });
 
-  // Query to fetch payment data
+  // Query to fetch expense data
   const { data: totalExpenses = [] } = useQuery({
     queryKey: ["total-expense-data", expenseRowsData, dateField],
     queryFn: () => getTotalExpensesDataApi(dateField),
@@ -93,7 +93,7 @@ const Expenses = () => {
           value={totalExpenseAmount}
           modalTitle="Total Expense Details"
           modalTableCols={countCardExpensesColsData}
-          totalDetails={formattRowForExpense(totalExpenses)}
+          totalDetails={formattedRowForExpense(totalExpenses)}
         />
       </div>
       <Table

@@ -61,7 +61,7 @@ export const formattRowForPendingPayment = (totalDetails = []) => {
   });
 };
 
-export const formattRowForExpense = (totalDetails = []) => {
+export const formattedRowForExpense = (totalDetails = []) => {
   return totalDetails.map((item: any) => {
     return {
       type: item.type,
