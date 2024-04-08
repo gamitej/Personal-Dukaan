@@ -4,7 +4,9 @@ export const productOptions = [
   { id: 4, label: "Pesticide", value: "pesticide" },
   { id: 4, label: "Wheat 1010", value: "wheat-1010" },
   { id: 5, label: "Wheat 4037", value: "wheat-4037" },
-  { id: 6, label: "Wheat JMD 4037", value: "wheat-JMD-4037" },
+  { id: 6, label: "Wheat DBW 187", value: "wheat-DBW-187" },
+  { id: 7, label: "Wheat GW 273", value: "wheat-GW-273" },
+  { id: 8, label: "Wheat JMD 4037", value: "wheat-JMD-4037" },
 ];
 
 export const weightTypeOptions = [
