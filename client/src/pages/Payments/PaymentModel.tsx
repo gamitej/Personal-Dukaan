@@ -51,9 +51,12 @@ const PaymentModel: FC = () => {
       });
       setIsPaymentAddApiLoading(false);
     },
-    onError: () => {
+    onError: (err: any) => {
+      const { message } = err.response.data;
       setIsPaymentAddApiLoading(false);
-      toast.error("Error while adding payment data", { duration: 1600 });
+      toast.error(message || "Error while adding payment data", {
+        duration: 1600,
+      });
     },
   });
 

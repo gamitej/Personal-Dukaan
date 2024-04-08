@@ -50,10 +50,12 @@ const SalesModel: FC = () => {
       });
       setIsSalesAddApiLoading(false);
     },
-    onError: () => {
+    onError: (err: any) => {
+      const { message } = err.response.data;
       setIsSalesAddApiLoading(false);
-      console.error("Error adding sales data");
-      toast.error("Error while adding sales data", { duration: 1200 });
+      toast.error(message || "Error while adding sales data", {
+        duration: 1200,
+      });
     },
   });
 

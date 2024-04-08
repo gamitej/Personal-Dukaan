@@ -90,15 +90,21 @@ router.post("/all", async (req, res) => {
 // add the payment
 router.post("/", async (req, res) => {
   try {
-    const { date } = req.body;
+    const { date, paid, ...others } = req.body;
 
-    const { error, data } = updatePendingPaymentRecord(req.body, "delete");
+    const newPaymentReq = { amount: paid, ...others };
 
-    if (error) return res.status(500).json(data.message || data);
+    const { error, data } = await updatePendingPaymentRecord(
+      newPaymentReq,
+      "delete"
+    );
+
+    if (error) return res.status(400).json(data);
 
     const newPayment = await Payment.create({
       date: new Date(date),
-      ...req.body,
+      paid: paid,
+      ...others,
     });
     return res.status(200).json(newPayment);
   } catch (error) {
@@ -118,13 +124,13 @@ router.delete("/:id", async (req, res) => {
     }
 
     const deletedData = deletedPayment.toJSON();
+    deletedData.amount = deletedData.paid;
     const { error, data: resData } = updatePendingPaymentRecord(
       deletedData,
       "update"
     );
 
-    if (error)
-      return res.status(error).json({ message: resData.message || resData });
+    if (error) return res.status(error).json(resData);
 
     const data = await deletedPayment.destroy();
     if (data) {

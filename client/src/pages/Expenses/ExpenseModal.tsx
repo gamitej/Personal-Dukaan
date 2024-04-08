@@ -48,9 +48,12 @@ const ExpenseModel: FC = () => {
       });
       setIsExpenseAddApiLoading(false);
     },
-    onError: () => {
+    onError: (err: any) => {
+      const { message } = err.response.data;
       setIsExpenseAddApiLoading(false);
-      toast.error("Error while adding expense data", { duration: 1600 });
+      toast.error(message || "Error while adding expense data", {
+        duration: 1600,
+      });
     },
   });
 

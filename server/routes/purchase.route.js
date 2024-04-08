@@ -105,8 +105,6 @@ router.post("/", async (req, res) => {
   try {
     const { date, weight, weightType, ...others } = req.body;
 
-    console.log(req.body);
-
     const newPurchase = await Purchase.create({
       date: new Date(date),
       weight: `${weight}${weightType}`,
@@ -122,7 +120,7 @@ router.post("/", async (req, res) => {
 
     if (!pendingStock && !pendingError)
       return res.status(200).json(newPurchase);
-    return res.status(404).json(data);
+    return res.status(404).json(pendingData || data);
   } catch (pendingStock) {
     return res.status(500).json(pendingStock.message || pendingStock);
   }

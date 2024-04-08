@@ -51,10 +51,12 @@ const PurchaseModal: FC = () => {
       });
       setIsPurchaseAddApiLoading(false);
     },
-    onError: () => {
+    onError: (err: any) => {
+      const { message } = err.response.data;
       setIsPurchaseAddApiLoading(false);
-      console.error("Error adding purchase data");
-      toast.error("Error while adding purchase data", { duration: 1200 });
+      toast.error(message || "Error while adding purchase data", {
+        duration: 1200,
+      });
     },
   });
 

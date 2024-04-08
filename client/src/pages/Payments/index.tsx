@@ -42,11 +42,9 @@ const Expenses = () => {
 
   // Query to fetch payment data
   const { data: totalPendingPayment = [] } = useQuery({
-    queryKey: ["pending-payment-data", dateField],
+    queryKey: ["pending-payment-data", paymentsRowsData, dateField],
     queryFn: () => getPendingPaymentsDataApi(dateField),
   });
-
-  console.log({ totalPendingPayment });
 
   // Mutation to delete payment data
   const { mutate: mutateDeletePaymentData } = useMutation({
@@ -59,7 +57,9 @@ const Expenses = () => {
     },
     onError: () => {
       console.error("Error delete payment data");
-      toast.error("Error while deleting payment data", { duration: 1600 });
+      toast.error(`Error while deleting payment data`, {
+        duration: 1600,
+      });
     },
   });
 
