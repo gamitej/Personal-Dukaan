@@ -23,7 +23,6 @@ export const wheatCompanyOptions = [
   { id: 6, label: "CHANDRA", value: "chandra" },
   { id: 4, label: "LOKMAN", value: "lokman" },
   { id: 5, label: "VARDHAMAN", value: "vardhaman" },
-  { id: 8, label: "UNNATS SEEDS", value: "unnat-seeds" },
   { id: 7, label: "OTHERS", value: "others" },
 ];
 
@@ -67,6 +66,7 @@ export const partyNameOptions = [
   { id: 8, label: "Ganesh Trading", value: "ganesh-trading" },
   { id: 8, label: "Gambhir Beej", value: "gambhir-beej" },
   { id: 9, label: "Shakti Beej", value: "shakti-beej" },
+  { id: 10, label: "UNNATS SEEDS", value: "unnat-seeds" },
 ];
 
 // ===================== PRODUCT TYPE OPTIONS ================
