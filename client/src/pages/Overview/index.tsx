@@ -17,9 +17,7 @@ const Overview = () => {
    */
   return (
     <div className="px-[2rem] py-[3rem] w-full flex flex-col justify-center items-center gap-12">
-      <div className="sticky top-0 bg-white">
-        <HeaderCard handleDateSubmit={setDateField} />
-      </div>
+      <HeaderCard handleDateSubmit={setDateField} />
       <StatusCard dateField={dateField} />
       <StatusChart />
     </div>
