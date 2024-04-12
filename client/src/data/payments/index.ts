@@ -34,7 +34,8 @@ export const paymentsRows = [
 ];
 
 export const countCardPendingPaymentsColsData = [
-  { value: "product", label: "Product Type" },
   { value: "party", label: "Party Name" },
+  { value: "product", label: "Product Name" },
+  { value: "type", label: "Product Type" },
   { value: "amount", label: "Pending Payment Amount" },
 ];

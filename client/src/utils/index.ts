@@ -54,9 +54,10 @@ export const formattedRows = (totalDetails = []) => {
 export const formattRowForPendingPayment = (totalDetails = []) => {
   return totalDetails.map((item: any) => {
     return {
-      product: item.type.toUpperCase(),
-      party: item.party,
-      amount: `Rs ${item.amount}`,
+      product: item?.product.toUpperCase(),
+      type: item?.type?.toUpperCase(),
+      party: item?.party?.toUpperCase(),
+      amount: `Rs ${item?.amount}`,
     };
   });
 };

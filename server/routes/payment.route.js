@@ -16,7 +16,7 @@ router.post("/total-pending-payment", async (req, res) => {
 
     if (startDate !== null && endDate !== null) {
       const payment = await PendingPayment.findAll({
-        attributes: ["party", "type", "amount"],
+        attributes: ["party", "product", "type", "amount"],
         order: [["type", "ASC"]],
         where: {
           date: {
@@ -29,7 +29,7 @@ router.post("/total-pending-payment", async (req, res) => {
     }
 
     const payment = await PendingPayment.findAll({
-      attributes: ["party", "type", "amount"],
+      attributes: ["party", "product", "type", "amount"],
       order: [["type", "ASC"]],
     });
 
