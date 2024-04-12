@@ -5,7 +5,7 @@ export const paymentsCols = [
   { label: "Product Company", value: "company", width: "8rem" },
   { label: "Type", value: "type", width: "5rem" },
   { label: "Paid (Rs)", value: "paid", width: "5rem" },
-  { label: "Payment Mode", value: "mode", width: "5rem" },
+  { label: "Payment Mode", value: "paymentMode", width: "5rem" },
 ];
 
 export const paymentsRows = [
