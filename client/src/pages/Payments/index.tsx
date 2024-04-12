@@ -96,6 +96,8 @@ const Expenses = () => {
           enableDetails
           title="Payment"
           topTitle="PENDING"
+          modalWidth="50rem"
+          modalHeight="35rem"
           value={totalPendingAmount}
           modalTitle="Total Sales Details"
           modalTableCols={countCardPendingPaymentsColsData}
