@@ -1,5 +1,6 @@
-import { useCallback, useEffect, useRef, useState } from "react";
 import "./Dropdown.scss";
+import { sortBy } from "lodash";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { IoMdArrowDropdown, IoMdArrowDropright } from "react-icons/io";
 
 type DropdownValue = string | number;
@@ -23,6 +24,8 @@ const Dropdown = <T extends DropdownValue>({
 }: DropdownProps<T>) => {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [showOptions, setShowOptions] = useState<boolean>(false);
+
+  const sortedOptions = sortBy(options, ["label"]);
 
   // ================ EVENT-HANDLERS =================
 
@@ -100,13 +103,13 @@ const Dropdown = <T extends DropdownValue>({
           style={{ ...calculateDropdownPosition() }}
         >
           <div className="max-h-[13.5rem]">
-            {options?.length === 0 && (
+            {sortedOptions?.length === 0 && (
               <div className="option" onClick={() => setShowOptions(false)}>
                 None
               </div>
             )}
-            {options?.length > 0 &&
-              options?.map((item, idx) => (
+            {sortedOptions?.length > 0 &&
+              sortedOptions?.map((item: any, idx: number) => (
                 <div
                   className="option"
                   key={`${idx}-options`}
