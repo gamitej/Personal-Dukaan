@@ -1,7 +1,9 @@
 export const productOptions = [
   { id: 1, label: "UREA", value: "urea" },
   { id: 2, label: "Bareli", value: "bareli" },
+  { id: 9, label: "Chari", value: "seed-chari" },
   { id: 4, label: "Pesticide", value: "pesticide" },
+  { id: 10, label: "Pesticide UPL", value: "pesticide-upl" },
   { id: 4, label: "Wheat 1010", value: "wheat-1010" },
   { id: 5, label: "Wheat 4037", value: "wheat-4037" },
   { id: 6, label: "Wheat DBW 187", value: "wheat-DBW-187" },
@@ -32,6 +34,12 @@ export const bareliCompanyOptions = [
   { id: 1, label: "KAMADHAGIRI", value: "kamadhagiri" },
 ];
 
+export const seedCompanyOptions = [
+  { id: 1, label: "Star Chari", value: "star-chari" },
+  { id: 2, label: "Rashila Chari", value: "rashila-chari" },
+  { id: 3, label: "SLV Chari", value: "slv-chari" },
+];
+
 export const ureaCompanyOptions = [
   { id: 1, label: "NFL", value: "nfl" },
   { id: 2, label: "HURL", value: "hurl" },
@@ -45,6 +53,14 @@ export const pesticideCompanyOptions = [
   { id: 5, label: "Bumber", value: "bumber" },
   { id: 6, label: "Saaf", value: "saaf" },
   { id: 7, label: "Sandesh", value: "sandesh" },
+  { id: 8, label: "Neemark", value: "neemark" },
+  { id: 9, label: "Clodinafop", value: "clodinafop" },
+  { id: 10, label: "Hamla", value: "hamla" },
+  { id: 11, label: "Rat Kill", value: "rat-kill" },
+  { id: 12, label: "Hero G", value: "hero-g" },
+  { id: 13, label: "Mono Zinc", value: "mono-zinc" },
+  { id: 14, label: "Zandu", value: "zandu" },
+  { id: 15, label: "UPL", value: "upl" },
 ];
 
 export const companyNameOptions: {
@@ -54,6 +70,7 @@ export const companyNameOptions: {
   wheat: wheatCompanyOptions,
   pesticide: pesticideCompanyOptions,
   bareli: bareliCompanyOptions,
+  seed: seedCompanyOptions,
 };
 
 // ===================== PARTY OPTIONS ================
