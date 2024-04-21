@@ -28,7 +28,7 @@ const NormalTable: FC<NormalTableProps> = ({
               <th
                 key={`normal-cols-${i}`}
                 scope="col"
-                className="px-6 py-2 text-start text-xs font-medium text-[#DAA520] uppercase dark:text-gray-400"
+                className="px-6 py-3 text-start text-sm font-medium text-[#DAA520] uppercase dark:text-gray-400"
               >
                 {col.label}
               </th>
@@ -41,7 +41,7 @@ const NormalTable: FC<NormalTableProps> = ({
               {cols.map((col, idx) => (
                 <td
                   key={`normal-cell-${rowIdx}-${idx}`}
-                  className={`px-6 py-2 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-gray-200 uppercase ${
+                  className={`px-6 py-3 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-gray-200 uppercase ${
                     rowIdx === 0 ? "" : ""
                   } ${
                     enableIsSold
