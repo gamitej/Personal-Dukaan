@@ -115,4 +115,5 @@ export const expenseOptions = [
   { id: 3, label: "PALEDAR", value: "paledar" },
   { id: 3, label: "PETROL", value: "petrol" },
   { id: 5, label: "OTHERS", value: "others" },
+  { id: 6, label: "ANIL SALARY", value: "anil" },
 ];
