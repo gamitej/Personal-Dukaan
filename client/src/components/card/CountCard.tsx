@@ -14,6 +14,7 @@ interface CountCardProps {
   modalHeight?: string;
   modalTableCols?: any[];
   enableDetails?: boolean;
+  enableIsSold?: boolean;
 }
 
 const CountCard: FC<CountCardProps> = ({
@@ -27,6 +28,7 @@ const CountCard: FC<CountCardProps> = ({
   modalHeight = "25rem",
   enableDetails = false,
   modalTitle = "Total Details",
+  enableIsSold = false,
 }) => {
   const [isModelOpen, setIsModalOpen] = useState(false);
 
@@ -76,6 +78,7 @@ const CountCard: FC<CountCardProps> = ({
               height={modalHeight}
               cols={modalTableCols}
               rows={totalDetails}
+              enableIsSold={enableIsSold}
             />
           )}
         </div>

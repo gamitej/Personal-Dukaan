@@ -95,6 +95,7 @@ const StatusCard: FC<StatusCardProps> = ({ dateField }) => {
         enableDetails
         modalWidth="80%"
         title="Profit"
+        enableIsSold
         value={totalProfitAmt - totalExpenseAmount}
         totalDetails={totalDetails}
         modalTitle="Total Profit Details"

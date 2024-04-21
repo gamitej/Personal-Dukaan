@@ -95,7 +95,8 @@ router.post("/total-profit", async (req, res) => {
         (purchase) => purchase.toJSON().type === saleData.type
       );
 
-      const purchaseData = purchase.toJSON();
+      let purchaseData = undefined;
+      if (purchase !== undefined) purchaseData = purchase.toJSON();
 
       const profit =
         parseInt(saleData.total_sold_amount) -
@@ -137,6 +138,7 @@ router.post("/total-profit", async (req, res) => {
 
     return res.status(200).json(profitByType);
   } catch (error) {
+    console.log(error);
     return res.status(500).json(error.message || error);
   }
 });
