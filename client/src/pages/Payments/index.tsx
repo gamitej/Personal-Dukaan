@@ -106,7 +106,7 @@ const Expenses = () => {
       </div>
       <Table
         title="Payment"
-        enableDelete
+        // enableDelete
         cols={paymentsCols}
         tableHeight="20rem"
         showEntriesPerPage={10}

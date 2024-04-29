@@ -96,10 +96,9 @@ const Table: FC<TableProps> = ({
     return { cols, rows: selectedPageRowsData };
   }, [enableDelete, enableEdit, selectedPageRowsData]);
 
-  
   useEffect(() => {
     setPageNo(1);
-  }, [searchText]);
+  }, [searchText, rows]);
 
   /**
    * TSX

@@ -106,7 +106,7 @@ const Sales = () => {
       </div>
       <Table
         title="Sales"
-        enableDelete
+        // enableDelete
         cols={salesCols}
         tableHeight="20rem"
         showEntriesPerPage={10}
