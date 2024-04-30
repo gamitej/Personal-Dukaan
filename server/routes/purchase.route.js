@@ -16,6 +16,9 @@ router.post("/total-purchase", async (req, res) => {
     const { startDate, endDate } = req.body;
 
     if (startDate !== null && endDate !== null) {
+      const newEndDate = new Date(endDate);
+      newEndDate.setDate(newEndDate.getDate() + 1);
+
       const purchase = await Purchase.findAll({
         attributes: [
           "type",
@@ -26,7 +29,7 @@ router.post("/total-purchase", async (req, res) => {
         order: [["type", "ASC"]],
         where: {
           date: {
-            [Op.between]: [startDate, endDate],
+            [Op.between]: [startDate, newEndDate],
           },
         },
       });
@@ -56,6 +59,9 @@ router.post("/all", async (req, res) => {
     const { startDate, endDate } = req.body;
 
     if (startDate !== null && endDate !== null) {
+      const newEndDate = new Date(endDate);
+      newEndDate.setDate(newEndDate.getDate() + 1);
+
       const purchase = await Purchase.findAll({
         attributes: [
           "date",
@@ -70,7 +76,7 @@ router.post("/all", async (req, res) => {
         ],
         where: {
           date: {
-            [Op.between]: [startDate, endDate],
+            [Op.between]: [startDate, newEndDate],
           },
         },
         order: [["date", "desc"]],

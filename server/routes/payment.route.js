@@ -15,12 +15,15 @@ router.post("/total-pending-payment", async (req, res) => {
     const { startDate, endDate } = req.body;
 
     if (startDate !== null && endDate !== null) {
+      const newEndDate = new Date(endDate);
+      newEndDate.setDate(newEndDate.getDate() + 1);
+
       const payment = await PendingPayment.findAll({
         attributes: ["party", "product", "type", "amount"],
         order: [["type", "ASC"]],
         where: {
           date: {
-            [Op.between]: [startDate, endDate],
+            [Op.between]: [startDate, newEndDate],
           },
         },
       });
@@ -45,6 +48,9 @@ router.post("/all", async (req, res) => {
     const { startDate, endDate } = req.body;
 
     if (startDate !== null && endDate !== null) {
+      const newEndDate = new Date(endDate);
+      newEndDate.setDate(newEndDate.getDate() + 1);
+
       const payment = await Payment.findAll({
         attributes: [
           "date",
@@ -59,7 +65,7 @@ router.post("/all", async (req, res) => {
         order: [["date", "desc"]],
         where: {
           date: {
-            [Op.between]: [startDate, endDate],
+            [Op.between]: [startDate, newEndDate],
           },
         },
       });

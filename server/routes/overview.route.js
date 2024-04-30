@@ -18,6 +18,9 @@ router.post("/total-profit", async (req, res) => {
     let purchaseByType = [];
 
     if (startDate !== null && endDate !== null) {
+      const newEndDate = new Date(endDate);
+      newEndDate.setDate(newEndDate.getDate() + 1);
+
       // Fetching sales data grouped by type
       salesByType = await Sales.findAll({
         attributes: [
@@ -31,7 +34,7 @@ router.post("/total-profit", async (req, res) => {
         group: ["type"],
         where: {
           date: {
-            [Op.between]: [startDate, endDate],
+            [Op.between]: [startDate, newEndDate],
           },
         },
       });
@@ -52,7 +55,7 @@ router.post("/total-profit", async (req, res) => {
         group: ["type"],
         where: {
           date: {
-            [Op.between]: [startDate, endDate],
+            [Op.between]: [startDate, newEndDate],
           },
         },
       });
